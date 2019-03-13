@@ -13,10 +13,8 @@ public class ProdutoControl {
 
     public static ProdutoDao PRODUTO_DAO = new ProdutoDao();
 
-   
-
     public ProdutoControl() {
-        
+
     }
 
     public void inserirProdutoAction() {

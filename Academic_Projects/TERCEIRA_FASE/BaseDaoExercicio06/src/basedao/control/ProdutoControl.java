@@ -49,11 +49,32 @@ public class ProdutoControl {
             });
         }
     }
-    
-    public void deletarProdutoAction(){
-        
-        
-         int dialogButton = JOptionPane.YES_NO_OPTION;
+    public void listarAction(List<Produto> produtos) {
+        DefaultTableModel model = (DefaultTableModel) JanelaGerenciarProduto.tabelaProduto.getModel();
+        model.setNumRows(0);
+        for (Produto p : produtos) {
+            model.addRow(new Object[]{
+                p.getId(),
+                p.getNome(),
+                p.getValor(),
+                p.getDataCadastro()
+            });
+        }
+    }
+
+    public void pesquisarProdutoAction() {
+        List<Produto> produtos = null;
+        try {
+            produtos = PRODUTO_DAO.buscarPorTermo(JanelaGerenciarProduto.campoBuscar.getText());
+        } catch (Exception exception) {
+        }
+        listarAction(produtos);
+
+    }
+
+    public void deletarProdutoAction() {
+
+        int dialogButton = JOptionPane.YES_NO_OPTION;
         int resposta = JOptionPane.showConfirmDialog(null, "Você deseja Realmente excluir Esse contato?\r\nEsta Ação é irreversivel!", "ATENÇÃO!", dialogButton);
 
         if (resposta == JOptionPane.NO_OPTION) {
@@ -83,8 +104,6 @@ public class ProdutoControl {
 
         }
 
-        
     }
-    
 
 }

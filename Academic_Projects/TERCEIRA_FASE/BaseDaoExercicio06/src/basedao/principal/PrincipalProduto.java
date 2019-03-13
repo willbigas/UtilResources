@@ -2,6 +2,7 @@ package basedao.principal;
 
 import javax.swing.JFrame;
 import basedao.view.produto.JanelaGerenciarProduto;
+import basedao.view.produto.JanelaProdutoEdit;
 
 /**
  *
@@ -16,9 +17,16 @@ public class PrincipalProduto {
     public static void JanelaPrincipal() {
         JanelaGerenciarProduto painelPrincipal = new JanelaGerenciarProduto();
         painelPrincipal.setTitle("JANELA PRINCIPAL");
-        painelPrincipal.setSize(800, 600);
         painelPrincipal.setLocationRelativeTo(null);
         painelPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         painelPrincipal.setVisible(true);
+    }
+    
+     public static void JanelaProdutoEdit() {
+         JanelaProdutoEdit janelaEdit = new JanelaProdutoEdit();
+        janelaEdit.setTitle("JANELA PRINCIPAL");
+        janelaEdit.setLocationRelativeTo(null);
+        janelaEdit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        janelaEdit.setVisible(true);
     }
 }

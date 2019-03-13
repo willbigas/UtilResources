@@ -35,6 +35,7 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         buttonExcluir = new javax.swing.JButton();
         textoPesquisar = new javax.swing.JLabel();
+        buttonEditar = new javax.swing.JButton();
         buttonPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,6 +90,13 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
 
         textoPesquisar.setText("Pesquisar:");
 
+        buttonEditar.setText("Editar");
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
+            }
+        });
+
         buttonPesquisar.setText("Buscar");
         buttonPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,13 +113,16 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
                 .addComponent(textoPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonPesquisar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonExcluir)
                 .addGap(30, 30, 30))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -127,8 +138,7 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoData))
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +161,8 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
                     .addComponent(buttonExcluir)
                     .addComponent(campoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoPesquisar)
-                    .addComponent(buttonPesquisar))
+                    .addComponent(buttonPesquisar)
+                    .addComponent(buttonEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -175,9 +186,15 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
         produtoControl.deletarProdutoAction();
     }//GEN-LAST:event_buttonExcluirActionPerformed
 
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        // TODO add your handling code here:
+        produtoControl.editarUsuarioAction();
+       
+    }//GEN-LAST:event_buttonEditarActionPerformed
+
     private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
         // TODO add your handling code here:
-        produtoControl.pesquisarProdutoAction();
+         produtoControl.pesquisarProdutoAction();
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
     /**
@@ -217,6 +234,7 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonExcluir;
     private javax.swing.JButton buttonPesquisar;
     private javax.swing.JButton buttonSalvar;

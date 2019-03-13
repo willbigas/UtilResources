@@ -19,7 +19,7 @@ public class ProdutoControl {
         
     }
 
-    public static void inserirProdutoAction() {
+    public void inserirProdutoAction() {
         Produto p = new Produto();
         p.setId(1);
         p.setNome(JanelaGerenciarProduto.campoNome.getText());
@@ -37,7 +37,7 @@ public class ProdutoControl {
         }
     }
 
-    public static void listarAction() {
+    public void listarAction() {
         DefaultTableModel model = (DefaultTableModel) JanelaGerenciarProduto.tabelaProduto.getModel();
         model.setNumRows(0);
         for (Produto p : PRODUTO_DAO.listar()) {

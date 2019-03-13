@@ -18,6 +18,18 @@ CREATE TABLE usuarios (
   PRIMARY KEY(id)
 );
 
+CREATE TABLE contatos (
+  id int(10) NOT NULL auto_increment,
+  nome varchar(50) NULL,
+  email varchar(35) NULL,
+  telefone integer(15) NULL,
+  celular integer(15) NULL,
+  dataNascimento date null,
+  PRIMARY KEY(id)
+);
+
 select * from produtos;
 
-select * from usuarios
+select * from usuarios;
+
+select * from contatos;

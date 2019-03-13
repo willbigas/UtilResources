@@ -128,13 +128,13 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
-        ProdutoControl.inserirProdutoAction();
+        produtoControl.inserirProdutoAction();
         
 
     }//GEN-LAST:event_buttonSalvarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ProdutoControl.listarAction();
+        produtoControl.listarAction();
     }//GEN-LAST:event_formWindowOpened
 
     /**

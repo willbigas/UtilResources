@@ -135,4 +135,9 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
 
     }
 
+    @Override
+    public boolean deletarPorId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

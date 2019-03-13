@@ -131,4 +131,9 @@ public class UsuarioDao extends Dao implements DaoI<Usuario> {
 
     }
 
+    @Override
+    public boolean deletarPorId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

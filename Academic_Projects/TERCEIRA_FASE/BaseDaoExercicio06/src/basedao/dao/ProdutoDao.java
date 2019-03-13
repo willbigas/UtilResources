@@ -127,4 +127,18 @@ public class ProdutoDao extends Dao implements DaoI<Produto> {
 
     }
 
+    @Override
+    public boolean deletarPorId(Integer id) {
+        try {
+            PreparedStatement statement = conexao.prepareStatement(
+                    "delete from produtos where id = ? ");
+            statement.setInt(1, id);
+            int executeUpdate = statement.executeUpdate();
+            return executeUpdate != 0;
+        } catch (Exception e) {
+            return false;
+
+        }
+
+    }
 }

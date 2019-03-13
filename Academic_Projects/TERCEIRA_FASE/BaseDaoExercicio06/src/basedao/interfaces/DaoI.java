@@ -18,7 +18,9 @@ public interface DaoI<E> {
     public boolean deletar(E obj);
 
     public E buscaPorId(int id);
-    
+
     public List<E> buscarPorTermo(String termo);
+
+    public boolean deletarPorId(Integer id);
 
 }

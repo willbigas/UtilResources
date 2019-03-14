@@ -149,7 +149,7 @@ public class JanelaContatoEdit extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGravarActionPerformed
-        contatoControl.inserirContatoAction();
+        contatoControl.atualizarAction();
         contatoControl.listarAction();
         
 

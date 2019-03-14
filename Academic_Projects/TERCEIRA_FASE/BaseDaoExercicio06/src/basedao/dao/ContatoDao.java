@@ -66,7 +66,7 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement("UPDATE contatos SET nome=? , email=? , telefone=? , celular=?, dataNascimento =? where id=?");
-              stmt.setString(1, obj.getNome());
+            stmt.setString(1, obj.getNome());
             stmt.setString(2, obj.getEmail());
             stmt.setInt(3, obj.getTelefone());
             stmt.setInt(4, obj.getCelular());
@@ -100,7 +100,7 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
     public Contato buscaPorId(int id) {
         try {
             PreparedStatement stmt;
-            stmt = conexao.prepareStatement("SELECT id , nome  , email , telefone , celular , dataNascimento from produtos where id=?");
+            stmt = conexao.prepareStatement("SELECT id , nome  , email , telefone , celular , dataNascimento from contatos where id=?");
             stmt.setInt(1, id);
             ResultSet result = stmt.executeQuery();
             Contato contato = null;
@@ -137,7 +137,16 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
 
     @Override
     public boolean deletarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement statement = conexao.prepareStatement(
+                    "delete from contatos where id = ? ");
+            statement.setInt(1, id);
+            int executeUpdate = statement.executeUpdate();
+            return executeUpdate != 0;
+        } catch (Exception e) {
+            return false;
+
+        }
     }
 
 }

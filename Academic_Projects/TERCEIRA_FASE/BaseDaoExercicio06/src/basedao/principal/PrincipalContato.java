@@ -1,5 +1,6 @@
 package basedao.principal;
 
+import br.com.basedao.view.contato.JanelaContatoEdit;
 import javax.swing.JFrame;
 import br.com.basedao.view.contato.JanelaGerenciarContato;
 
@@ -16,9 +17,16 @@ public class PrincipalContato {
     public static void JanelaPrincipal() {
         JanelaGerenciarContato painelPrincipal = new JanelaGerenciarContato();
         painelPrincipal.setTitle("JANELA PRINCIPAL");
-        painelPrincipal.setSize(800, 600);
         painelPrincipal.setLocationRelativeTo(null);
         painelPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         painelPrincipal.setVisible(true);
+    }
+
+    public static void JanelaContatoEdit() {
+        JanelaContatoEdit painelEdit = new JanelaContatoEdit();
+        painelEdit.setTitle("JANELA PRINCIPAL");
+        painelEdit.setLocationRelativeTo(null);
+        painelEdit.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        painelEdit.setVisible(true);
     }
 }

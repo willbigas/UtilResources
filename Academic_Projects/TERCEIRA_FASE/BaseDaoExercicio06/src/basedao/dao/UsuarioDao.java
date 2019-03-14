@@ -133,7 +133,17 @@ public class UsuarioDao extends Dao implements DaoI<Usuario> {
 
     @Override
     public boolean deletarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            try {
+            PreparedStatement statement = conexao.prepareStatement(
+                    "delete from usuarios where id = ? ");
+            statement.setInt(1, id);
+            int executeUpdate = statement.executeUpdate();
+            return executeUpdate != 0;
+        } catch (Exception e) {
+            return false;
+
+        }
+        
     }
 
 }

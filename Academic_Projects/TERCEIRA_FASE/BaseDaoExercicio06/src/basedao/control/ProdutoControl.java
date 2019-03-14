@@ -84,12 +84,12 @@ public class ProdutoControl {
         
     }
     
-    public void editarUsuarioAction() {
+    public void editarProdutoAction() {
         
         int linha = JanelaGerenciarProduto.tabelaProduto.getSelectedRow();
         if (linha >= 0) {
-            Integer idUsuario = (Integer) JanelaGerenciarProduto.tabelaProduto.getValueAt(linha, 0);
-            ID_SELECIONADO = idUsuario;
+            Integer idProduto = (Integer) JanelaGerenciarProduto.tabelaProduto.getValueAt(linha, 0);
+            ID_SELECIONADO = idProduto;
             Produto p = null;
             try {
                 p = (Produto) PRODUTO_DAO.buscaPorId(ID_SELECIONADO);
@@ -97,7 +97,7 @@ public class ProdutoControl {
             }
             if (p != null) {
                 try {
-                    mostrandoUsuarioEditado(p);
+                    mostrandoProdutoEditado(p);
                 } catch (Exception exception) {
                 }
             }
@@ -105,7 +105,7 @@ public class ProdutoControl {
         }
     }
     
-    public void mostrandoUsuarioEditado(Produto p) {
+    public void mostrandoProdutoEditado(Produto p) {
         if (p != null) {
             try {
                 JanelaProdutoEdit.campoNome.setText(p.getNome());
@@ -130,10 +130,10 @@ public class ProdutoControl {
         }
         try {
             if (PRODUTO_DAO.alterar(p)) {
-                JOptionPane.showMessageDialog(null, "Usuario Atualizado com Sucesso");
+                JOptionPane.showMessageDialog(null, "Produto Atualizado com Sucesso");
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "Não consegui atualizar o usuario");
+                JOptionPane.showMessageDialog(null, "Não consegui atualizar o Produto");
                 return false;
             }
         } catch (Exception ex) {

@@ -188,7 +188,7 @@ public class JanelaGerenciarProduto extends javax.swing.JFrame {
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
         // TODO add your handling code here:
-        produtoControl.editarUsuarioAction();
+        produtoControl.editarProdutoAction();
        
     }//GEN-LAST:event_buttonEditarActionPerformed
 

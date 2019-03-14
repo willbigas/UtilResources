@@ -2,6 +2,7 @@ package basedao.principal;
 
 import javax.swing.JFrame;
 import basedao.view.usuario.JanelaGerenciaUsuario;
+import basedao.view.usuario.JanelaUsuarioEdit;
 
 /**
  *
@@ -21,4 +22,13 @@ public class PrincipalUsuario {
         painelPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         painelPrincipal.setVisible(true);
     }
+    public static void JanelaUsuarioEdit() {
+        JanelaUsuarioEdit painelEdit = new JanelaUsuarioEdit();
+        painelEdit.setTitle("JANELA PRINCIPAL");
+        painelEdit.setLocationRelativeTo(null);
+        painelEdit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        painelEdit.setVisible(true);
+    }
+    
+   
 }

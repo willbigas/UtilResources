@@ -18,7 +18,7 @@ public class PrincipalProduto {
         JanelaGerenciarProduto painelPrincipal = new JanelaGerenciarProduto();
         painelPrincipal.setTitle("JANELA PRINCIPAL");
         painelPrincipal.setLocationRelativeTo(null);
-        painelPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        painelPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         painelPrincipal.setVisible(true);
     }
     

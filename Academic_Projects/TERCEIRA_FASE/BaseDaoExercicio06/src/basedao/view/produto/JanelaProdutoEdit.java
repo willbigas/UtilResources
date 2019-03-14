@@ -118,7 +118,8 @@ public class JanelaProdutoEdit extends javax.swing.JFrame {
 
     private void buttonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGravarActionPerformed
         // TODO add your handling code here:
-        produtoControl.inserirProdutoAction();
+        produtoControl.atualizarAction();
+        produtoControl.listarAction();
     }//GEN-LAST:event_buttonGravarActionPerformed
 
     /**

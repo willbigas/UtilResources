@@ -32,7 +32,6 @@ public class ProdutoDao extends Dao implements DaoI<Produto> {
                 produto.setValor(result.getDouble("valor"));
                 produto.setDataCadastro(result.getDate("dataCadastro"));
                 listProduto.add(produto);
-
             }
             return listProduto;
         } catch (SQLException e) {

@@ -31,7 +31,7 @@ public class ProdutoControl {
             listarAction();
         } else {
             Produto p = new Produto();
-            p.setId(1);
+            p.setId(Integer.MAX_VALUE);
             p.setNome(JanelaGerenciarProduto.campoNome.getText());
             p.setValor(Double.valueOf(JanelaGerenciarProduto.campoValor.getText()));
             try {
@@ -179,11 +179,13 @@ public class ProdutoControl {
     public Boolean seExisteNoBancoAction() {
         List<Produto> produtosRecebidos;
         try {
-            produtosRecebidos = (List<Produto>) (Object) PRODUTO_DAO.listar();
+            produtosRecebidos = (List<Produto>) PRODUTO_DAO.listar();
             
             for (Produto produto : produtosRecebidos) {
                 if (produto.getNome().toLowerCase().equals(JanelaProdutoEdit.campoNome.getText().toLowerCase())) {
                     return true;
+                } else {
+                    return false;
                 }
             }
             

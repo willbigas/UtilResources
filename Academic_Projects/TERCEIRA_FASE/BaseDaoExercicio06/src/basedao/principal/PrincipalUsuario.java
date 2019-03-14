@@ -24,7 +24,7 @@ public class PrincipalUsuario {
     }
     public static void JanelaUsuarioEdit() {
         JanelaUsuarioEdit painelEdit = new JanelaUsuarioEdit();
-        painelEdit.setTitle("JANELA PRINCIPAL");
+        painelEdit.setTitle("EDITAR USUARIO");
         painelEdit.setLocationRelativeTo(null);
         painelEdit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         painelEdit.setVisible(true);

@@ -24,7 +24,7 @@ public class PrincipalProduto {
     
      public static void JanelaProdutoEdit() {
          JanelaProdutoEdit janelaEdit = new JanelaProdutoEdit();
-        janelaEdit.setTitle("JANELA PRINCIPAL");
+        janelaEdit.setTitle("EDITAR PRODUTO");
         janelaEdit.setLocationRelativeTo(null);
         janelaEdit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         janelaEdit.setVisible(true);

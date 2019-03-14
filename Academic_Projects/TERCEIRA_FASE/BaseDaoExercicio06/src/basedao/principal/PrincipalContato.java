@@ -24,7 +24,7 @@ public class PrincipalContato {
 
     public static void JanelaContatoEdit() {
         JanelaContatoEdit painelEdit = new JanelaContatoEdit();
-        painelEdit.setTitle("JANELA PRINCIPAL");
+        painelEdit.setTitle("EDITAR CONTATO");
         painelEdit.setLocationRelativeTo(null);
         painelEdit.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         painelEdit.setVisible(true);

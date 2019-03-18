@@ -18,20 +18,21 @@ CREATE TABLE condutor (
 
 CREATE TABLE tipoCliente (
   id int(10) NOT NULL auto_increment,
-  nome varchar(50) NULL,
+  idTipo Integer(1) NULL,
   PRIMARY KEY(id)
 );
 
 
 CREATE TABLE entrada (
   id int(10) NOT NULL auto_increment,
-  placa varchar(50) NULL,
-  cor varchar(50) NULL,
-  modelo varchar(50) null,
-  marca varchar(50) null,
+  dataEntrada date,
+  dataSaida date,
+  valorTotal decimal(10,2),
+  fk_carro int,
   fk_condutor int,
   fk_tipoCliente int,
   PRIMARY KEY(id),
+  FOREIGN KEY (fk_carro) REFERENCES carro(id),
   FOREIGN KEY (fk_condutor) REFERENCES condutor(id),
   FOREIGN KEY (fk_tipoCliente) REFERENCES tipoCliente(id)
 );

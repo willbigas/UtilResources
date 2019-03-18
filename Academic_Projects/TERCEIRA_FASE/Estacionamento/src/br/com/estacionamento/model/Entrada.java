@@ -9,6 +9,7 @@ import java.util.Date;
 public class Entrada {
 
     private Integer id;
+    private Carro carro;
     private Condutor condutor;
     private TipoCliente tipoCliente;
     private Date dataEntrada;
@@ -29,6 +30,14 @@ public class Entrada {
 
     public void setCondutor(Condutor condutor) {
         this.condutor = condutor;
+    }
+
+    public Carro getCarro() {
+        return carro;
+    }
+
+    public void setCarro(Carro carro) {
+        this.carro = carro;
     }
 
     public TipoCliente getTipoCliente() {

@@ -7,8 +7,8 @@ package br.com.estacionamento.model;
 public class TipoCliente {
 
     private Integer id;
-    private String nome;
-    private Double preco;
+    private Integer idTipo;
+    private Double valorPagamento; // implementar calculo
 
     public Integer getId() {
         return id;
@@ -17,25 +17,23 @@ public class TipoCliente {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getNome() {
-        return nome;
+
+    public Integer getIdTipo() {
+        return idTipo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setIdTipo(Integer idTipo) {
+        this.idTipo = idTipo;
     }
 
     public Double getPreco() {
-        return preco;
+        return valorPagamento;
     }
 
-    public void setPreco(Double preco) {
-        this.preco = preco;
-    }
 
     @Override
     public String toString() {
-        return "TipoCliente{" + "nome=" + nome + ", preco=" + preco + '}';
+        return "TipoCliente{" + "nome=" + idTipo + ", preco=" + valorPagamento + '}';
     }
 
 }

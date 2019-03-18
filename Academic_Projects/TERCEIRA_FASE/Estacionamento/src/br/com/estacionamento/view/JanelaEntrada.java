@@ -5,17 +5,31 @@
  */
 package br.com.estacionamento.view;
 
+import br.com.estacionamento.control.EntradaControl;
+
 /**
  *
  * @author William
  */
 public class JanelaEntrada extends javax.swing.JFrame {
 
+    EntradaControl ENTRADA_CONTROL;
+
+    /**
+     * Tipo de Calculo Armazenado no Banco. Tipo servidor = 0; Tipo Publico = 1:
+     */
+    public static final String tipoServidor = "-> Servidor <-";
+    public static final String tipoPublico = "-> Público <-";
+
     /**
      * Creates new form Entrada
      */
     public JanelaEntrada() {
         initComponents();
+        cbTipoCliente.removeAllItems();
+        cbTipoCliente.addItem(tipoServidor);
+        cbTipoCliente.addItem(tipoPublico);
+
     }
 
     /**
@@ -55,11 +69,6 @@ public class JanelaEntrada extends javax.swing.JFrame {
         jLabel3.setText("Modelo:");
 
         tfModelo.setColumns(10);
-        tfModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfModeloActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Marca:");
 
@@ -87,6 +96,11 @@ public class JanelaEntrada extends javax.swing.JFrame {
         jLabel11.setText("Hora");
 
         btGravar.setText("Gravar");
+        btGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGravarActionPerformed(evt);
+            }
+        });
 
         tfCondutor.setColumns(10);
 
@@ -231,9 +245,11 @@ public class JanelaEntrada extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfModeloActionPerformed
+    private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfModeloActionPerformed
+        ENTRADA_CONTROL = new EntradaControl();
+        ENTRADA_CONTROL.inserindoEntradaAction();
+    }//GEN-LAST:event_btGravarActionPerformed
 
     /**
      * @param args the command line arguments

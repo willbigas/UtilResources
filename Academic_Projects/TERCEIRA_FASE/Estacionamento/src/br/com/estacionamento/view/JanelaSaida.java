@@ -112,6 +112,7 @@ public class JanelaSaida extends javax.swing.JFrame {
 
     private void btGravarSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarSaidaActionPerformed
         // TODO add your handling code here:
+        SAIDA_CONTROL.editarEntradaAction();
     }//GEN-LAST:event_btGravarSaidaActionPerformed
 
     /**

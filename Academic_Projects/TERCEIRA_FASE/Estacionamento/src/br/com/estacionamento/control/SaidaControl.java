@@ -43,10 +43,11 @@ public class SaidaControl {
 //            });
 //        }
 //    }
-    public void editarEntrada() {
+    public void editarEntradaAction() {
         Entrada e = getEntradaSelecionada();
         e.setDataSaida(new Date(System.currentTimeMillis()));
         ENTRADA_DAO.alterar(e);
+        calculandoPrecoDoEstacionamento(e);
     }
 
     private Entrada getEntradaSelecionada() {
@@ -62,5 +63,9 @@ public class SaidaControl {
         DateTime dataInicio = new DateTime(e.getDataEntrada().getTime());
         Hours h = Hours.hoursBetween(dataInicio , dataFinal);
         System.out.println("Horas: + " + h.getHours());
+        
+        Integer percentualServidor = 2;
+        Integer percentual = 2;
+       
     }
 }

@@ -15,6 +15,10 @@ import java.util.List;
  * @author Alunos
  */
 public class EntradaDao extends Dao implements DaoI<Entrada> {
+    
+    CondutorDao CONDUTOR_DAO = new CondutorDao();
+    CarroDao CARRO_DAO = new CarroDao();
+    TipoClienteDao TIPO_CLIENTE_DAO = new TipoClienteDao();
 
     public EntradaDao() {
         //Contrutor da super classe Dao. Faz a conexão.
@@ -26,7 +30,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement("SELECT "
-                    + "id, dataEntrada, dataSaida , valorTotal FROM entrada ORDER BY id DESC");
+                    + "id, dataEntrada, dataSaida , valorTotal, fk_carro , fk_condutor, fk_tipoCliente FROM entrada ORDER BY id DESC");
             ResultSet result = stmt.executeQuery();
             List<Entrada> lista = new ArrayList<>();
             while (result.next()) {
@@ -35,6 +39,9 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
                 e.setDataEntrada(result.getDate("dataEntrada"));
                 e.setDataSaida(result.getDate("dataSaida"));
                 e.setValorTotal(result.getDouble("valorTotal"));
+                e.setCarro(CARRO_DAO.lerPorId(result.getInt("fk_carro")));
+                e.setCondutor(CONDUTOR_DAO.lerPorId(result.getInt("fk_condutor")));
+                e.setTipoCliente(TIPO_CLIENTE_DAO.lerPorId(result.getInt("fk_tipoCliente")));
                 lista.add(e);
             }
             return lista;

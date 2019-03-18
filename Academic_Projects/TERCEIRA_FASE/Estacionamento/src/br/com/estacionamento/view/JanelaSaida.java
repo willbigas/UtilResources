@@ -1,16 +1,21 @@
 package br.com.estacionamento.view;
 
+import br.com.estacionamento.control.SaidaControl;
+
 /**
  *
  * @author William
  */
 public class JanelaSaida extends javax.swing.JFrame {
+    SaidaControl SAIDA_CONTROL;
 
     /**
      * Creates new form JanelaSaida
      */
     public JanelaSaida() {
         initComponents();
+        SAIDA_CONTROL = new SaidaControl();
+        SAIDA_CONTROL.listandoEntradasAction();
     }
 
     /**
@@ -22,34 +27,14 @@ public class JanelaSaida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblDataSaida = new javax.swing.JLabel();
-        tfDataSaida = new javax.swing.JFormattedTextField();
-        tfHoraSaida = new javax.swing.JFormattedTextField();
-        lblHoraSaida = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblValorTotal = new javax.swing.JLabel();
         btCalcularTroco = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        btGravarSaida = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblDataSaida.setText("Data de Saida");
-
-        tfDataSaida.setColumns(6);
-        try {
-            tfDataSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        tfHoraSaida.setColumns(6);
-        try {
-            tfHoraSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        lblHoraSaida.setText("Hora de Saida");
 
         lblTitulo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblTitulo.setText("Saída de Automovel");
@@ -58,58 +43,76 @@ public class JanelaSaida extends javax.swing.JFrame {
 
         lblValorTotal.setText("Total");
 
-        btCalcularTroco.setText("Calcular Troco");
+        btCalcularTroco.setText("Troco");
+
+        tabelaSaida.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "PLACA", "DATA DE ENTRADA", "CONDUTOR"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaSaida);
+
+        btGravarSaida.setText("Gravar Saida");
+        btGravarSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGravarSaidaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(151, 151, 151)
+                .addComponent(lblTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHoraSaida)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfHoraSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDataSaida)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(lblValorTotal)
-                        .addGap(60, 60, 60)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btGravarSaida)
+                        .addGap(83, 83, 83)
                         .addComponent(btCalcularTroco)))
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitulo)
-                .addGap(83, 83, 83))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(15, 15, 15)
                 .addComponent(lblTitulo)
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDataSaida)
-                    .addComponent(tfDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHoraSaida)
-                    .addComponent(tfHoraSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
                     .addComponent(lblValorTotal)
-                    .addComponent(btCalcularTroco))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCalcularTroco)
+                    .addComponent(btGravarSaida))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btGravarSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarSaidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGravarSaidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,12 +151,11 @@ public class JanelaSaida extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCalcularTroco;
+    private javax.swing.JButton btGravarSaida;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel lblDataSaida;
-    private javax.swing.JLabel lblHoraSaida;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblValorTotal;
-    private javax.swing.JFormattedTextField tfDataSaida;
-    private javax.swing.JFormattedTextField tfHoraSaida;
+    public static final javax.swing.JTable tabelaSaida = new javax.swing.JTable();
     // End of variables declaration//GEN-END:variables
 }

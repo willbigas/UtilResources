@@ -40,6 +40,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         btSaida.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btSaida.setText("SAIDA");
+        btSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSaidaActionPerformed(evt);
+            }
+        });
         getContentPane().add(btSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 130, -1));
 
         btEntrada.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -62,6 +67,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Principal.JanelaEntrada();
     }//GEN-LAST:event_btEntradaActionPerformed
+
+    private void btSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaidaActionPerformed
+        // TODO add your handling code here:
+        Principal.JanelaSaida();
+    }//GEN-LAST:event_btSaidaActionPerformed
 
     /**
      * @param args the command line arguments

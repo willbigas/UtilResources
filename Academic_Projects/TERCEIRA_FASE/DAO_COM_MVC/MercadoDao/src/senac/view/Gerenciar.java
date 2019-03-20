@@ -42,6 +42,7 @@ public class Gerenciar extends javax.swing.JFrame {
         btPesquisar = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
+        lblTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -79,7 +80,7 @@ public class Gerenciar extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 127, 360, 140));
 
         lblHorario.setText("jLabel4");
-        getContentPane().add(lblHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 360, -1));
+        getContentPane().add(lblHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 60, -1));
 
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +115,12 @@ public class Gerenciar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
+
+        lblTotal.setText("Total :");
+        getContentPane().add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
+
+        lblValorTotal.setText("null");
+        getContentPane().add(lblValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -182,6 +189,8 @@ public class Gerenciar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     public static final javax.swing.JLabel lblHorario = new javax.swing.JLabel();
+    private javax.swing.JLabel lblTotal;
+    public static final javax.swing.JLabel lblValorTotal = new javax.swing.JLabel();
     public static final javax.swing.JTable tblProdutos = new javax.swing.JTable();
     public static final javax.swing.JTextField tfNome = new javax.swing.JTextField();
     public static final javax.swing.JTextField tfPesquisa = new javax.swing.JTextField();

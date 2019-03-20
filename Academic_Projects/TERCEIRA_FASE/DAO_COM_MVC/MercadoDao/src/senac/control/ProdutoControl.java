@@ -26,6 +26,7 @@ public class ProdutoControl {
     ProdutoDao produtoDao;
     Boolean alterando = false;
     Produto PRODUTO_DO_EDIT;
+    Double totalProdutos = 0.0;
 
     public ProdutoControl() {
         produtoDao = new ProdutoDao();
@@ -43,6 +44,7 @@ public class ProdutoControl {
                 p.getValor()
             });
         }
+        pegandoSomatorio();
     }
 
     public void listarAction(List<Produto> produtos) {
@@ -56,6 +58,8 @@ public class ProdutoControl {
                 p.getValor()
             });
         }
+        pegandoSomatorio();
+
     }
 
     public void cadastrarAction() {
@@ -175,6 +179,13 @@ public class ProdutoControl {
         } catch (Exception exception) {
         }
         return retorno;
+    }
+
+    public void pegandoSomatorio() {
+        for (Produto listProduto : listProdutos) {
+            totalProdutos += listProduto.getValor();
+        }
+        Gerenciar.lblValorTotal.setText(String.valueOf(totalProdutos));
     }
 
 }

@@ -19,9 +19,10 @@ public class SaidaControl {
 
     List<Entrada> listEntrada;
     EntradaDao ENTRADA_DAO = new EntradaDao();
+    Integer valorTotal = null;
 
     public void listandoEntradasAction() {
-        listEntrada = ENTRADA_DAO.listar();
+        listEntrada = ENTRADA_DAO.listarSomenteSemSaida();
         DefaultTableModel model
                 = (DefaultTableModel) JanelaSaida.tabelaSaida.getModel();
         model.setNumRows(0);
@@ -32,7 +33,7 @@ public class SaidaControl {
                 e.getCondutor().getNome(),});
         }
     }
-    
+
     private void listandoEntradasAction(List<Entrada> entradas) {
         DefaultTableModel model
                 = (DefaultTableModel) JanelaSaida.tabelaSaida.getModel();
@@ -45,11 +46,8 @@ public class SaidaControl {
         }
     }
 
-
-    public void editarEntradaAction() {
+    public void calculaPrecoAction() {
         Entrada e = getEntradaSelecionada();
-        e.setDataSaida(new Date(System.currentTimeMillis()));
-        ENTRADA_DAO.alterar(e);
         calculandoPrecoDoEstacionamento(e);
     }
 
@@ -68,19 +66,17 @@ public class SaidaControl {
         System.out.println("Horas: + " + h.getHours());
         Integer precoServidor = 2;
         Integer precoPublico = 4;
-        Integer result = null;
         if (e.getTipoCliente().getIdTipo() == 1) {
-            result = h.getHours() * precoServidor;
+            valorTotal = h.getHours() * precoServidor;
         }
         if (e.getTipoCliente().getIdTipo() == 2) {
-            result = h.getHours() * precoPublico;
+            valorTotal = h.getHours() * precoPublico;
         }
-        System.out.println("Result :" + UtilFormat.decimalFormatR$(result));
-        JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(result));
+        System.out.println("Result :" + UtilFormat.decimalFormatR$(valorTotal));
+        JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));
     }
-    
-    
-     public void pesquisarAction() {
+
+    public void pesquisarAction() {
         List<Entrada> entradas = null;
         try {
             entradas = pesquisar(JanelaSaida.tfPesquisarPlaca.getText());
@@ -104,6 +100,19 @@ public class SaidaControl {
         } catch (Exception exception) {
         }
         return retorno;
+    }
+
+    public void calcularTrocoAction() {
+        Double valorRecebido = Double.valueOf(JanelaSaida.tfCampoTroco.getText());
+        Double valorDeTroco = valorRecebido - valorTotal;
+        JanelaSaida.lblValorTroco.setText(UtilFormat.decimalFormatR$(valorDeTroco));
+    }
+
+    public void finalizaSaidaAction() {
+        Entrada e = getEntradaSelecionada();
+        e.setDataSaida(new Date(System.currentTimeMillis()));
+        e.setValorTotal(Double.valueOf(valorTotal));
+        ENTRADA_DAO.alterar(e);
     }
 
 }

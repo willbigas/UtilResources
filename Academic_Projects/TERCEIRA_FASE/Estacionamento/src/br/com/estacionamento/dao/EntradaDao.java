@@ -106,6 +106,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
             stmt.setInt(4, obj.getCarro().getId());
             stmt.setInt(5, obj.getCondutor().getId());
             stmt.setInt(6, obj.getTipoCliente().getId());
+            stmt.setInt(7, obj.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -158,6 +159,32 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
     @Override
     public List<Entrada> pesquisar(String termo) {
         return null;
+    }
+    
+    public List<Entrada> listarSomenteSemSaida() {
+        try {
+            PreparedStatement stmt;
+            stmt = conexao.prepareStatement("SELECT id, dataEntrada, dataSaida , "
+                    + "valorTotal, fk_carro , fk_condutor, fk_tipoCliente "
+                    + "FROM entrada where entrada.dataSaida is null ORDER BY id DESC");
+            ResultSet result = stmt.executeQuery();
+            List<Entrada> lista = new ArrayList<>();
+            while (result.next()) {
+                Entrada e = new Entrada();
+                e.setId(result.getInt("id"));
+                e.setDataEntrada(result.getDate("dataEntrada"));
+                e.setDataSaida(result.getDate("dataSaida"));
+                e.setValorTotal(result.getDouble("valorTotal"));
+                e.setCarro(CARRO_DAO.lerPorId(result.getInt("fk_carro")));
+                e.setCondutor(CONDUTOR_DAO.lerPorId(result.getInt("fk_condutor")));
+                e.setTipoCliente(TIPO_CLIENTE_DAO.lerPorId(result.getInt("fk_tipoCliente")));
+                lista.add(e);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
 
 }

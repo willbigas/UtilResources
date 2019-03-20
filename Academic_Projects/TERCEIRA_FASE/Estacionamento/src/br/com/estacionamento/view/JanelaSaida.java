@@ -7,6 +7,7 @@ import br.com.estacionamento.control.SaidaControl;
  * @author William
  */
 public class JanelaSaida extends javax.swing.JFrame {
+
     SaidaControl SAIDA_CONTROL;
 
     /**
@@ -29,19 +30,22 @@ public class JanelaSaida extends javax.swing.JFrame {
 
         lblTitulo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        lblValorTotal = new javax.swing.JLabel();
         btCalcularTroco = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         btGravarSaida = new javax.swing.JButton();
+        lblPlaca = new javax.swing.JLabel();
+        btPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblTitulo.setText("Saída de Automovel");
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel4.setText("Valor Total :");
 
-        lblValorTotal.setText("Total");
+        lblValorTotal.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        lblValorTotal.setText("-----");
 
         btCalcularTroco.setText("Troco");
 
@@ -58,10 +62,21 @@ public class JanelaSaida extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabelaSaida);
 
-        btGravarSaida.setText("Gravar Saida");
+        btGravarSaida.setText("Calcular");
         btGravarSaida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGravarSaidaActionPerformed(evt);
+            }
+        });
+
+        lblPlaca.setText("Placa:");
+
+        tfPesquisarPlaca.setColumns(10);
+
+        btPesquisar.setText("Buscar");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
             }
         });
 
@@ -69,42 +84,54 @@ public class JanelaSaida extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(lblTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblValorTotal)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblValorTotal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btGravarSaida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btCalcularTroco))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btGravarSaida)
-                        .addGap(83, 83, 83)
-                        .addComponent(btCalcularTroco)))
-                .addGap(26, 26, 26))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(lblTitulo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addComponent(lblPlaca)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfPesquisarPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btPesquisar)))
+                        .addGap(0, 76, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(lblTitulo)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblValorTotal)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                    .addComponent(lblPlaca)
+                    .addComponent(tfPesquisarPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCalcularTroco)
-                    .addComponent(btGravarSaida))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(btGravarSaida)
+                    .addComponent(jLabel4)
+                    .addComponent(lblValorTotal))
+                .addGap(233, 233, 233))
         );
 
         pack();
@@ -114,6 +141,12 @@ public class JanelaSaida extends javax.swing.JFrame {
         // TODO add your handling code here:
         SAIDA_CONTROL.editarEntradaAction();
     }//GEN-LAST:event_btGravarSaidaActionPerformed
+
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        // TODO add your handling code here:
+        SAIDA_CONTROL.pesquisarAction();
+
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,10 +186,13 @@ public class JanelaSaida extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCalcularTroco;
     private javax.swing.JButton btGravarSaida;
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblValorTotal;
+    public static final javax.swing.JLabel lblValorTotal = new javax.swing.JLabel();
     public static final javax.swing.JTable tabelaSaida = new javax.swing.JTable();
+    public static final javax.swing.JTextField tfPesquisarPlaca = new javax.swing.JTextField();
     // End of variables declaration//GEN-END:variables
 }

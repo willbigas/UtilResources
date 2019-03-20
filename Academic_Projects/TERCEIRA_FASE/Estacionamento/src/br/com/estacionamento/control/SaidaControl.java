@@ -2,7 +2,9 @@ package br.com.estacionamento.control;
 
 import br.com.estacionamento.dao.EntradaDao;
 import br.com.estacionamento.model.Entrada;
+import br.com.estacionamento.util.UtilFormat;
 import br.com.estacionamento.view.JanelaSaida;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -30,19 +32,20 @@ public class SaidaControl {
                 e.getCondutor().getNome(),});
         }
     }
+    
+    private void listandoEntradasAction(List<Entrada> entradas) {
+        DefaultTableModel model
+                = (DefaultTableModel) JanelaSaida.tabelaSaida.getModel();
+        model.setNumRows(0);
+        for (Entrada e : entradas) {
+            model.addRow(new Object[]{
+                e.getCarro().getPlaca(),
+                e.getDataEntrada(),
+                e.getCondutor().getNome(),});
+        }
+    }
 
-//    public void listarAction(List<Produto> produtos) {
-//        DefaultTableModel model
-//                = (DefaultTableModel) Gerenciar.tblProdutos.getModel();
-//        model.setNumRows(0);
-//        for (Produto p : produtos) {
-//            model.addRow(new Object[]{
-//                p.getId(),
-//                p.getNome(),
-//                p.getValor()
-//            });
-//        }
-//    }
+
     public void editarEntradaAction() {
         Entrada e = getEntradaSelecionada();
         e.setDataSaida(new Date(System.currentTimeMillis()));
@@ -58,14 +61,49 @@ public class SaidaControl {
         return null;
     }
 
-    public void calculandoPrecoDoEstacionamento(Entrada e) {
+    private void calculandoPrecoDoEstacionamento(Entrada e) {
         DateTime dataFinal = new DateTime();
         DateTime dataInicio = new DateTime(e.getDataEntrada().getTime());
-        Hours h = Hours.hoursBetween(dataInicio , dataFinal);
+        Hours h = Hours.hoursBetween(dataInicio, dataFinal);
         System.out.println("Horas: + " + h.getHours());
-        
-        Integer percentualServidor = 2;
-        Integer percentual = 2;
-       
+        Integer precoServidor = 2;
+        Integer precoPublico = 4;
+        Integer result = null;
+        if (e.getTipoCliente().getIdTipo() == 1) {
+            result = h.getHours() * precoServidor;
+        }
+        if (e.getTipoCliente().getIdTipo() == 2) {
+            result = h.getHours() * precoPublico;
+        }
+        System.out.println("Result :" + UtilFormat.decimalFormatR$(result));
+        JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(result));
     }
+    
+    
+     public void pesquisarAction() {
+        List<Entrada> entradas = null;
+        try {
+            entradas = pesquisar(JanelaSaida.tfPesquisarPlaca.getText());
+        } catch (Exception exception) {
+        }
+        listandoEntradasAction(entradas);
+    }
+
+    private List<Entrada> pesquisar(String termo) {
+        List<Entrada> retorno = new ArrayList<>();
+
+        try {
+            List<?> objs = ENTRADA_DAO.listar();
+            List<Entrada> ENTRADAS = (List<Entrada>) (Object) objs;
+            for (Entrada e : ENTRADAS) {
+                if (e.getCarro().getPlaca().toLowerCase().contains(termo.toLowerCase())) {
+                    retorno.add(e);
+                }
+            }
+
+        } catch (Exception exception) {
+        }
+        return retorno;
+    }
+
 }

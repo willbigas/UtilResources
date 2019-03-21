@@ -17,10 +17,8 @@ public class Painel {
         JOptionPane.showMessageDialog(null, texto);
     }
     
-    public static int msgConfirm(String texto) {
-        int dialogButton = JOptionPane.NO_OPTION;
-      int resposta =  JOptionPane.showConfirmDialog(null, texto , "Atenção!" , dialogButton);
-        return resposta;
+    public static int questao(String pergunta){
+        return JOptionPane.showConfirmDialog(null, pergunta);
     }
     
 }

@@ -1,6 +1,5 @@
 package senac.control;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,15 +12,13 @@ import senac.view.Gerenciar;
 
 /**
  *
- * @author Alunos
+ * @author William
  */
 public class ProdutoControl {
 
     List<Produto> listProdutos;
     ProdutoDao produtoDao;
-    Boolean alterando = false;
-    Produto PRODUTO_DO_EDIT;
-    Double totalProdutos = 0.0;
+    Produto produto;
 
     public ProdutoControl() {
         produtoDao = new ProdutoDao();
@@ -29,68 +26,49 @@ public class ProdutoControl {
 
     public void listarAction() {
         listProdutos = produtoDao.listar();
+        atualizarJTable();
+    }
+
+    private void atualizarJTable() {
         DefaultTableModel model
                 = (DefaultTableModel) Gerenciar.tblProdutos.getModel();
         model.setNumRows(0);
+        double total = 0;
         for (Produto p : listProdutos) {
             model.addRow(new Object[]{
                 p.getId(),
                 p.getNome(),
                 p.getValor()
             });
+
+            total += p.getValor();
         }
-        pegandoSomatorio();
+        atualizarLabelTotal(total);
     }
 
-    public void listarAction(List<Produto> produtos) {
-        DefaultTableModel model
-                = (DefaultTableModel) Gerenciar.tblProdutos.getModel();
-        model.setNumRows(0);
-        for (Produto p : produtos) {
-            model.addRow(new Object[]{
-                p.getId(),
-                p.getNome(),
-                p.getValor()
-            });
-        }
-        pegandoSomatorio();
-
+    private void atualizarLabelTotal(double total) {
+        Gerenciar.lblValorTotal.setText("R$" + total);
     }
 
     public void cadastrarAction() {
-        //Validar dados
-        if (Validacao.campoVazio(Gerenciar.tfNome)) {
-            Painel.msg(Mensagens.ERRO_NOME_INVALIDO);
-            Gerenciar.tfNome.requestFocus();
-            return;
-        }
-        if (Validacao.campoVazio(Gerenciar.tfValor)) {
-            Painel.msg(Mensagens.ERRO_VALOR_INVALIDO);
-            Gerenciar.tfValor.requestFocus();
+        if (validandoCampos()) {
             return;
         }
 
-        if (alterando) {
-            System.out.println(PRODUTO_DO_EDIT);
-            PRODUTO_DO_EDIT.setNome(Gerenciar.tfNome.getText());
-            PRODUTO_DO_EDIT.setValor(Gerenciar.tfValor.getText());
-            editar(PRODUTO_DO_EDIT);
-            PRODUTO_DO_EDIT = null;
-            alterando = false;
+        produto = new Produto();
+        produto.setNome(Gerenciar.tfNome.getText());
+        produto.setValor(Gerenciar.tfValor.getText());
+        
+        int res = produtoDao.cadastrar(produto);
+        if (res > 0) {
+            Painel.msg(Mensagens.SUCESSO_CADASTRO);
+            listarAction();
         } else {
-            Produto p = new Produto();
-            p.setNome(Gerenciar.tfNome.getText());
-            p.setValor(Gerenciar.tfValor.getText());
-
-            int res = produtoDao.cadastrar(p);
-            if (res > 0) {
-                Painel.msg(Mensagens.SUCESSO_CADASTRO);
-                listarAction();
-            } else {
-                Painel.msg(Mensagens.ERRO_CADASTRAR);
-            }
+            Painel.msg(Mensagens.ERRO_CADASTRAR);
         }
 
+        limpandoCampos();
+        produto = null;
     }
 
     private Produto getProdutoSelecionadoTable() {
@@ -107,80 +85,76 @@ public class ProdutoControl {
         if (p == null) {
             Painel.msg(Mensagens.PRODUTO_NAO_SELECIONADO);
             return;
-        } else {
-            int resposta = Painel.msgConfirm(Mensagens.ACAO_IRREVERSIVEL);
-            System.out.println(resposta);
-            if (resposta == JOptionPane.CANCEL_OPTION) {
-                return;
-            }
-            if (resposta == JOptionPane.NO_OPTION) {
-                return;
+        }
+        if (Painel.questao(Mensagens.ACAO_IRREVERSIVEL + p.getNome() + "?") == JOptionPane.YES_OPTION) {
+            if (produtoDao.deletar(p.getId())) {
+                Painel.msg(Mensagens.SUCESSO_EXCLUIR);
+                listarAction();
             } else {
-                if (produtoDao.deletar(p.getId())) {
-                    Painel.msg(Mensagens.SUCESSO_EXCLUIR);
-                    listarAction();
-                } else {
-                    Painel.msg(Mensagens.ERRO_EXCLUIR);
-                }
+                Painel.msg(Mensagens.ERRO_EXCLUIR);
             }
         }
-
     }
 
-    public Boolean editarAction() {
-        PRODUTO_DO_EDIT = new Produto();
-        PRODUTO_DO_EDIT = getProdutoSelecionadoTable();
-        if (PRODUTO_DO_EDIT == null) {
+    public void popularFormAction() {
+        produto = getProdutoSelecionadoTable();
+        if (produto == null) {
             Painel.msg(Mensagens.PRODUTO_NAO_SELECIONADO);
-            alterando = false;
-        } else {
-            alterando = true;
-            Gerenciar.tfNome.setText(PRODUTO_DO_EDIT.getNome());
-            Gerenciar.tfValor.setText(String.valueOf(PRODUTO_DO_EDIT.getValor()));
+            return;
         }
-        return null;
+        Gerenciar.tfNome.setText(produto.getNome());
+        Gerenciar.tfValor.setText(String.valueOf(produto.getValor()));
+        Gerenciar.tfNome.requestFocus();
     }
 
-    public void editar(Produto p) {
-        if (produtoDao.alterar(p)) {
+    public void editarAction() {
+        if (validandoCampos()) {
+            return;
+        }
+
+        produto.setNome(Gerenciar.tfNome.getText());
+        produto.setValor(Gerenciar.tfValor.getText());
+        if (produtoDao.alterar(produto)) {
             Painel.msg(Mensagens.SUCESSO_EDITAR);
             listarAction();
         } else {
             Painel.msg(Mensagens.ERRO_EDITAR);
         }
+
+        limpandoCampos();
+        produto = null;
+    }
+
+    private boolean validandoCampos() {
+        if (Validacao.campoVazio(Gerenciar.tfNome)) {
+            Painel.msg(Mensagens.ERRO_NOME_INVALIDO);
+            Gerenciar.tfNome.requestFocus();
+            return true;
+        }
+        if (Validacao.campoVazio(Gerenciar.tfValor)) {
+            Painel.msg(Mensagens.ERRO_VALOR_INVALIDO);
+            Gerenciar.tfValor.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    public void salvarAction() {
+        if (produto == null) {
+            cadastrarAction();
+        } else {
+            editarAction();
+        }
     }
 
     public void pesquisarAction() {
-        List<Produto> produtos = null;
-        try {
-            produtos = pesquisar(Gerenciar.tfPesquisa.getText());
-        } catch (Exception exception) {
-        }
-        listarAction(produtos);
+        listProdutos = produtoDao.pesquisar(Gerenciar.tfPesquisa.getText());
+        atualizarJTable();
     }
 
-    public List<Produto> pesquisar(String termo) {
-        List<Produto> retorno = new ArrayList<>();
-
-        try {
-            List<?> objs = produtoDao.listar();
-            List<Produto> PRODUTOS = (List<Produto>) (Object) objs;
-            for (Produto p : PRODUTOS) {
-                if (p.getNome().toLowerCase().contains(termo.toLowerCase())) {
-                    retorno.add(p);
-                }
-            }
-
-        } catch (Exception exception) {
-        }
-        return retorno;
-    }
-
-    public void pegandoSomatorio() {
-        for (Produto listProduto : listProdutos) {
-            totalProdutos += listProduto.getValor();
-        }
-        Gerenciar.lblValorTotal.setText(String.valueOf(totalProdutos));
+    private void limpandoCampos() {
+        Gerenciar.tfNome.setText("");
+        Gerenciar.tfValor.setText("");
     }
 
 }

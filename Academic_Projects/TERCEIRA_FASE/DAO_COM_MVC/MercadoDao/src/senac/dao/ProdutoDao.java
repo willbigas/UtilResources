@@ -7,12 +7,9 @@ package senac.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import senac.interfaces.DaoI;
 import senac.model.Produto;
 
@@ -20,22 +17,22 @@ import senac.model.Produto;
  *
  * @author Alunos
  */
-public class ProdutoDao extends Dao implements DaoI<Produto>{
+public class ProdutoDao extends Dao implements DaoI<Produto> {
 
     public ProdutoDao() {
         //Contrutor da super classe Dao. Faz a conexão.
         super();
     }
-    
+
     @Override
     public List<Produto> listar() {
-        try{
+        try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement("SELECT "
                     + "id, nome, valor FROM produto WHERE ativo=1 ORDER BY id DESC");
             ResultSet result = stmt.executeQuery();
             List<Produto> lista = new ArrayList<>();
-            while(result.next()){
+            while (result.next()) {
                 Produto p = new Produto();
                 p.setId(result.getInt("id"));
                 p.setNome(result.getString("nome"));
@@ -43,7 +40,7 @@ public class ProdutoDao extends Dao implements DaoI<Produto>{
                 lista.add(p);
             }
             return lista;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return null;
         }
@@ -53,16 +50,17 @@ public class ProdutoDao extends Dao implements DaoI<Produto>{
      * Método para cadastrar um produto no banco de dados
      * <br>Retorna id do produto cadastrado
      * <br><b>Retorna 0 (zero) se houver erro</b>
+     *
      * @param obj
      * @return int
      */
     @Override
     public int cadastrar(Produto obj) {
-        try{
+        try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement(
                     "INSERT INTO produto(nome, valor)"
-                            + " VALUES(?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    + " VALUES(?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, obj.getNome());
             stmt.setDouble(2, obj.getValor());
             ResultSet res;
@@ -73,7 +71,7 @@ public class ProdutoDao extends Dao implements DaoI<Produto>{
             } else {
                 return 0;
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return 0;
         }
@@ -122,7 +120,7 @@ public class ProdutoDao extends Dao implements DaoI<Produto>{
                     + " WHERE ativo = 1 AND id = ?");
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
-            if(res.next()){
+            if (res.next()) {
                 Produto p = new Produto();
                 p.setId(res.getInt("id"));
                 p.setNome(res.getString("nome"));
@@ -135,8 +133,7 @@ public class ProdutoDao extends Dao implements DaoI<Produto>{
             System.out.println(ex.getMessage());
             return null;
         }
-        
-        
+
     }
 
     @Override
@@ -145,13 +142,13 @@ public class ProdutoDao extends Dao implements DaoI<Produto>{
             PreparedStatement stmt = conexao.prepareStatement(""
                     + "SELECT id, nome, valor FROM produto"
                     + " WHERE ativo=1 AND "
-                    + " (id=? OR nome LIKE '?%' OR valor=?) ");
+                    + " (id=? OR nome LIKE ? OR valor=?) ");
             stmt.setString(1, termo);
-            stmt.setString(2, termo);
+            stmt.setString(2, termo + "%");
             stmt.setString(3, termo);
             ResultSet res = stmt.executeQuery();
             List<Produto> lista = new ArrayList<>();
-            while(res.next()){
+            while (res.next()) {
                 Produto p = new Produto();
                 p.setId(res.getInt("id"));
                 p.setNome(res.getString("nome"));
@@ -160,9 +157,10 @@ public class ProdutoDao extends Dao implements DaoI<Produto>{
             }
             return lista;
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             return null;
         }
-        
+
     }
-    
+
 }

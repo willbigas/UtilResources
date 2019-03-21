@@ -6,6 +6,7 @@
 package senac.view;
 
 import senac.control.ProdutoControl;
+import senac.uteis.ThreadRelogio;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Gerenciar extends javax.swing.JFrame {
      */
     public Gerenciar() {
         initComponents();
-        
+        ThreadRelogio.start();
         produtoControl = new ProdutoControl();
         produtoControl.listarAction();
     }

@@ -27,24 +27,36 @@ public class SaidaControl {
         DefaultTableModel model
                 = (DefaultTableModel) JanelaSaida.tabelaSaida.getModel();
         model.setNumRows(0);
+        double total = 0;
         for (Entrada e : listEntrada) {
             model.addRow(new Object[]{
                 e.getCarro().getPlaca(),
                 e.getDataEntrada(),
-                e.getCondutor().getNome(),});
+                e.getCondutor().getNome()
+            });
+            total += e.getValorTotal();
         }
+        atualizarLabelTotal(total);
+    }
+
+    private void atualizarLabelTotal(double total) {
+        JanelaSaida.lblValorTotal.setText("R$" + total);
     }
 
     private void listandoEntradasAction(List<Entrada> entradas) {
         DefaultTableModel model
                 = (DefaultTableModel) JanelaSaida.tabelaSaida.getModel();
         model.setNumRows(0);
+        double total = 0;
         for (Entrada e : entradas) {
             model.addRow(new Object[]{
                 e.getCarro().getPlaca(),
                 e.getDataEntrada(),
-                e.getCondutor().getNome(),});
+                e.getCondutor().getNome()
+            });
+            total += e.getValorTotal();
         }
+        atualizarLabelTotal(total);
     }
 
     public void calculaPrecoAction() {
@@ -62,7 +74,7 @@ public class SaidaControl {
 
     private void calculandoPrecoDoEstacionamento(Entrada e) {
         System.out.println("Data do Banco :" + e.getDataEntrada());
-        
+
         DateTime dataFinal = new DateTime();
         DateTime dataInicio = new DateTime(e.getDataEntrada());
         System.out.println("Data Inicio :" + dataInicio);

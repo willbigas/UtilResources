@@ -1,6 +1,7 @@
 package br.com.estacionamento.control;
 
 import br.com.estacionamento.dao.EntradaDao;
+import br.com.estacionamento.dao.UltimaEntradaDao;
 import br.com.estacionamento.model.Entrada;
 import br.com.estacionamento.util.UtilFormat;
 import br.com.estacionamento.view.JanelaSaida;
@@ -20,6 +21,7 @@ public class SaidaControl {
 
     List<Entrada> listEntrada;
     EntradaDao ENTRADA_DAO = new EntradaDao();
+    UltimaEntradaDao ULTIMA_ENTRADA_DAO = new UltimaEntradaDao();
     Integer valorTotal = null;
 
     public void listandoEntradasAction() {

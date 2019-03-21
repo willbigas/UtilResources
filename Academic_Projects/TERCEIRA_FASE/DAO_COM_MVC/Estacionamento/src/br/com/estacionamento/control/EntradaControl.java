@@ -4,6 +4,7 @@ import br.com.estacionamento.dao.CarroDao;
 import br.com.estacionamento.dao.CondutorDao;
 import br.com.estacionamento.dao.EntradaDao;
 import br.com.estacionamento.dao.TipoClienteDao;
+import br.com.estacionamento.dao.UltimaEntradaDao;
 import br.com.estacionamento.model.Entrada;
 import br.com.estacionamento.util.Mensagem;
 import br.com.estacionamento.util.Swing;
@@ -21,6 +22,7 @@ public class EntradaControl {
     CondutorDao CONDUTOR_DAO = new CondutorDao();
     TipoClienteDao TIPO_CLIENTE_DAO = new TipoClienteDao();
     EntradaDao ENTRADA_DAO = new EntradaDao();
+    UltimaEntradaDao ULTIMA_ENTRADA_DAO = new UltimaEntradaDao();
 
     CarroControl CARRO_CONTROL;
     CondutorControl CONDUTOR_CONTROL;
@@ -51,7 +53,10 @@ public class EntradaControl {
             calendar.set(Calendar.MINUTE, Integer.valueOf(campos[1]));
             calendar.set(Calendar.SECOND, 0);
             e.setDataEntrada(calendar.getTime());
-            System.out.println("Data Gerada : +  " +e.getDataEntrada());
+            int idultimaEntrada = ULTIMA_ENTRADA_DAO.cadastrar(e);
+            e.setId(idultimaEntrada);
+            e.setUltimaEntrada(e);
+            System.out.println("Data Gerada : +  " + e.getDataEntrada());
             if (ENTRADA_DAO.cadastrar(e) > 0) {
                 Swing.msg(Mensagem.ENTRADA_SUCESSO);
             } else {

@@ -22,8 +22,7 @@ CREATE TABLE tipoCliente (
   PRIMARY KEY(id)
 );
 
-
-CREATE TABLE entrada (
+CREATE TABLE ultimaEntrada (
   id int(10) NOT NULL auto_increment,
   dataEntrada datetime,
   dataSaida datetime,
@@ -36,6 +35,24 @@ CREATE TABLE entrada (
   FOREIGN KEY (fk_condutor) REFERENCES condutor(id),
   FOREIGN KEY (fk_tipoCliente) REFERENCES tipoCliente(id)
 );
+
+
+CREATE TABLE entrada (
+  id int(10) NOT NULL auto_increment,
+  dataEntrada datetime,
+  dataSaida datetime,
+  valorTotal decimal(10,2),
+  fk_carro int,
+  fk_condutor int,
+  fk_tipoCliente int,
+  fk_ultimaEntrada int,
+  PRIMARY KEY(id),
+  FOREIGN KEY (fk_carro) REFERENCES carro(id),
+  FOREIGN KEY (fk_condutor) REFERENCES condutor(id),
+  FOREIGN KEY (fk_tipoCliente) REFERENCES tipoCliente(id)
+  FOREIGN KEY (fk_ultimaEntrada) REFERENCES ultimaEntrada(id),
+);
+
 
 select * from carro;
 

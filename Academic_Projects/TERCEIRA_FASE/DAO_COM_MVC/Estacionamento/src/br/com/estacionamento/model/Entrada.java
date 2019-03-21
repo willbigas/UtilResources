@@ -15,6 +15,7 @@ public class Entrada {
     private Date dataEntrada;
     private Date dataSaida;
     private Double valorTotal;
+    private Entrada ultimaEntrada;
 
     public Integer getId() {
         return id;
@@ -70,6 +71,14 @@ public class Entrada {
 
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public Entrada getUltimaEntrada() {
+        return ultimaEntrada;
+    }
+
+    public void setUltimaEntrada(Entrada ultimaEntrada) {
+        this.ultimaEntrada = ultimaEntrada;
     }
 
 }

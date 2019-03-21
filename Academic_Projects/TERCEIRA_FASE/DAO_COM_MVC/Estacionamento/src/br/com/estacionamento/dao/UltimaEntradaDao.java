@@ -15,14 +15,13 @@ import java.util.List;
  *
  * @author Alunos
  */
-public class EntradaDao extends Dao implements DaoI<Entrada> {
-    
+public class UltimaEntradaDao extends Dao implements DaoI<Entrada> {
+
     CondutorDao CONDUTOR_DAO = new CondutorDao();
     CarroDao CARRO_DAO = new CarroDao();
     TipoClienteDao TIPO_CLIENTE_DAO = new TipoClienteDao();
-    UltimaEntradaDao ULTIMA_ENTRADA_DAO  = new UltimaEntradaDao();
 
-    public EntradaDao() {
+    public UltimaEntradaDao() {
         //Contrutor da super classe Dao. Faz a conexão.
         super();
     }
@@ -32,7 +31,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement("SELECT "
-                    + "id, dataEntrada, dataSaida , valorTotal, fk_carro , fk_condutor, fk_tipoCliente , fk_ultimaEntrada FROM entrada ORDER BY id DESC");
+                    + "id, dataEntrada, dataSaida , valorTotal, fk_carro , fk_condutor, fk_tipoCliente FROM ultimaEntrada ORDER BY id DESC");
             ResultSet result = stmt.executeQuery();
             List<Entrada> lista = new ArrayList<>();
             while (result.next()) {
@@ -44,7 +43,6 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
                 e.setCarro(CARRO_DAO.lerPorId(result.getInt("fk_carro")));
                 e.setCondutor(CONDUTOR_DAO.lerPorId(result.getInt("fk_condutor")));
                 e.setTipoCliente(TIPO_CLIENTE_DAO.lerPorId(result.getInt("fk_tipoCliente")));
-                e.setUltimaEntrada(ULTIMA_ENTRADA_DAO.lerPorId(result.getInt("fk_ultimaEntrada")));
                 lista.add(e);
             }
             return lista;
@@ -67,8 +65,8 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement(
-                    "INSERT INTO entrada(dataEntrada, dataSaida , valorTotal, fk_carro , fk_condutor, fk_tipoCliente , fk_ultimaEntrada)"
-                    + " VALUES(?, ?, ? , ? , ? , ? , ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    "INSERT INTO ultimaEntrada(dataEntrada, dataSaida , valorTotal, fk_carro , fk_condutor, fk_tipoCliente)"
+                    + " VALUES(?, ?, ? , ? , ? , ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setTimestamp(1, new Timestamp(obj.getDataEntrada().getTime()));
             if (obj.getDataSaida() == null) { // se for nulo
                 stmt.setNull(2, Types.DATE);
@@ -83,7 +81,6 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
             stmt.setInt(4, obj.getCarro().getId());
             stmt.setInt(5, obj.getCondutor().getId());
             stmt.setInt(6, obj.getTipoCliente().getId());
-            stmt.setInt(7, obj.getUltimaEntrada().getId());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
@@ -101,17 +98,16 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
     @Override
     public boolean alterar(Entrada obj) {
         try {
-            PreparedStatement stmt = conexao.prepareStatement("UPDATE ENTRADA "
+            PreparedStatement stmt = conexao.prepareStatement("UPDATE ultimaEntrada "
                     + "SET DATAENTRADA = ? , DATASAIDA = ? , VALORTOTAL = ? , "
-                    + "FK_CARRO = ? , FK_CONDUTOR = ? , FK_TIPOCLIENTE = ? , FK_ULTIMAENTRADA WHERE ID  =?");
+                    + "FK_CARRO = ? , FK_CONDUTOR = ? , FK_TIPOCLIENTE = ? WHERE ID  =?");
             stmt.setDate(1, new Date(obj.getDataEntrada().getTime()));
             stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
             stmt.setDouble(3, obj.getValorTotal());
             stmt.setInt(4, obj.getCarro().getId());
             stmt.setInt(5, obj.getCondutor().getId());
             stmt.setInt(6, obj.getTipoCliente().getId());
-            stmt.setInt(7, obj.getUltimaEntrada().getId());
-            stmt.setInt(8, obj.getId());
+            stmt.setInt(7, obj.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -122,7 +118,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
     @Override
     public boolean deletarPorId(int id) {
         try {
-            PreparedStatement stmt = conexao.prepareStatement("DELETE FROM ENTRADA WHERE ID = ?");
+            PreparedStatement stmt = conexao.prepareStatement("DELETE FROM ultimaEntrada WHERE ID = ?");
             stmt.setInt(1, id);
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -135,7 +131,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
     public Entrada lerPorId(int id) {
         try {
             PreparedStatement stmt = conexao.prepareStatement(""
-                    + "SELECT id, dataEntrada , dataSaida , valorTotal FROM entrada "
+                    + "SELECT id, dataEntrada , dataSaida , valorTotal FROM ultimaEntrada "
                     + " WHERE id = ?");
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
@@ -157,7 +153,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
     }
 
     /**
-     * @deprecated Não é funcional para esse objeto.
+     *
      * @param termo
      * @return
      */
@@ -165,13 +161,13 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
     public List<Entrada> pesquisar(String termo) {
         return null;
     }
-    
+
     public List<Entrada> listarSomenteSemSaida() {
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement("SELECT id, dataEntrada, dataSaida , "
-                    + "valorTotal, fk_carro , fk_condutor, fk_tipoCliente , fk_ultimaEntrada "
-                    + "FROM entrada where entrada.dataSaida is null ORDER BY id DESC");
+                    + "valorTotal, fk_carro , fk_condutor, fk_tipoCliente "
+                    + "FROM ultimaEntrada where ultimaEntrada.dataSaida is null ORDER BY id DESC");
             ResultSet result = stmt.executeQuery();
             List<Entrada> lista = new ArrayList<>();
             while (result.next()) {
@@ -183,7 +179,6 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
                 e.setCarro(CARRO_DAO.lerPorId(result.getInt("fk_carro")));
                 e.setCondutor(CONDUTOR_DAO.lerPorId(result.getInt("fk_condutor")));
                 e.setTipoCliente(TIPO_CLIENTE_DAO.lerPorId(result.getInt("fk_tipoCliente")));
-                e.setUltimaEntrada(ULTIMA_ENTRADA_DAO.lerPorId(result.getInt("fk_ultimaEntrada")));
                 lista.add(e);
             }
             return lista;

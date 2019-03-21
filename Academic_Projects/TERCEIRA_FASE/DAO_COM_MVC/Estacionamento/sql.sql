@@ -25,8 +25,8 @@ CREATE TABLE tipoCliente (
 
 CREATE TABLE entrada (
   id int(10) NOT NULL auto_increment,
-  dataEntrada date,
-  dataSaida date,
+  dataEntrada datetime,
+  dataSaida datetime,
   valorTotal decimal(10,2),
   fk_carro int,
   fk_condutor int,

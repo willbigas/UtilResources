@@ -1,6 +1,7 @@
 package br.com.estacionamento.view;
 
 import br.com.estacionamento.control.SaidaControl;
+import br.com.estacionamento.principal.Principal;
 import br.com.estacionamento.util.Mensagem;
 import br.com.estacionamento.util.Swing;
 
@@ -9,7 +10,7 @@ import br.com.estacionamento.util.Swing;
  * @author William
  */
 public class JanelaSaida extends javax.swing.JFrame {
-    
+
     SaidaControl SAIDA_CONTROL;
 
     /**
@@ -40,7 +41,7 @@ public class JanelaSaida extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         btFinalizar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,10 +111,10 @@ public class JanelaSaida extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btVoltarActionPerformed(evt);
             }
         });
 
@@ -137,7 +138,7 @@ public class JanelaSaida extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jButton1)
+                        .addComponent(btVoltar)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(57, 57, 57)
@@ -191,7 +192,7 @@ public class JanelaSaida extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btVoltar)
                         .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -243,12 +244,15 @@ public class JanelaSaida extends javax.swing.JFrame {
         SAIDA_CONTROL.finalizaSaidaAction();
         SAIDA_CONTROL.listandoEntradasAction();
         Swing.msg(Mensagem.SAIDA_SUCESSO);
-        
+
     }//GEN-LAST:event_btFinalizarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.setVisible(false);
+        Principal.JanelaPrincipal();
+
+    }//GEN-LAST:event_btVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,7 +294,7 @@ public class JanelaSaida extends javax.swing.JFrame {
     public static final javax.swing.JButton btCalcularTroco = new javax.swing.JButton();
     private javax.swing.JButton btFinalizar;
     private javax.swing.JButton btPesquisar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;

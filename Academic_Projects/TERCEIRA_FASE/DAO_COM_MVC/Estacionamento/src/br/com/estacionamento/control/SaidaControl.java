@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
+import org.joda.time.Minutes;
 
 /**
  *
@@ -60,17 +61,42 @@ public class SaidaControl {
     }
 
     private void calculandoPrecoDoEstacionamento(Entrada e) {
+        System.out.println("Data do Banco :" + e.getDataEntrada());
+        
         DateTime dataFinal = new DateTime();
-        DateTime dataInicio = new DateTime(e.getDataEntrada().getTime());
+        DateTime dataInicio = new DateTime(e.getDataEntrada());
+        System.out.println("Data Inicio :" + dataInicio);
+        System.out.println("Data Final:" + dataFinal);
         Hours h = Hours.hoursBetween(dataInicio, dataFinal);
-        System.out.println("Horas: + " + h.getHours());
+        Minutes m = Minutes.minutesBetween(dataInicio, dataFinal);
+        System.out.println("Horas Entre as Datas: " + h.getHours());
+        System.out.println("Minutos entre as Datas " + m.getMinutes());
+        int minutos = m.getMinutes() % 60;
+        System.out.println("Total de minutos que sobraram: " + minutos);
+        if (e.getTipoCliente().getIdTipo() == 1) {
+            System.out.println("Tipo de Cliente - Servidor 2/Hora");
+        }
+        if (e.getTipoCliente().getIdTipo() == 2) {
+            System.out.println("Tipo de Cliente - Publico 4/Hora");
+        }
+        Integer minutosInt = minutos;
+
+        if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 1) {
+            valorTotal = 2;
+        }
+        if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 2) {
+            valorTotal = 4;
+        }
+        if (minutosInt <= 6) {
+            valorTotal = 0;
+        }
         Integer precoServidor = 2;
         Integer precoPublico = 4;
         if (e.getTipoCliente().getIdTipo() == 1) {
-            valorTotal = h.getHours() * precoServidor;
+            valorTotal += h.getHours() * precoServidor;
         }
         if (e.getTipoCliente().getIdTipo() == 2) {
-            valorTotal = h.getHours() * precoPublico;
+            valorTotal += h.getHours() * precoPublico;
         }
         System.out.println("Result :" + UtilFormat.decimalFormatR$(valorTotal));
         JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));

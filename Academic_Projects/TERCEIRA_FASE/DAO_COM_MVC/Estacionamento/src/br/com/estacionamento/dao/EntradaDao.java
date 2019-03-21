@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,8 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
             while (result.next()) {
                 Entrada e = new Entrada();
                 e.setId(result.getInt("id"));
-                e.setDataEntrada(result.getDate("dataEntrada"));
-                e.setDataSaida(result.getDate("dataSaida"));
+                e.setDataEntrada(result.getTimestamp("dataEntrada"));
+                e.setDataSaida(result.getTimestamp("dataSaida"));
                 e.setValorTotal(result.getDouble("valorTotal"));
                 e.setCarro(CARRO_DAO.lerPorId(result.getInt("fk_carro")));
                 e.setCondutor(CONDUTOR_DAO.lerPorId(result.getInt("fk_condutor")));
@@ -66,7 +67,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
             stmt = conexao.prepareStatement(
                     "INSERT INTO entrada(dataEntrada, dataSaida , valorTotal, fk_carro , fk_condutor, fk_tipoCliente)"
                     + " VALUES(?, ?, ? , ? , ? , ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setDate(1, new Date(obj.getDataEntrada().getTime()));
+            stmt.setTimestamp(1, new Timestamp(obj.getDataEntrada().getTime()));
             if (obj.getDataSaida() == null) { // se for nulo
                 stmt.setNull(2, Types.DATE);
             } else {
@@ -137,7 +138,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
             if (res.next()) {
                 Entrada e = new Entrada();
                 e.setId(res.getInt("id"));
-                e.setDataEntrada(res.getDate("dataEntrada"));
+                e.setDataEntrada(res.getTimestamp("dataEntrada"));
                 e.setDataSaida(res.getDate("dataSaida"));
                 e.setValorTotal(res.getDouble("valorTotal"));
                 return e;
@@ -172,7 +173,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
             while (result.next()) {
                 Entrada e = new Entrada();
                 e.setId(result.getInt("id"));
-                e.setDataEntrada(result.getDate("dataEntrada"));
+                e.setDataEntrada(result.getTimestamp("dataEntrada"));
                 e.setDataSaida(result.getDate("dataSaida"));
                 e.setValorTotal(result.getDouble("valorTotal"));
                 e.setCarro(CARRO_DAO.lerPorId(result.getInt("fk_carro")));

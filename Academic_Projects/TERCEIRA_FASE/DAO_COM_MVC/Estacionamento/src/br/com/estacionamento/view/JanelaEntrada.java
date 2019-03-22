@@ -69,6 +69,11 @@ public class JanelaEntrada extends javax.swing.JFrame {
         jLabel1.setText("Placa:");
 
         tfPlaca.setColumns(10);
+        tfPlaca.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                tfPlacaCaretUpdate(evt);
+            }
+        });
         tfPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tfPlacaKeyReleased(evt);
@@ -330,7 +335,14 @@ public class JanelaEntrada extends javax.swing.JFrame {
         ULTIMA_ENTRADA_CONTROL = new UltimaEntradaControl();
         ULTIMA_ENTRADA_CONTROL.pesquisarAction();
         
+        System.out.println(ULTIMA_ENTRADA_CONTROL);
+        
+        
     }//GEN-LAST:event_tfPlacaKeyReleased
+
+    private void tfPlacaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfPlacaCaretUpdate
+        
+    }//GEN-LAST:event_tfPlacaCaretUpdate
 
     /**
      * @param args the command line arguments

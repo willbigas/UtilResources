@@ -22,28 +22,29 @@ public class UltimaEntradaControl {
         ULTIMA_ENTRADA_DAO = new UltimaEntradaDao();
     }
 
-    
-     public void pesquisarAction() {
-         Entrada entrada = null;
+    public void pesquisarAction() {
+        Entrada entrada = null;
         try {
-          entrada = pesquisar(JanelaEntrada.tfPlaca.getText());
-              JanelaEntrada.lblDataUltimaEntrada.setText(String.valueOf(entrada.getDataEntrada()));
-              JanelaEntrada.lblHoraUltimaEntrada.setText(String.valueOf(entrada.getDataEntrada().getTime()));
+            entrada = pesquisar(JanelaEntrada.tfPlaca.getText());
+            JanelaEntrada.lblDataUltimaEntrada.setText(String.valueOf(entrada.getDataEntrada()));
+            JanelaEntrada.lblHoraUltimaEntrada.setText(String.valueOf(entrada.getDataEntrada().getTime()));
+
         } catch (Exception exception) {
         }
-   
+
     }
-     
-   
-     private Entrada pesquisar(String termo) {
-        Entrada retorno = new Entrada();
+
+    private Entrada pesquisar(String termo) {
+       
         try {
-           List<Entrada> ENTRADAS = ULTIMA_ENTRADA_DAO.pesquisar(termo);
+            List<Entrada> ENTRADAS = ULTIMA_ENTRADA_DAO.pesquisar(termo);
             for (Entrada e : ENTRADAS) {
                 if (e.getCarro().getPlaca().toLowerCase().equals(termo.toLowerCase())) {
-                    retorno = e;
+                    Entrada  retorno = e;
+                    return retorno;
                 }
             }
+            return null;
 
         } catch (Exception exception) {
         }

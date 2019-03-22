@@ -49,8 +49,8 @@ CREATE TABLE entrada (
   PRIMARY KEY(id),
   FOREIGN KEY (fk_carro) REFERENCES carro(id),
   FOREIGN KEY (fk_condutor) REFERENCES condutor(id),
-  FOREIGN KEY (fk_tipoCliente) REFERENCES tipoCliente(id)
-  FOREIGN KEY (fk_ultimaEntrada) REFERENCES ultimaEntrada(id),
+  FOREIGN KEY (fk_tipoCliente) REFERENCES tipoCliente(id),
+  FOREIGN KEY (fk_ultimaEntrada) REFERENCES ultimaEntrada(id)
 );
 
 
@@ -61,3 +61,9 @@ select * from condutor;
 select * from tipoCliente;
 
 select * from Entrada;
+
+select * from ultimaEntrada;
+
+SELECT * FROM ultimaEntrada inner join carro WHERE carro.placa Like'%awfeqftqe%';
+
+ SELECT * FROM ultimaEntrada inner join carro WHERE carro.placa = '%awfeqftqe%'

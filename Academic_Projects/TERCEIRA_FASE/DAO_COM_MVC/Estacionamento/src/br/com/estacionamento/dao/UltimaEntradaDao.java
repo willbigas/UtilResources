@@ -159,7 +159,28 @@ public class UltimaEntradaDao extends Dao implements DaoI<Entrada> {
      */
     @Override
     public List<Entrada> pesquisar(String termo) {
-        return null;
+        try {
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM ultimaEntrada inner join carro WHERE carro.placa LIKE'%"+termo+"%'");
+          
+            ResultSet res = stmt.executeQuery();
+            List<Entrada> lista = new ArrayList<>();
+            while (res.next()) {
+                Entrada e = new Entrada();
+                e.setId(res.getInt("id"));
+                e.setId(res.getInt("id"));
+                e.setDataEntrada(res.getTimestamp("dataEntrada"));
+                e.setDataSaida(res.getTimestamp("dataSaida"));
+                e.setValorTotal(res.getDouble("valorTotal"));
+                e.setCarro(CARRO_DAO.lerPorId(res.getInt("fk_carro")));
+                e.setCondutor(CONDUTOR_DAO.lerPorId(res.getInt("fk_condutor")));
+                e.setTipoCliente(TIPO_CLIENTE_DAO.lerPorId(res.getInt("fk_tipoCliente")));
+                lista.add(e);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            return null;
+        }
+
     }
 
     public List<Entrada> listarSomenteSemSaida() {

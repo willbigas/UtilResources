@@ -12,6 +12,11 @@ public class CarroControl {
 
     CarroDao CARRO_DAO = new CarroDao();
 
+    /**
+     * Cria uma Entidade automovel e Persiste no BD.
+     *
+     * @return int <b> - Id do Automovel</b>.
+     */
     public int inserirAutomovel() {
         Carro c = new Carro();
         c.setId(Integer.MAX_VALUE);

@@ -86,30 +86,23 @@ public class SaidaControl {
             return;
         } else {
             String horaDoPainel = JanelaSaida.tfHoraSaida.getText();
-            System.out.println("Hora Recebida : " + horaDoPainel);
+            System.out.println("Hora pegada do Usuario : " + horaDoPainel);
             String campos[] = horaDoPainel.split(":");
 
-            System.out.println("Data do Banco :" + e.getDataEntrada());
-
             DateTime dataFinal = new DateTime(UtilFormat.data(JanelaSaida.tfDataSaida.getText()));
-            dataFinal.withTime(Integer.valueOf(campos[0]), Integer.valueOf(campos[1]),
-                    Integer.valueOf(campos[2]), 0);
+            dataFinal = dataFinal.hourOfDay().setCopy(campos[0]);
+            dataFinal = dataFinal.minuteOfHour().setCopy(campos[1]);
+            dataFinal = dataFinal.secondOfMinute().setCopy(campos[2]);
 
             DateTime dataInicio = new DateTime(e.getDataEntrada());
-            System.out.println("Data Inicio :" + dataInicio);
-            System.out.println("Data Final:" + dataFinal);
+            System.out.println("Data Inicial: " + dataInicio);
+            System.out.println("Data Final: " + dataFinal);
             Hours h = Hours.hoursBetween(dataInicio, dataFinal);
+            System.out.println("Horas Entre as Datas :" + h.getHours());
             Minutes m = Minutes.minutesBetween(dataInicio, dataFinal);
-            System.out.println("Horas Entre as Datas: " + h.getHours());
-            System.out.println("Minutos entre as Datas " + m.getMinutes());
+            System.out.println("Minutos Entre as Datas :" + m.getMinutes());
             int minutos = m.getMinutes() % 60;
-            System.out.println("Total de minutos que sobraram: " + minutos);
-            if (e.getTipoCliente().getIdTipo() == 1) {
-                System.out.println("Tipo de Cliente - Servidor 2/Hora");
-            }
-            if (e.getTipoCliente().getIdTipo() == 2) {
-                System.out.println("Tipo de Cliente - Publico 4/Hora");
-            }
+
             Integer minutosInt = minutos;
 
             if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 1) {
@@ -129,7 +122,6 @@ public class SaidaControl {
             if (e.getTipoCliente().getIdTipo() == 2) {
                 valorTotal += h.getHours() * precoPublico;
             }
-            System.out.println("Result :" + UtilFormat.decimalFormatR$(valorTotal));
             JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));
         }
 

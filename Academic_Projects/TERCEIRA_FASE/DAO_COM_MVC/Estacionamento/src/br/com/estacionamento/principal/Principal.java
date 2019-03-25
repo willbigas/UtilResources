@@ -16,21 +16,22 @@ public class Principal {
 
     public static void JanelaPrincipal() {
         JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
-        janelaPrincipal.setTitle("JanelaPrincipal");
+        janelaPrincipal.setTitle("ACESSO PRINCIPAL");
         janelaPrincipal.setLocationRelativeTo(null);
         janelaPrincipal.setVisible(true);
     }
 
     public static void JanelaEntrada() {
         JanelaEntrada janelaEntrada = new JanelaEntrada();
-        janelaEntrada.setTitle("Janela Entrada");
+        janelaEntrada.setTitle("JANELA DE ENTRADA");
         janelaEntrada.setLocationRelativeTo(null);
         janelaEntrada.setVisible(true);
     }
 
     public static void JanelaSaida() {
         JanelaSaida janelaSaida = new JanelaSaida();
-        janelaSaida.setTitle("Janela Entrada");
+        janelaSaida.setTitle("JANELA DE SAIDA");
+        janelaSaida.setSize(500, 500);
         janelaSaida.setLocationRelativeTo(null);
         janelaSaida.setVisible(true);
     }

@@ -2,6 +2,7 @@ package br.com.estacionamento.util;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,9 +21,13 @@ public class UtilFormat {
      * @return Date
      * @throws Exception
      */
-    public static Date data(String dataStr) throws Exception {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return df.parse(dataStr);
+    public static Date data(String dataStr) {
+        try {
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            return df.parse(dataStr);
+        } catch (ParseException parseException) {
+        }
+        return null;
     }
 
     /**
@@ -30,12 +35,41 @@ public class UtilFormat {
      *
      * @param data
      * @return String
-     * @throws Exception
      */
-    public static String data(Date data) throws Exception {
+    public static String data(Date data) {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return df.format(data);
     }
+    
+    
+    /**
+     * Convertendo String para Data no Formato HH:mm:ss
+     *
+     * @param dataStr
+     * @return Date
+     * @throws Exception
+     */
+    public static Date dataHour(String dataStr) {
+        try {
+            DateFormat df = new SimpleDateFormat("HH:mm:ss");
+            return df.parse(dataStr);
+        } catch (ParseException parseException) {
+        }
+        return null;
+    }
+
+    /**
+     * Convertendo Data para String no Formato HH:mm:ss
+     *
+     * @param data
+     * @return String
+     */
+    public static String dataHour(Date data) {
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        return df.format(data);
+    }
+    
+    
 
     /**
      * Formatando um Double em Moeda - "R$ 1,110.00"
@@ -132,5 +166,5 @@ public class UtilFormat {
         sdf.applyPattern("HH:mm:ss");
         return sdf.format(numero);
     }
-
+    
 }

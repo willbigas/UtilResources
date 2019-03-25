@@ -33,7 +33,8 @@ public class SaidaControl {
         for (Entrada e : listEntrada) {
             model.addRow(new Object[]{
                 e.getCarro().getPlaca(),
-                e.getDataEntrada(),
+                UtilFormat.data(e.getDataEntrada()),
+                UtilFormat.dataHour(e.getDataEntrada()),
                 e.getCondutor().getNome()
             });
             total += e.getValorTotal();
@@ -75,9 +76,17 @@ public class SaidaControl {
     }
 
     private void calculandoPrecoDoEstacionamento(Entrada e) {
+
+        String horaDoPainel = JanelaSaida.tfHoraSaida.getText();
+        System.out.println("Hora Recebida : " + horaDoPainel);
+        String campos[] = horaDoPainel.split(":");
+
         System.out.println("Data do Banco :" + e.getDataEntrada());
 
-        DateTime dataFinal = new DateTime();
+        DateTime dataFinal = new DateTime(UtilFormat.data(JanelaSaida.tfDataSaida.getText()));
+        dataFinal.withTime(Integer.valueOf(campos[0]), Integer.valueOf(campos[1]),
+                Integer.valueOf(campos[2]), 0);
+
         DateTime dataInicio = new DateTime(e.getDataEntrada());
         System.out.println("Data Inicio :" + dataInicio);
         System.out.println("Data Final:" + dataFinal);

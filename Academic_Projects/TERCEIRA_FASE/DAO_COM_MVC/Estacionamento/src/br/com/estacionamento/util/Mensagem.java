@@ -7,6 +7,8 @@ package br.com.estacionamento.util;
 public class Mensagem {
 
     public static final String SAIDA_SUCESSO = "Saída gravada com sucesso";
+    
+    public static final String CAMPO_VAZIO = "Algum dos campos estão vazios";
 
     public static final String SAIDA_ERRO = "Erro ao Gravar a Saida";
 

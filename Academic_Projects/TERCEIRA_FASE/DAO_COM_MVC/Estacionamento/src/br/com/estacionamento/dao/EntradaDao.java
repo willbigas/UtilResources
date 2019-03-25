@@ -16,11 +16,11 @@ import java.util.List;
  * @author Alunos
  */
 public class EntradaDao extends Dao implements DaoI<Entrada> {
-    
+
     CondutorDao CONDUTOR_DAO = new CondutorDao();
     CarroDao CARRO_DAO = new CarroDao();
     TipoClienteDao TIPO_CLIENTE_DAO = new TipoClienteDao();
-    UltimaEntradaDao ULTIMA_ENTRADA_DAO  = new UltimaEntradaDao();
+    UltimaEntradaDao ULTIMA_ENTRADA_DAO = new UltimaEntradaDao();
 
     public EntradaDao() {
         //Contrutor da super classe Dao. Faz a conexão.
@@ -163,9 +163,10 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
      */
     @Override
     public List<Entrada> pesquisar(String termo) {
+
         return null;
     }
-    
+
     public List<Entrada> listarSomenteSemSaida() {
         try {
             PreparedStatement stmt;
@@ -191,6 +192,17 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
             System.out.println(ex.getMessage());
             return null;
         }
+    }
+
+    public Entrada pesquisarPorPlaca(String placa) {
+        List<Entrada> entradas = listar();
+        for (Entrada entrada : entradas) {
+            if (entrada.getCarro().getPlaca().toLowerCase().equals(placa.toLowerCase())) {
+                return entrada;
+            }
+        }
+
+        return null;
     }
 
 }

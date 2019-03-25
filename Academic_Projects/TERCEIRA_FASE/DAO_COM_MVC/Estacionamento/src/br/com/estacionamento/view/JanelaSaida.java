@@ -79,10 +79,26 @@ public class JanelaSaida extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "PLACA", "DATA DE ENTRADA", "HORA DE ENTRADA", "CONDUTOR"
+                "Placa", "Data Entrada", "Hora Entrada", "Condutor"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabelaSaida);
+        if (tabelaSaida.getColumnModel().getColumnCount() > 0) {
+            tabelaSaida.getColumnModel().getColumn(0).setResizable(false);
+            tabelaSaida.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tabelaSaida.getColumnModel().getColumn(1).setResizable(false);
+            tabelaSaida.getColumnModel().getColumn(2).setResizable(false);
+            tabelaSaida.getColumnModel().getColumn(3).setResizable(false);
+            tabelaSaida.getColumnModel().getColumn(3).setPreferredWidth(25);
+        }
 
         btCalcularPreco.setText("Calcular");
         btCalcularPreco.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +110,11 @@ public class JanelaSaida extends javax.swing.JFrame {
         lblPlaca.setText("Placa:");
 
         tfPesquisarPlaca.setColumns(10);
+        tfPesquisarPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisarPlacaKeyReleased(evt);
+            }
+        });
 
         btPesquisar.setText("Buscar");
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +188,7 @@ public class JanelaSaida extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addComponent(lblTitulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(44, 44, 44)
                                 .addComponent(lblTotal)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblvalorTotal))
@@ -177,8 +198,7 @@ public class JanelaSaida extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btPesquisar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btExcluir)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(btExcluir))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +212,7 @@ public class JanelaSaida extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -309,6 +329,11 @@ public class JanelaSaida extends javax.swing.JFrame {
         // TODO add your handling code here:
         SAIDA_CONTROL.excluirAction();
     }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void tfPesquisarPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisarPlacaKeyReleased
+        // TODO add your handling code here:
+        SAIDA_CONTROL.pesquisarAction();
+    }//GEN-LAST:event_tfPesquisarPlacaKeyReleased
 
     /**
      * @param args the command line arguments

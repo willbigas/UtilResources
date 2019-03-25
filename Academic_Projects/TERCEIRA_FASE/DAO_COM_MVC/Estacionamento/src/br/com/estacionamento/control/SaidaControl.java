@@ -57,7 +57,8 @@ public class SaidaControl {
         for (Entrada e : entradas) {
             model.addRow(new Object[]{
                 e.getCarro().getPlaca(),
-                e.getDataEntrada(),
+                UtilFormat.data(e.getDataEntrada()),
+                UtilFormat.dataHour(e.getDataEntrada()),
                 e.getCondutor().getNome()
             });
             total += e.getValorTotal();

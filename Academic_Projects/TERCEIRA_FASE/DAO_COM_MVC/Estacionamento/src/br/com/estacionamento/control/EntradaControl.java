@@ -9,6 +9,7 @@ import br.com.estacionamento.model.Entrada;
 import br.com.estacionamento.util.Mensagem;
 import br.com.estacionamento.util.Swing;
 import br.com.estacionamento.util.UtilFormat;
+import br.com.estacionamento.util.Validacao;
 import br.com.estacionamento.view.JanelaEntrada;
 import java.util.Calendar;
 import java.util.List;
@@ -41,6 +42,15 @@ public class EntradaControl {
     }
 
     public void inserindoEntradaAction() {
+        if (validandoCamposVazios()) {
+            return;
+        }
+
+        Entrada entradaDoBanco = ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
+        System.out.println("Entrada : " + entradaDoBanco);
+        if (entradaDoBanco.getCarro().getPlaca() != null) {
+            System.out.println("Caiu no Editando");
+        }
 
         /**
          * Inserindo as Entidades necessarias para criar uma Entrada e pegando
@@ -64,8 +74,8 @@ public class EntradaControl {
             e.setDataEntrada(calendar.getTime());
 
             // Verificando se ja Existe uma Ultima Entrada no BD e Excluindo
-            List<Entrada> entradasRecebidas = 
-                    ULTIMA_ENTRADA_DAO.pesquisar(JanelaEntrada.tfPlaca.getText());
+            List<Entrada> entradasRecebidas
+                    = ULTIMA_ENTRADA_DAO.pesquisar(JanelaEntrada.tfPlaca.getText());
             if (entradasRecebidas != null) {
                 for (Entrada entradasRecebida : entradasRecebidas) {
                     ULTIMA_ENTRADA_DAO.deletarPorId(entradasRecebida.getId());
@@ -84,13 +94,27 @@ public class EntradaControl {
             if (ENTRADA_DAO.cadastrar(e) > 0) {
                 limpandoCampos();
                 Swing.msg(Mensagem.ENTRADA_SUCESSO);
-                
+
             } else {
                 Swing.msg(Mensagem.ENTRADA_ERRO);
             }
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    private boolean validandoCamposVazios() {
+        if (Validacao.isEmpty(JanelaEntrada.tfPlaca)
+                || Validacao.isEmpty(JanelaEntrada.tfCor)
+                || Validacao.isEmpty(JanelaEntrada.tfCondutor)
+                || Validacao.isEmpty(JanelaEntrada.tfMarca)
+                || Validacao.isEmpty(JanelaEntrada.tfModelo)
+                || Validacao.isEmpty(JanelaEntrada.tfData)
+                || Validacao.isEmpty(JanelaEntrada.tfHora)) {
+            Swing.msg(Mensagem.CAMPO_VAZIO);
+            return true;
+        }
+        return false;
     }
 
     private void limpandoCampos() {

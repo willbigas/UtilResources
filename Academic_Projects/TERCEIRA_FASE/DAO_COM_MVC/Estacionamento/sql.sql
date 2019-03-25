@@ -63,7 +63,3 @@ select * from tipoCliente;
 select * from Entrada;
 
 select * from ultimaEntrada;
-
-SELECT * FROM ultimaEntrada inner join carro WHERE carro.placa Like'%awfeqftqe%';
-
- SELECT * FROM ultimaEntrada inner join carro WHERE carro.placa = '%awfeqftqe%'

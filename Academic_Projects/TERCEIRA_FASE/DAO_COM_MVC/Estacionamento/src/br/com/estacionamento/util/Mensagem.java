@@ -8,6 +8,8 @@ public class Mensagem {
 
     public static final String SAIDA_SUCESSO = "Saída gravada com sucesso";
 
+    public static final String SAIDA_ERRO = "Erro ao Gravar a Saida";
+
     public static final String ENTRADA_SUCESSO = "Entrada gravada com sucesso";
 
     public static final String ENTRADA_ERRO = "Erro ao gravar Entrada";
@@ -21,9 +23,12 @@ public class Mensagem {
     public static final String SUCESSO_EXCLUIR = "Excluído com sucesso";
 
     public static final String ACAO_IRREVERSIVEL = "Você deseja Realmente excluir ";
-    
+
     public static final String NENHUM_VALOR_TOTAL = "Nenhum valor total encontrado!";
-    
-   
+
+    public static final String VALOR_TOTAL_MAIOR = "O Valor Recebido é menor que "
+            + "o valor Total da Entrada";
+    public static final String SAIDA_ANTERIOR_ENTRADA = "A data de Saida "
+            + "Antecede a data de Entrada!";
 
 }

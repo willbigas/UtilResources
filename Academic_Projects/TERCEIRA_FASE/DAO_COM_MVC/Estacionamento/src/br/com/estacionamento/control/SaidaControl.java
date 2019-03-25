@@ -95,34 +95,40 @@ public class SaidaControl {
             dataFinal = dataFinal.secondOfMinute().setCopy(campos[2]);
 
             DateTime dataInicio = new DateTime(e.getDataEntrada());
-            System.out.println("Data Inicial: " + dataInicio);
-            System.out.println("Data Final: " + dataFinal);
-            Hours h = Hours.hoursBetween(dataInicio, dataFinal);
-            System.out.println("Horas Entre as Datas :" + h.getHours());
-            Minutes m = Minutes.minutesBetween(dataInicio, dataFinal);
-            System.out.println("Minutos Entre as Datas :" + m.getMinutes());
-            int minutos = m.getMinutes() % 60;
 
-            Integer minutosInt = minutos;
+            if (dataFinal.isBefore(dataInicio)) {
+                Swing.msg(Mensagem.SAIDA_ANTERIOR_ENTRADA);
+            } else {
+                System.out.println("Data Inicial: " + dataInicio);
+                System.out.println("Data Final: " + dataFinal);
+                Hours h = Hours.hoursBetween(dataInicio, dataFinal);
+                System.out.println("Horas Entre as Datas :" + h.getHours());
+                Minutes m = Minutes.minutesBetween(dataInicio, dataFinal);
+                System.out.println("Minutos Entre as Datas :" + m.getMinutes());
+                int minutos = m.getMinutes() % 60;
 
-            if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 1) {
-                valorTotal = 2;
+                Integer minutosInt = minutos;
+
+                if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 1) {
+                    valorTotal = 2;
+                }
+                if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 2) {
+                    valorTotal = 4;
+                }
+                if (minutosInt <= 6) {
+                    valorTotal = 0;
+                }
+                Integer precoServidor = 2;
+                Integer precoPublico = 4;
+                if (e.getTipoCliente().getIdTipo() == 1) {
+                    valorTotal += h.getHours() * precoServidor;
+                }
+                if (e.getTipoCliente().getIdTipo() == 2) {
+                    valorTotal += h.getHours() * precoPublico;
+                }
+                JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));
             }
-            if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 2) {
-                valorTotal = 4;
-            }
-            if (minutosInt <= 6) {
-                valorTotal = 0;
-            }
-            Integer precoServidor = 2;
-            Integer precoPublico = 4;
-            if (e.getTipoCliente().getIdTipo() == 1) {
-                valorTotal += h.getHours() * precoServidor;
-            }
-            if (e.getTipoCliente().getIdTipo() == 2) {
-                valorTotal += h.getHours() * precoPublico;
-            }
-            JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));
+
         }
 
     }
@@ -167,9 +173,21 @@ public class SaidaControl {
 
     public void finalizaSaidaAction() {
         Entrada e = getEntradaSelecionada();
-        e.setDataSaida(new Date(System.currentTimeMillis()));
-        e.setValorTotal(Double.valueOf(valorTotal));
-        ENTRADA_DAO.alterar(e);
+        Integer valorRecebido = Integer.valueOf(JanelaSaida.tfCampoTroco.getText());
+
+        if (valorRecebido < valorTotal) {
+            Swing.msg(Mensagem.VALOR_TOTAL_MAIOR);
+            return;
+        } else {
+            e.setDataSaida(new Date(System.currentTimeMillis()));
+            e.setValorTotal(Double.valueOf(valorTotal));
+            if (ENTRADA_DAO.alterar(e)) {
+                Swing.msg(Mensagem.SAIDA_SUCESSO);
+            } else {
+                Swing.msg(Mensagem.SAIDA_ERRO);
+            }
+        }
+
     }
 
     public void excluirAction() {

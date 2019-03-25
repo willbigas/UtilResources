@@ -4,8 +4,6 @@ import br.com.estacionamento.control.SaidaControl;
 import br.com.estacionamento.principal.Principal;
 import br.com.estacionamento.util.JFrameData;
 import br.com.estacionamento.util.JFrameHora;
-import br.com.estacionamento.util.Mensagem;
-import br.com.estacionamento.util.Swing;
 
 /**
  *
@@ -296,7 +294,7 @@ public class JanelaSaida extends javax.swing.JFrame {
         // TODO add your handling code here:
         SAIDA_CONTROL.finalizaSaidaAction();
         SAIDA_CONTROL.listandoEntradasAction();
-        Swing.msg(Mensagem.SAIDA_SUCESSO);
+      
 
     }//GEN-LAST:event_btFinalizarActionPerformed
 

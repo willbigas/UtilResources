@@ -11,4 +11,7 @@ public class Swing {
     public static void msg(String texto) {
         JOptionPane.showMessageDialog(null, texto);
     }
+     public static int confirm(String pergunta){
+        return JOptionPane.showConfirmDialog(null, pergunta);
+    }
 }

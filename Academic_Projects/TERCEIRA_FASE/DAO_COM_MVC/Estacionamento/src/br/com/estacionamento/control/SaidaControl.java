@@ -27,13 +27,13 @@ public class SaidaControl {
     EntradaDao ENTRADA_DAO = new EntradaDao();
     UltimaEntradaDao ULTIMA_ENTRADA_DAO = new UltimaEntradaDao();
     Integer valorTotal = null;
+    public static Integer VALOR_TOTAL_ENTRADAS = 0;
 
     public void listandoEntradasAction() {
         listEntrada = ENTRADA_DAO.listarSomenteSemSaida();
         DefaultTableModel model
                 = (DefaultTableModel) JanelaSaida.tabelaSaida.getModel();
         model.setNumRows(0);
-        double total = 0;
         for (Entrada e : listEntrada) {
             model.addRow(new Object[]{
                 e.getCarro().getPlaca(),
@@ -41,20 +41,13 @@ public class SaidaControl {
                 UtilFormat.dataHour(e.getDataEntrada()),
                 e.getCondutor().getNome()
             });
-            total += e.getValorTotal();
         }
-        atualizarLabelTotal(total);
-    }
-
-    private void atualizarLabelTotal(double total) {
-        JanelaSaida.lblValorTotal.setText("R$" + total);
     }
 
     private void listandoEntradasAction(List<Entrada> entradas) {
         DefaultTableModel model
                 = (DefaultTableModel) JanelaSaida.tabelaSaida.getModel();
         model.setNumRows(0);
-        double total = 0;
         for (Entrada e : entradas) {
             model.addRow(new Object[]{
                 e.getCarro().getPlaca(),
@@ -62,9 +55,7 @@ public class SaidaControl {
                 UtilFormat.dataHour(e.getDataEntrada()),
                 e.getCondutor().getNome()
             });
-            total += e.getValorTotal();
         }
-        atualizarLabelTotal(total);
     }
 
     public void calculaPrecoAction() {
@@ -112,7 +103,7 @@ public class SaidaControl {
                 Integer precoPublico = 4;
 
                 somandoValorTotal(e, h, precoServidor, precoPublico);
-                
+
             }
 
         }
@@ -126,6 +117,7 @@ public class SaidaControl {
         if (e.getTipoCliente().getIdTipo() == 2) {
             valorTotal += h.getHours() * precoPublico;
         }
+        VALOR_TOTAL_ENTRADAS += valorTotal;
         JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));
     }
 
@@ -181,7 +173,7 @@ public class SaidaControl {
             return;
         } else {
             Double valorRecebido = Double.valueOf(JanelaSaida.tfCampoTroco.getText());
-            Double valorDeTroco = valorRecebido - valorTotal;
+            Double valorDeTroco = valorRecebido - Double.valueOf(valorTotal);
             JanelaSaida.lblValorTroco.setText(UtilFormat.decimalFormatR$(valorDeTroco));
         }
 

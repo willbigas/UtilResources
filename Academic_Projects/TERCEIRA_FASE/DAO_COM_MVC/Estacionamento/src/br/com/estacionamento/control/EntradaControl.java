@@ -12,6 +12,7 @@ import br.com.estacionamento.util.UtilFormat;
 import br.com.estacionamento.util.Validacao;
 import br.com.estacionamento.view.JanelaEntrada;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,8 @@ import java.util.Calendar;
  */
 public class EntradaControl {
 
+    public Double VALOR_TOTAL_ENTRADAS = 0.0;
+    
     // INTANCIAS DE INTERFACES DAOS // 
     CarroDao CARRO_DAO = new CarroDao();
     CondutorDao CONDUTOR_DAO = new CondutorDao();
@@ -169,6 +172,7 @@ public class EntradaControl {
         atualizaTabelasDeEntrada(e);
         Calendar calendar = criandoCalendar();
         e.setDataEntrada(calendar.getTime());
+        e.setDataSaida(null);
         e = criandoUltimaEntrada(e);
         alterandoEntradaNoBanco(e);
 
@@ -189,4 +193,18 @@ public class EntradaControl {
         CONDUTOR_CONTROL.atualizarCondutor(e.getCondutor());
         TIPO_CLIENTE_CONTROL.atualizarTipoCliente(e.getTipoCliente());
     }
+    
+    private void calculandoValorTotalEntrada(){
+        List<Entrada> entradas = ENTRADA_DAO.listar();
+        for (Entrada entrada : entradas) {
+            VALOR_TOTAL_ENTRADAS += entrada.getValorTotal();
+        }
+    }
+    
+    public void atualizaLabelValorToTalAction(){
+        calculandoValorTotalEntrada();
+        JanelaEntrada.lblValorTotalCarro.setText(UtilFormat.decimalFormatR$(VALOR_TOTAL_ENTRADAS));
+    } 
+    
+    
 }

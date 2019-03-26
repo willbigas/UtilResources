@@ -24,6 +24,9 @@ public class JanelaEntrada extends javax.swing.JFrame {
      */
     public JanelaEntrada() {
         initComponents();
+        ENTRADA_CONTROL = new EntradaControl();
+        lblValorTotalCarro.setText(null);
+        ENTRADA_CONTROL.atualizaLabelValorToTalAction();
         cbTipoCliente.removeAllItems();
         cbTipoCliente.addItem(tipoServidor);
         cbTipoCliente.addItem(tipoPublico);
@@ -52,10 +55,11 @@ public class JanelaEntrada extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btVoltar = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(450, 350));
@@ -128,10 +132,10 @@ public class JanelaEntrada extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btVoltarActionPerformed(evt);
             }
         });
 
@@ -139,6 +143,8 @@ public class JanelaEntrada extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel13.setText("[Pesquise Por Placa]");
+
+        jLabel14.setText("Total:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,7 +212,7 @@ public class JanelaEntrada extends javax.swing.JFrame {
                                             .addComponent(tfHora, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btGravar)))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btVoltar)
                                 .addGap(69, 69, 69)
                                 .addComponent(jLabel7))
                             .addGroup(layout.createSequentialGroup()
@@ -218,7 +224,11 @@ public class JanelaEntrada extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(lblDataUltimaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(lblHoraUltimaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblHoraUltimaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblValorTotalCarro)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,9 +247,12 @@ public class JanelaEntrada extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblHoraUltimaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDataUltimaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblDataUltimaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel14)
+                                        .addComponent(lblValorTotalCarro)))
                                 .addGap(3, 3, 3))))
-                    .addComponent(jButton1))
+                    .addComponent(btVoltar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,10 +316,11 @@ public class JanelaEntrada extends javax.swing.JFrame {
         ENTRADA_CONTROL.inserirEntradaAction();
     }//GEN-LAST:event_btGravarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         this.setVisible(false);
+        lblValorTotalCarro.setText(null);
         Principal.JanelaPrincipal();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btVoltarActionPerformed
 
     private void tfPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPlacaKeyReleased
         ULTIMA_ENTRADA_CONTROL = new UltimaEntradaControl();
@@ -357,13 +371,14 @@ public class JanelaEntrada extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static final javax.swing.JButton btGravar = new javax.swing.JButton();
+    private javax.swing.JButton btVoltar;
     public static final javax.swing.JComboBox<String> cbTipoCliente = new javax.swing.JComboBox<>();
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -377,6 +392,7 @@ public class JanelaEntrada extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     public static final javax.swing.JLabel lblDataUltimaEntrada = new javax.swing.JLabel();
     public static final javax.swing.JLabel lblHoraUltimaEntrada = new javax.swing.JLabel();
+    public static final javax.swing.JLabel lblValorTotalCarro = new javax.swing.JLabel();
     public static final javax.swing.JTextField tfCondutor = new javax.swing.JTextField();
     public static final javax.swing.JTextField tfCor = new javax.swing.JTextField();
     public static final javax.swing.JFormattedTextField tfData = new javax.swing.JFormattedTextField();

@@ -81,4 +81,9 @@ public class Entrada {
         this.ultimaEntrada = ultimaEntrada;
     }
 
+    @Override
+    public String toString() {
+        return "Entrada{" + "id=" + id + ", carro=" + carro + ", condutor=" + condutor + ", tipoCliente=" + tipoCliente + ", dataEntrada=" + dataEntrada + ", dataSaida=" + dataSaida + ", valorTotal=" + valorTotal + ", ultimaEntrada=" + ultimaEntrada + '}';
+    }
+
 }

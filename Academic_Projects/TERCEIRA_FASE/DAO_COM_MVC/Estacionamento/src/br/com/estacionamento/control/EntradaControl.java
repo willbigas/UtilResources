@@ -12,7 +12,6 @@ import br.com.estacionamento.util.UtilFormat;
 import br.com.estacionamento.util.Validacao;
 import br.com.estacionamento.view.JanelaEntrada;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  *
@@ -81,8 +80,7 @@ public class EntradaControl {
             // Criando Objeto Calendar com Base na Data e Hora do Usuario
             Calendar calendar = criandoCalendarDoUsuario(campos);
             e.setDataEntrada(calendar.getTime());
-
-            persistindoNovaUltimaEntrada(e);
+            e = persistindoNovaUltimaEntrada(e);
 
             // Cadastrando Entrada no BD
             if (ENTRADA_DAO.cadastrar(e) > 0) {
@@ -97,33 +95,34 @@ public class EntradaControl {
         }
     }
 
-    private void persistindoNovaUltimaEntrada(Entrada e) {
+    private Entrada persistindoNovaUltimaEntrada(Entrada e) {
         // Verificando se ja Existe uma Ultima Entrada no BD e Excluindo
-        List<Entrada> entradasRecebidas
-                = ULTIMA_ENTRADA_DAO.pesquisar(JanelaEntrada.tfPlaca.getText());
-        if (entradasRecebidas != null) {
-            for (Entrada entradasRecebida : entradasRecebidas) {
-                ULTIMA_ENTRADA_DAO.alterar(entradasRecebida);
-            }
+        Entrada entradaDoBanco = ULTIMA_ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
+        if (entradaDoBanco != null) {
+            e.setId(entradaDoBanco.getId());
+            ULTIMA_ENTRADA_DAO.alterar(e);
+            return e;
+
             /**
              * Recebendo nova UltimaEntrada do BD , Atribuindo a Entidade e
              * persistindo na tabela Principal
              */
+        } else {
             int idNovaultimaEntrada = ULTIMA_ENTRADA_DAO.cadastrar(e);
             e.setId(idNovaultimaEntrada);
             e.setUltimaEntrada(e);
-
+            return e;
         }
     }
 
     private boolean validandoCamposVazios() {
         if (Validacao.isEmpty(JanelaEntrada.tfPlaca)
-                || Validacao.isEmpty(JanelaEntrada.tfCor)
-                || Validacao.isEmpty(JanelaEntrada.tfCondutor)
-                || Validacao.isEmpty(JanelaEntrada.tfMarca)
-                || Validacao.isEmpty(JanelaEntrada.tfModelo)
-                || Validacao.isEmpty(JanelaEntrada.tfData)
-                || Validacao.isEmpty(JanelaEntrada.tfHora)) {
+                && Validacao.isEmpty(JanelaEntrada.tfCor)
+                && Validacao.isEmpty(JanelaEntrada.tfCondutor)
+                && Validacao.isEmpty(JanelaEntrada.tfMarca)
+                && Validacao.isEmpty(JanelaEntrada.tfModelo)
+                && Validacao.isEmpty(JanelaEntrada.tfData)
+                && Validacao.isEmpty(JanelaEntrada.tfHora)) {
             Swing.msg(Mensagem.CAMPO_VAZIO);
             return true;
         }
@@ -158,7 +157,7 @@ public class EntradaControl {
         String campos[] = hora.split(":");
         Calendar calendar = criandoCalendarDoUsuario(campos);
         e.setDataEntrada(calendar.getTime());
-        persistindoNovaUltimaEntrada(e);
+        e = persistindoNovaUltimaEntrada(e);
         if (ENTRADA_DAO.alterar(e)) {
             limpandoCampos();
             Swing.msg(Mensagem.ATUALIZADA_SUCESSO);

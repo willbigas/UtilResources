@@ -101,7 +101,7 @@ public class UltimaEntradaDao extends Dao implements DaoI<Entrada> {
             PreparedStatement stmt = conexao.prepareStatement("UPDATE ultimaEntrada "
                     + "SET DATAENTRADA = ? , DATASAIDA = ? , VALORTOTAL = ? , "
                     + "FK_CARRO = ? , FK_CONDUTOR = ? , FK_TIPOCLIENTE = ? WHERE ID  =?");
-            stmt.setDate(1, new Date(obj.getDataEntrada().getTime()));
+            stmt.setTimestamp(1, new Timestamp(obj.getDataEntrada().getTime()));
             if (obj.getDataSaida() == null) { // se for nulo
                 stmt.setNull(2, Types.DATE);
             } else {
@@ -211,6 +211,17 @@ public class UltimaEntradaDao extends Dao implements DaoI<Entrada> {
             System.out.println(ex.getMessage());
             return null;
         }
+    }
+
+    public Entrada pesquisarPorPlaca(String placa) {
+        List<Entrada> entradas = listar();
+        for (Entrada entrada : entradas) {
+            if (entrada.getCarro().getPlaca().toLowerCase().equals(placa.toLowerCase())) {
+                return entrada;
+            }
+        }
+
+        return null;
     }
 
 }

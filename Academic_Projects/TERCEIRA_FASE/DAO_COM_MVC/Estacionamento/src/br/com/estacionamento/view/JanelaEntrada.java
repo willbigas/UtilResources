@@ -306,7 +306,7 @@ public class JanelaEntrada extends javax.swing.JFrame {
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         // TODO add your handling code here:
         ENTRADA_CONTROL = new EntradaControl();
-        ENTRADA_CONTROL.inserindoEntradaAction();
+        ENTRADA_CONTROL.inserirEntradaAction();
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

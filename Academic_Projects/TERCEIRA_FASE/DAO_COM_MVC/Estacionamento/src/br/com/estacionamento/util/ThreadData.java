@@ -11,15 +11,15 @@ import javax.swing.SwingUtilities;
 
 /**
  * Para invocar este Metodo - deve se usar
- * <b>JFrameData dataAtual = new JFrameData();</b>
+ * <b>ThreadData dataAtual = new ThreadData();</b>
  *
  * @author William Bigas Mauro
  */
-public class JFrameData extends JFrame {
+public class ThreadData extends JFrame {
 
     private JLabel label;
 
-    public JFrameData() {
+    public ThreadData() {
         setSize(200, 100);
         setTitle("Hora");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,7 +37,7 @@ public class JFrameData extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new JFrameData().setVisible(true);
+                new ThreadData().setVisible(true);
             }
         });
     }

@@ -11,15 +11,15 @@ import javax.swing.SwingUtilities;
 
 /**
  * Para invocar este Metodo - deve se usar
- * <b>JFrameHora horaAtual = new JFrameHora();</b>
+ * <b>ThreadHora horaAtual = new ThreadHora();</b>
  *
  * @author William Bigas Mauro
  */
-public class JFrameHora extends JFrame {
+public class ThreadHora extends JFrame {
 
     private JLabel label;
 
-    public JFrameHora() {
+    public ThreadHora() {
         setSize(200, 100);
         setTitle("Hora");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,7 +37,7 @@ public class JFrameHora extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new JFrameHora().setVisible(true);
+                new ThreadHora().setVisible(true);
             }
         });
     }

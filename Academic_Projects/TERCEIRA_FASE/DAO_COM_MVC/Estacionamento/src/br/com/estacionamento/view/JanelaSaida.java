@@ -2,8 +2,8 @@ package br.com.estacionamento.view;
 
 import br.com.estacionamento.control.SaidaControl;
 import br.com.estacionamento.principal.Principal;
-import br.com.estacionamento.util.JFrameData;
-import br.com.estacionamento.util.JFrameHora;
+import br.com.estacionamento.util.ThreadData;
+import br.com.estacionamento.util.ThreadHora;
 
 /**
  *
@@ -20,8 +20,8 @@ public class JanelaSaida extends javax.swing.JFrame {
         initComponents();
         SAIDA_CONTROL = new SaidaControl();
         SAIDA_CONTROL.listandoEntradasAction();
-        JFrameHora horaAtual = new JFrameHora();
-        JFrameData dataAtual = new JFrameData();
+        ThreadHora horaAtual = new ThreadHora();
+        ThreadData dataAtual = new ThreadData();
 
     }
 

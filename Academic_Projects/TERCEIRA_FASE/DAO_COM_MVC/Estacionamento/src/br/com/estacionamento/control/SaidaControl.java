@@ -68,7 +68,7 @@ public class SaidaControl {
 
     public void calculaPrecoAction() {
         Entrada e = getEntradaSelecionada();
-        calculandoPrecoDoEstacionamento(e);
+        calculaPrecoEntrada(e);
     }
 
     private Entrada getEntradaSelecionada() {
@@ -79,59 +79,72 @@ public class SaidaControl {
         return null;
     }
 
-    private void calculandoPrecoDoEstacionamento(Entrada e) {
+    private void calculaPrecoEntrada(Entrada e) {
 
         if (e == null) {
-
             Swing.msg(Mensagem.PRODUTO_NAO_SELECIONADO);
             return;
         } else {
             String horaDoPainel = JanelaSaida.tfHoraSaida.getText();
-            System.out.println("Hora pegada do Usuario : " + horaDoPainel);
             String campos[] = horaDoPainel.split(":");
 
-            DateTime dataFinal = new DateTime(UtilFormat.data(JanelaSaida.tfDataSaida.getText()));
-            dataFinal = dataFinal.hourOfDay().setCopy(campos[0]);
-            dataFinal = dataFinal.minuteOfHour().setCopy(campos[1]);
-            dataFinal = dataFinal.secondOfMinute().setCopy(campos[2]);
-
+            /**
+             * Transformo As Datas do Banco e do Usuario em Date Time usando API
+             * - JODA TIME para Calcular intevalo entre datas.
+             */
+            DateTime dataFinal = pegaDataFinalUsuario(campos);
             DateTime dataInicio = new DateTime(e.getDataEntrada());
 
             if (dataFinal.isBefore(dataInicio)) {
                 Swing.msg(Mensagem.SAIDA_ANTERIOR_ENTRADA);
             } else {
-                System.out.println("Data Inicial: " + dataInicio);
-                System.out.println("Data Final: " + dataFinal);
+                // Pegando Horas e Minutos entre As Datas;
                 Hours h = Hours.hoursBetween(dataInicio, dataFinal);
-                System.out.println("Horas Entre as Datas :" + h.getHours());
                 Minutes m = Minutes.minutesBetween(dataInicio, dataFinal);
-                System.out.println("Minutos Entre as Datas :" + m.getMinutes());
                 int minutos = m.getMinutes() % 60;
-
                 Integer minutosInt = minutos;
 
-                if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 1) {
-                    valorTotal = 2;
-                }
-                if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 2) {
-                    valorTotal = 4;
-                }
-                if (minutosInt <= 6) {
-                    valorTotal = 0;
-                }
+                // Valido pelo Tipo de Cliente
+                validandoPeloTipoCliente(minutosInt, e);
+
                 Integer precoServidor = 2;
                 Integer precoPublico = 4;
-                if (e.getTipoCliente().getIdTipo() == 1) {
-                    valorTotal += h.getHours() * precoServidor;
-                }
-                if (e.getTipoCliente().getIdTipo() == 2) {
-                    valorTotal += h.getHours() * precoPublico;
-                }
+
+                somandoValorTotal(e, h, precoServidor, precoPublico);
                 JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));
             }
 
         }
 
+    }
+
+    public void somandoValorTotal(Entrada e, Hours h, Integer precoServidor, Integer precoPublico) {
+        if (e.getTipoCliente().getIdTipo() == 1) {
+            valorTotal += h.getHours() * precoServidor;
+        }
+        if (e.getTipoCliente().getIdTipo() == 2) {
+            valorTotal += h.getHours() * precoPublico;
+        }
+    }
+
+    public void validandoPeloTipoCliente(Integer minutosInt, Entrada e) {
+        if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 1) {
+            valorTotal = 2;
+        }
+        if (minutosInt >= 10 && e.getTipoCliente().getIdTipo() == 2) {
+            valorTotal = 4;
+        }
+        if (minutosInt <= 6) {
+            valorTotal = 0;
+        }
+    }
+
+    public DateTime pegaDataFinalUsuario(String[] campos) {
+        DateTime dataFinal = new DateTime(UtilFormat.data(JanelaSaida.tfDataSaida.getText()));
+        dataFinal = dataFinal.hourOfDay().setCopy(campos[0]);
+        dataFinal = dataFinal.minuteOfHour().setCopy(campos[1]);
+        dataFinal = dataFinal.secondOfMinute().setCopy(campos[2]);
+        return dataFinal;
     }
 
     public void pesquisarAction() {

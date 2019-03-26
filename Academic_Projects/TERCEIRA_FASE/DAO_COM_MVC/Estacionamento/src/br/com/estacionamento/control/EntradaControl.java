@@ -40,26 +40,23 @@ public class EntradaControl {
         TIPO_CLIENTE_CONTROL = new TipoClienteControl();
     }
 
-    public void inserindoEntradaAction() {
-        if (validandoCamposVazios()) {
+    public void inserirEntradaAction() {
+        if (validaCamposVazios()) {
             return;
         } else {
             Entrada entradaDoBanco = ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
-            System.out.println("Entrada : " + entradaDoBanco);
-
             // Editar
             if (entradaDoBanco != null) {
-                System.out.println("Caiu no Editando");
-                editandoEntrada(entradaDoBanco);
+                editarEntrada(entradaDoBanco);
             } else {
-                inserindoNovaEntrada();
+                inserirEntrada();
             }
 
         }
 
     }
 
-    private void inserindoNovaEntrada() {
+    private void inserirEntrada() {
         /**
          * Inserindo as Entidades necessarias para criar uma Entrada e pegando
          * os retornos de IDS do Banco.
@@ -70,15 +67,15 @@ public class EntradaControl {
 
         String hora = JanelaEntrada.tfHora.getText(); // Pegando Hora do Usuario
         String campos[] = hora.split(":"); // Dividindo Campos de Hora pelo ":"
-        Entrada e = criandoEntrada(cInserido, coInserido, tcInserido, campos);
+        Entrada e = criandoEntidadeEntrada(cInserido, coInserido, tcInserido, campos);
 
-        inserindoEntradaNoBanco(e);
+        persistindoEntradaNoBanco(e);
     }
 
-    public void inserindoEntradaNoBanco(Entrada e) {
+    public void persistindoEntradaNoBanco(Entrada e) {
         // Cadastrando Entrada no BD
         if (ENTRADA_DAO.cadastrar(e) > 0) {
-            limpandoCampos();
+            limparCampos();
             Swing.msg(Mensagem.ENTRADA_SUCESSO);
 
         } else {
@@ -86,31 +83,30 @@ public class EntradaControl {
         }
     }
 
-    public Entrada criandoEntrada(Integer cInserido, Integer coInserido, Integer tcInserido, String[] campos) throws NumberFormatException {
+    public Entrada criandoEntidadeEntrada(Integer cInserido, Integer coInserido, Integer tcInserido, String[] campos) throws NumberFormatException {
         Entrada e = new Entrada();
         e.setId(Integer.MAX_VALUE);
         e.setCarro(CARRO_DAO.lerPorId(cInserido));
         e.setCondutor(CONDUTOR_DAO.lerPorId(coInserido));
         e.setTipoCliente(TIPO_CLIENTE_DAO.lerPorId(tcInserido));
         // Criando Objeto Calendar com Base na Data e Hora do Usuario
-        Calendar calendar = criandoCalendar(campos);
+        Calendar calendar = criandoCalendar();
         e.setDataEntrada(calendar.getTime());
-        e = persistindoNovaUltimaEntrada(e);
+        e = criandoUltimaEntrada(e);
         return e;
     }
 
-    private Entrada persistindoNovaUltimaEntrada(Entrada e) {
+    private Entrada criandoUltimaEntrada(Entrada e) {
         // Verificando se ja Existe uma Ultima Entrada no BD e Excluindo
         Entrada entradaDoBanco = ULTIMA_ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
+
+        // Se existir uma ultima entrada , sobrescreve.
         if (entradaDoBanco != null) {
             e.setId(entradaDoBanco.getId());
             ULTIMA_ENTRADA_DAO.alterar(e);
             return e;
 
-            /**
-             * Recebendo nova UltimaEntrada do BD , Atribuindo a Entidade e
-             * persistindo na tabela Principal
-             */
+            // Se não existir cria e aponta pra tabela principal
         } else {
             int idNovaultimaEntrada = ULTIMA_ENTRADA_DAO.cadastrar(e);
             e.setId(idNovaultimaEntrada);
@@ -119,7 +115,12 @@ public class EntradaControl {
         }
     }
 
-    private boolean validandoCamposVazios() {
+    /**
+     * Validando Campos Vazios
+     *
+     * @return
+     */
+    private boolean validaCamposVazios() {
         if (Validacao.isEmpty(JanelaEntrada.tfPlaca)
                 && Validacao.isEmpty(JanelaEntrada.tfCor)
                 && Validacao.isEmpty(JanelaEntrada.tfCondutor)
@@ -133,7 +134,10 @@ public class EntradaControl {
         return false;
     }
 
-    private void limpandoCampos() {
+    /**
+     * Limpa Campos do Painel
+     */
+    private void limparCampos() {
         JanelaEntrada.tfCondutor.setText(null);
         JanelaEntrada.tfCor.setText(null);
         JanelaEntrada.tfData.setText(null);
@@ -143,7 +147,16 @@ public class EntradaControl {
         JanelaEntrada.tfMarca.setText(null);
     }
 
-    private Calendar criandoCalendar(String[] campos) throws NumberFormatException {
+    /**
+     * Pegando Dados do Usuario e transformando um Calendar Com Date e Hour
+     *
+     * @param campos
+     * @return
+     * @throws NumberFormatException
+     */
+    private Calendar criandoCalendar() throws NumberFormatException {
+        String hora = JanelaEntrada.tfHora.getText(); // Pegando Hora do Usuario
+        String campos[] = hora.split(":");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(UtilFormat.data(JanelaEntrada.tfData.getText())); //colocando o objeto Date no Calendar
         calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(campos[0])); // Atribuindo Hora
@@ -152,24 +165,28 @@ public class EntradaControl {
         return calendar;
     }
 
-    private void editandoEntrada(Entrada e) {
-
-        CARRO_CONTROL.atualizarAutomovel(e.getCarro());
-        CONDUTOR_CONTROL.atualizarCondutor(e.getCondutor());
-        TIPO_CLIENTE_CONTROL.atualizarTipoCliente(e.getTipoCliente());
-
-        String hora = JanelaEntrada.tfHora.getText(); // Pegando Hora do Usuario
-        String campos[] = hora.split(":");
-        Calendar calendar = criandoCalendar(campos);
+    private void editarEntrada(Entrada e) {
+        atualizaTabelasDeEntrada(e);
+        Calendar calendar = criandoCalendar();
         e.setDataEntrada(calendar.getTime());
-        e = persistindoNovaUltimaEntrada(e);
+        e = criandoUltimaEntrada(e);
+        alterandoEntradaNoBanco(e);
+
+    }
+
+    public void alterandoEntradaNoBanco(Entrada e) {
         if (ENTRADA_DAO.alterar(e)) {
-            limpandoCampos();
+            limparCampos();
             Swing.msg(Mensagem.ATUALIZADA_SUCESSO);
 
         } else {
             Swing.msg(Mensagem.ATUALIZADA_ERRO);
         }
+    }
 
+    public void atualizaTabelasDeEntrada(Entrada e) {
+        CARRO_CONTROL.atualizarAutomovel(e.getCarro());
+        CONDUTOR_CONTROL.atualizarCondutor(e.getCondutor());
+        TIPO_CLIENTE_CONTROL.atualizarTipoCliente(e.getTipoCliente());
     }
 }

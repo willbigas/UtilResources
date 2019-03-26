@@ -15,6 +15,7 @@ public class TipoClienteControl {
     public int inserirTipoCliente() {
         TipoCliente tc = new TipoCliente(); // pegar da combo
         int result = JanelaEntrada.cbTipoCliente.getSelectedIndex();
+        
         // Pegou o primeiro Item da combo e Armazenou no Banco como TipoServidor
         if (result == 0) {
             tc.setId(Integer.MAX_VALUE);

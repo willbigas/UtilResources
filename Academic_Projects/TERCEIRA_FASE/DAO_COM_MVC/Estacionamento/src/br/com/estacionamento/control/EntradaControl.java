@@ -70,29 +70,33 @@ public class EntradaControl {
 
         String hora = JanelaEntrada.tfHora.getText(); // Pegando Hora do Usuario
         String campos[] = hora.split(":"); // Dividindo Campos de Hora pelo ":"
-        try {
-            Entrada e = new Entrada();
-            e.setId(Integer.MAX_VALUE);
-            e.setCarro(CARRO_DAO.lerPorId(cInserido));
-            e.setCondutor(CONDUTOR_DAO.lerPorId(coInserido));
-            e.setTipoCliente(TIPO_CLIENTE_DAO.lerPorId(tcInserido));
+        Entrada e = criandoEntrada(cInserido, coInserido, tcInserido, campos);
 
-            // Criando Objeto Calendar com Base na Data e Hora do Usuario
-            Calendar calendar = criandoCalendarDoUsuario(campos);
-            e.setDataEntrada(calendar.getTime());
-            e = persistindoNovaUltimaEntrada(e);
+        inserindoEntradaNoBanco(e);
+    }
 
-            // Cadastrando Entrada no BD
-            if (ENTRADA_DAO.cadastrar(e) > 0) {
-                limpandoCampos();
-                Swing.msg(Mensagem.ENTRADA_SUCESSO);
+    public void inserindoEntradaNoBanco(Entrada e) {
+        // Cadastrando Entrada no BD
+        if (ENTRADA_DAO.cadastrar(e) > 0) {
+            limpandoCampos();
+            Swing.msg(Mensagem.ENTRADA_SUCESSO);
 
-            } else {
-                Swing.msg(Mensagem.ENTRADA_ERRO);
-            }
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } else {
+            Swing.msg(Mensagem.ENTRADA_ERRO);
         }
+    }
+
+    public Entrada criandoEntrada(Integer cInserido, Integer coInserido, Integer tcInserido, String[] campos) throws NumberFormatException {
+        Entrada e = new Entrada();
+        e.setId(Integer.MAX_VALUE);
+        e.setCarro(CARRO_DAO.lerPorId(cInserido));
+        e.setCondutor(CONDUTOR_DAO.lerPorId(coInserido));
+        e.setTipoCliente(TIPO_CLIENTE_DAO.lerPorId(tcInserido));
+        // Criando Objeto Calendar com Base na Data e Hora do Usuario
+        Calendar calendar = criandoCalendar(campos);
+        e.setDataEntrada(calendar.getTime());
+        e = persistindoNovaUltimaEntrada(e);
+        return e;
     }
 
     private Entrada persistindoNovaUltimaEntrada(Entrada e) {
@@ -136,9 +140,10 @@ public class EntradaControl {
         JanelaEntrada.tfHora.setText(null);
         JanelaEntrada.tfModelo.setText(null);
         JanelaEntrada.tfPlaca.setText(null);
+        JanelaEntrada.tfMarca.setText(null);
     }
 
-    private Calendar criandoCalendarDoUsuario(String[] campos) throws NumberFormatException {
+    private Calendar criandoCalendar(String[] campos) throws NumberFormatException {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(UtilFormat.data(JanelaEntrada.tfData.getText())); //colocando o objeto Date no Calendar
         calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(campos[0])); // Atribuindo Hora
@@ -155,7 +160,7 @@ public class EntradaControl {
 
         String hora = JanelaEntrada.tfHora.getText(); // Pegando Hora do Usuario
         String campos[] = hora.split(":");
-        Calendar calendar = criandoCalendarDoUsuario(campos);
+        Calendar calendar = criandoCalendar(campos);
         e.setDataEntrada(calendar.getTime());
         e = persistindoNovaUltimaEntrada(e);
         if (ENTRADA_DAO.alterar(e)) {

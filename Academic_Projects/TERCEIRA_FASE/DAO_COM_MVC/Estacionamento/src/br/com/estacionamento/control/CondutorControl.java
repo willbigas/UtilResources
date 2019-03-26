@@ -18,4 +18,9 @@ public class CondutorControl {
         co.setId(Integer.MAX_VALUE);
         return CONDUTOR_DAO.cadastrar(co);
     }
+
+    public Boolean atualizarCondutor(Condutor co) {
+        co.setNome(JanelaEntrada.tfCondutor.getText());
+        return CONDUTOR_DAO.alterar(co);
+    }
 }

@@ -26,4 +26,12 @@ public class CarroControl {
         c.setModelo(JanelaEntrada.tfModelo.getText());
         return CARRO_DAO.cadastrar(c);
     }
+
+    public Boolean atualizarAutomovel(Carro c) {
+        c.setPlaca(JanelaEntrada.tfPlaca.getText());
+        c.setCor(JanelaEntrada.tfCor.getText());
+        c.setMarca(JanelaEntrada.tfMarca.getText());
+        c.setModelo(JanelaEntrada.tfModelo.getText());
+        return CARRO_DAO.alterar(c);
+    }
 }

@@ -83,7 +83,11 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
             stmt.setInt(4, obj.getCarro().getId());
             stmt.setInt(5, obj.getCondutor().getId());
             stmt.setInt(6, obj.getTipoCliente().getId());
-            stmt.setInt(7, obj.getUltimaEntrada().getId());
+             if (obj.getUltimaEntrada().getId() == null) { // se for nulo
+                stmt.setNull(7, Types.INTEGER);
+            } else {
+               stmt.setInt(7, obj.getUltimaEntrada().getId());
+            }
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
@@ -103,14 +107,22 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
         try {
             PreparedStatement stmt = conexao.prepareStatement("UPDATE ENTRADA "
                     + "SET DATAENTRADA = ? , DATASAIDA = ? , VALORTOTAL = ? , "
-                    + "FK_CARRO = ? , FK_CONDUTOR = ? , FK_TIPOCLIENTE = ? , FK_ULTIMAENTRADA WHERE ID  =?");
-            stmt.setDate(1, new Date(obj.getDataEntrada().getTime()));
-            stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
+                    + "FK_CARRO = ? , FK_CONDUTOR = ? , FK_TIPOCLIENTE = ? , FK_ULTIMAENTRADA = ? WHERE ID  =?");
+            stmt.setTimestamp(1, new Timestamp(obj.getDataEntrada().getTime()));
+            if (obj.getDataSaida() == null) { // se for nulo
+                stmt.setNull(2, Types.DATE);
+            } else {
+                stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
+            }
             stmt.setDouble(3, obj.getValorTotal());
             stmt.setInt(4, obj.getCarro().getId());
             stmt.setInt(5, obj.getCondutor().getId());
             stmt.setInt(6, obj.getTipoCliente().getId());
-            stmt.setInt(7, obj.getUltimaEntrada().getId());
+            if (obj.getUltimaEntrada().getId() == null) { // se for nulo
+                stmt.setNull(7, Types.INTEGER);
+            } else {
+               stmt.setInt(7, obj.getUltimaEntrada().getId());
+            }
             stmt.setInt(8, obj.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {

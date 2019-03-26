@@ -102,7 +102,11 @@ public class UltimaEntradaDao extends Dao implements DaoI<Entrada> {
                     + "SET DATAENTRADA = ? , DATASAIDA = ? , VALORTOTAL = ? , "
                     + "FK_CARRO = ? , FK_CONDUTOR = ? , FK_TIPOCLIENTE = ? WHERE ID  =?");
             stmt.setDate(1, new Date(obj.getDataEntrada().getTime()));
-            stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
+            if (obj.getDataSaida() == null) { // se for nulo
+                stmt.setNull(2, Types.DATE);
+            } else {
+                stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
+            }
             stmt.setDouble(3, obj.getValorTotal());
             stmt.setInt(4, obj.getCarro().getId());
             stmt.setInt(5, obj.getCondutor().getId());
@@ -160,8 +164,8 @@ public class UltimaEntradaDao extends Dao implements DaoI<Entrada> {
     @Override
     public List<Entrada> pesquisar(String termo) {
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM ultimaEntrada inner join carro WHERE carro.placa LIKE'%"+termo+"%'");
-          
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM ultimaEntrada inner join carro WHERE carro.placa LIKE'%" + termo + "%'");
+
             ResultSet res = stmt.executeQuery();
             List<Entrada> lista = new ArrayList<>();
             while (res.next()) {

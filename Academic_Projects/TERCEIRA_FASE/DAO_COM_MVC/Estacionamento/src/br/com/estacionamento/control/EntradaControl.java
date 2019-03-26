@@ -44,14 +44,23 @@ public class EntradaControl {
     public void inserindoEntradaAction() {
         if (validandoCamposVazios()) {
             return;
+        } else {
+            Entrada entradaDoBanco = ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
+            System.out.println("Entrada : " + entradaDoBanco);
+
+            // Editar
+            if (entradaDoBanco != null) {
+                System.out.println("Caiu no Editando");
+                editandoEntrada(entradaDoBanco);
+            } else {
+                inserindoNovaEntrada();
+            }
+
         }
 
-        Entrada entradaDoBanco = ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
-        System.out.println("Entrada : " + entradaDoBanco);
-        if (entradaDoBanco.getCarro().getPlaca() != null) {
-            System.out.println("Caiu no Editando");
-        }
+    }
 
+    private void inserindoNovaEntrada() {
         /**
          * Inserindo as Entidades necessarias para criar uma Entrada e pegando
          * os retornos de IDS do Banco.
@@ -73,22 +82,7 @@ public class EntradaControl {
             Calendar calendar = criandoCalendarDoUsuario(campos);
             e.setDataEntrada(calendar.getTime());
 
-            // Verificando se ja Existe uma Ultima Entrada no BD e Excluindo
-            List<Entrada> entradasRecebidas
-                    = ULTIMA_ENTRADA_DAO.pesquisar(JanelaEntrada.tfPlaca.getText());
-            if (entradasRecebidas != null) {
-                for (Entrada entradasRecebida : entradasRecebidas) {
-                    ULTIMA_ENTRADA_DAO.deletarPorId(entradasRecebida.getId());
-                }
-                /**
-                 * Recebendo nova UltimaEntrada do BD , Atribuindo a Entidade e
-                 * persistindo na tabela Principal
-                 */
-                int idNovaultimaEntrada = ULTIMA_ENTRADA_DAO.cadastrar(e);
-                e.setId(idNovaultimaEntrada);
-                e.setUltimaEntrada(e);
-
-            }
+            persistindoNovaUltimaEntrada(e);
 
             // Cadastrando Entrada no BD
             if (ENTRADA_DAO.cadastrar(e) > 0) {
@@ -100,6 +94,25 @@ public class EntradaControl {
             }
         } catch (Exception exception) {
             exception.printStackTrace();
+        }
+    }
+
+    private void persistindoNovaUltimaEntrada(Entrada e) {
+        // Verificando se ja Existe uma Ultima Entrada no BD e Excluindo
+        List<Entrada> entradasRecebidas
+                = ULTIMA_ENTRADA_DAO.pesquisar(JanelaEntrada.tfPlaca.getText());
+        if (entradasRecebidas != null) {
+            for (Entrada entradasRecebida : entradasRecebidas) {
+                ULTIMA_ENTRADA_DAO.alterar(entradasRecebida);
+            }
+            /**
+             * Recebendo nova UltimaEntrada do BD , Atribuindo a Entidade e
+             * persistindo na tabela Principal
+             */
+            int idNovaultimaEntrada = ULTIMA_ENTRADA_DAO.cadastrar(e);
+            e.setId(idNovaultimaEntrada);
+            e.setUltimaEntrada(e);
+
         }
     }
 
@@ -133,5 +146,26 @@ public class EntradaControl {
         calendar.set(Calendar.MINUTE, Integer.valueOf(campos[1])); // Atribuindo Minuto
         calendar.set(Calendar.SECOND, 0); // Atribuindo Segundo
         return calendar;
+    }
+
+    private void editandoEntrada(Entrada e) {
+
+        CARRO_CONTROL.atualizarAutomovel(e.getCarro());
+        CONDUTOR_CONTROL.atualizarCondutor(e.getCondutor());
+        TIPO_CLIENTE_CONTROL.atualizarTipoCliente(e.getTipoCliente());
+
+        String hora = JanelaEntrada.tfHora.getText(); // Pegando Hora do Usuario
+        String campos[] = hora.split(":");
+        Calendar calendar = criandoCalendarDoUsuario(campos);
+        e.setDataEntrada(calendar.getTime());
+        persistindoNovaUltimaEntrada(e);
+        if (ENTRADA_DAO.alterar(e)) {
+            limpandoCampos();
+            Swing.msg(Mensagem.ATUALIZADA_SUCESSO);
+
+        } else {
+            Swing.msg(Mensagem.ATUALIZADA_ERRO);
+        }
+
     }
 }

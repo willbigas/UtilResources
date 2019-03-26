@@ -13,6 +13,10 @@ public class Mensagem {
     public static final String SAIDA_ERRO = "Erro ao Gravar a Saida";
 
     public static final String ENTRADA_SUCESSO = "Entrada gravada com sucesso";
+    
+    public static final String ATUALIZADA_SUCESSO = "Entrada Atualizada com Sucesso";
+    
+    public static final String ATUALIZADA_ERRO = "Erro ao atualizar Entrada";
 
     public static final String ENTRADA_ERRO = "Erro ao gravar Entrada";
 

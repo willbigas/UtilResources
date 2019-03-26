@@ -6,6 +6,7 @@ import br.com.estacionamento.model.Entrada;
 import br.com.estacionamento.util.Mensagem;
 import br.com.estacionamento.util.Swing;
 import br.com.estacionamento.util.UtilFormat;
+import br.com.estacionamento.util.Validacao;
 import br.com.estacionamento.view.JanelaSaida;
 import java.util.ArrayList;
 import java.util.Date;
@@ -81,7 +82,7 @@ public class SaidaControl {
 
     private void calculaPrecoEntrada(Entrada e) {
 
-        if (e == null) {
+        if (Validacao.isNull(e)) {
             Swing.msg(Mensagem.PRODUTO_NAO_SELECIONADO);
             return;
         } else {
@@ -111,7 +112,7 @@ public class SaidaControl {
                 Integer precoPublico = 4;
 
                 somandoValorTotal(e, h, precoServidor, precoPublico);
-                JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));
+                
             }
 
         }
@@ -125,6 +126,7 @@ public class SaidaControl {
         if (e.getTipoCliente().getIdTipo() == 2) {
             valorTotal += h.getHours() * precoPublico;
         }
+        JanelaSaida.lblValorTotal.setText(UtilFormat.decimalFormatR$(valorTotal));
     }
 
     public void validandoPeloTipoCliente(Integer minutosInt, Entrada e) {

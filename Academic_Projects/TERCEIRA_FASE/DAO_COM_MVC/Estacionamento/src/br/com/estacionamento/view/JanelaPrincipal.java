@@ -64,13 +64,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntradaActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         Principal.JanelaEntrada();
     }//GEN-LAST:event_btEntradaActionPerformed
 
     private void btSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaidaActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         Principal.JanelaSaida();
     }//GEN-LAST:event_btSaidaActionPerformed

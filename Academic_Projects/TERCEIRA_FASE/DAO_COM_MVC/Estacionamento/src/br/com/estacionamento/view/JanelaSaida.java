@@ -295,26 +295,22 @@ public class JanelaSaida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCalcularPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcularPrecoActionPerformed
-        // TODO add your handling code here:
         SAIDA_CONTROL.calculaPrecoAction();
     }//GEN-LAST:event_btCalcularPrecoActionPerformed
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        // TODO add your handling code here:
         SAIDA_CONTROL.pesquisarAction();
 
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btCalcularTrocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcularTrocoActionPerformed
-        // TODO add your handling code here:
         SAIDA_CONTROL.calcularTrocoAction();
     }//GEN-LAST:event_btCalcularTrocoActionPerformed
 
     private void btFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarActionPerformed
-        // TODO add your handling code here:
         SAIDA_CONTROL.finalizaSaidaAction();
         SAIDA_CONTROL.listandoEntradasAction();
-      
+
 
     }//GEN-LAST:event_btFinalizarActionPerformed
 

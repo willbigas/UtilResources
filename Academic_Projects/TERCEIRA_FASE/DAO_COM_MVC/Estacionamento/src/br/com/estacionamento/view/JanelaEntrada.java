@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.estacionamento.view;
 
 import br.com.estacionamento.control.EntradaControl;
@@ -304,23 +299,18 @@ public class JanelaEntrada extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
-        // TODO add your handling code here:
         ENTRADA_CONTROL = new EntradaControl();
         ENTRADA_CONTROL.inserirEntradaAction();
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         Principal.JanelaPrincipal();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tfPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPlacaKeyReleased
-        // TODO add your handling code here:
         ULTIMA_ENTRADA_CONTROL = new UltimaEntradaControl();
         ULTIMA_ENTRADA_CONTROL.pesquisarAction();
-        
-        System.out.println(ULTIMA_ENTRADA_CONTROL);
         
         
     }//GEN-LAST:event_tfPlacaKeyReleased

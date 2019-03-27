@@ -7,10 +7,11 @@ import br.com.estacionamento.dao.EntradaDao;
 import br.com.estacionamento.dao.TipoClienteDao;
 import br.com.estacionamento.dao.UltimaEntradaDao;
 import br.com.estacionamento.model.Entrada;
-import br.com.estacionamento.util.Mensagem;
-import br.com.estacionamento.util.Swing;
+import br.com.estacionamento.util.Label;
+import br.com.estacionamento.util.Text;
+import br.com.estacionamento.util.OptionPane;
 import br.com.estacionamento.util.UtilFormat;
-import br.com.estacionamento.control.validator.TextField;
+import br.com.estacionamento.util.TextField;
 import br.com.estacionamento.view.JanelaEntrada;
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +35,6 @@ public class EntradaControl {
     CarroControl CARRO_CONTROL;
     CondutorControl CONDUTOR_CONTROL;
     TipoClienteControl TIPO_CLIENTE_CONTROL;
-    
 
     /**
      * Construindo os Controls Necessarios
@@ -51,7 +51,7 @@ public class EntradaControl {
         } else {
             Entrada entradaDoBanco = ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
             // Editar
-            if (EntradaValidator.isNull(entradaDoBanco)) {
+            if (!EntradaValidator.isNull(entradaDoBanco)) {
                 editarEntrada(entradaDoBanco);
             } else {
                 inserirEntrada();
@@ -81,10 +81,10 @@ public class EntradaControl {
         // Cadastrando Entrada no BD
         if (ENTRADA_DAO.cadastrar(e) > 0) {
             limparCampos();
-            Swing.msg(Mensagem.ENTRADA_SUCESSO);
+            OptionPane.msg(Text.ENTRADA_SUCESSO);
 
         } else {
-            Swing.msg(Mensagem.ENTRADA_ERRO);
+            OptionPane.msg(Text.ENTRADA_ERRO);
         }
     }
 
@@ -133,7 +133,7 @@ public class EntradaControl {
                 && TextField.isEmpty(JanelaEntrada.tfModelo)
                 && TextField.isEmpty(JanelaEntrada.tfData)
                 && TextField.isEmpty(JanelaEntrada.tfHora)) {
-            Swing.msg(Mensagem.CAMPO_VAZIO);
+            OptionPane.msg(Text.CAMPO_VAZIO);
             return true;
         }
         return false;
@@ -150,6 +150,8 @@ public class EntradaControl {
         TextField.clearTf(JanelaEntrada.tfModelo);
         TextField.clearTf(JanelaEntrada.tfPlaca);
         TextField.clearTf(JanelaEntrada.tfMarca);
+        Label.clearLbl(JanelaEntrada.lblDataUltimaEntrada);
+        Label.clearLbl(JanelaEntrada.lblHoraUltimaEntrada);
     }
 
     /**
@@ -183,10 +185,10 @@ public class EntradaControl {
     public void alterandoEntradaNoBanco(Entrada e) {
         if (ENTRADA_DAO.alterar(e)) {
             limparCampos();
-            Swing.msg(Mensagem.ATUALIZADA_SUCESSO);
+            OptionPane.msg(Text.ATUALIZADA_SUCESSO);
 
         } else {
-            Swing.msg(Mensagem.ATUALIZADA_ERRO);
+            OptionPane.msg(Text.ATUALIZADA_ERRO);
         }
     }
 

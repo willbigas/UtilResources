@@ -1,4 +1,4 @@
-package br.com.estacionamento.control.validator;
+package br.com.estacionamento.util;
 
 import javax.swing.JTextField;
 
@@ -29,5 +29,7 @@ public class TextField {
     public static void clearTf(JTextField value) {
         value.setText(null);
     }
+    
+    
 
 }

@@ -4,7 +4,7 @@ package br.com.estacionamento.util;
  *
  * @author William
  */
-public class Mensagem {
+public class Text {
 
     public static final String SAIDA_SUCESSO = "Saída gravada com sucesso";
 

@@ -4,10 +4,10 @@ import br.com.estacionamento.control.validator.EntradaValidator;
 import br.com.estacionamento.dao.EntradaDao;
 import br.com.estacionamento.dao.UltimaEntradaDao;
 import br.com.estacionamento.model.Entrada;
-import br.com.estacionamento.util.Mensagem;
-import br.com.estacionamento.util.Swing;
+import br.com.estacionamento.util.Text;
+import br.com.estacionamento.util.OptionPane;
 import br.com.estacionamento.util.UtilFormat;
-import br.com.estacionamento.control.validator.TextField;
+import br.com.estacionamento.util.TextField;
 import br.com.estacionamento.view.JanelaSaida;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,7 +75,7 @@ public class SaidaControl {
     private void calculaPrecoEntrada(Entrada e) {
 
         if (EntradaValidator.isNull(e)) {
-            Swing.msg(Mensagem.PRODUTO_NAO_SELECIONADO);
+            OptionPane.msg(Text.PRODUTO_NAO_SELECIONADO);
             return;
         } else {
             String horaDoPainel = JanelaSaida.tfHoraSaida.getText();
@@ -89,7 +89,7 @@ public class SaidaControl {
             DateTime dataInicio = new DateTime(e.getDataEntrada());
 
             if (dataFinal.isBefore(dataInicio)) {
-                Swing.msg(Mensagem.SAIDA_ANTERIOR_ENTRADA);
+                OptionPane.msg(Text.SAIDA_ANTERIOR_ENTRADA);
             } else {
                 // Pegando Horas e Minutos entre As Datas;
                 Hours h = Hours.hoursBetween(dataInicio, dataFinal);
@@ -170,7 +170,7 @@ public class SaidaControl {
 
     public void calcularTrocoAction() {
         if (TextField.isEmpty(JanelaSaida.tfCampoTroco)) {
-            Swing.msg(Mensagem.NENHUM_VALOR_TOTAL);
+            OptionPane.msg(Text.NENHUM_VALOR_TOTAL);
             return;
         } else {
             Double valorRecebido = Double.valueOf(JanelaSaida.tfCampoTroco.getText());
@@ -185,15 +185,15 @@ public class SaidaControl {
         Integer valorRecebido = Integer.valueOf(JanelaSaida.tfCampoTroco.getText());
 
         if (valorRecebido < valorTotal) {
-            Swing.msg(Mensagem.VALOR_TOTAL_MAIOR);
+            OptionPane.msg(Text.VALOR_TOTAL_MAIOR);
             return;
         } else {
             e.setDataSaida(new Date(System.currentTimeMillis()));
             e.setValorTotal(Double.valueOf(valorTotal));
             if (ENTRADA_DAO.alterar(e)) {
-                Swing.msg(Mensagem.SAIDA_SUCESSO);
+                OptionPane.msg(Text.SAIDA_SUCESSO);
             } else {
-                Swing.msg(Mensagem.SAIDA_ERRO);
+                OptionPane.msg(Text.SAIDA_ERRO);
             }
         }
 
@@ -203,15 +203,15 @@ public class SaidaControl {
         //Resgatar indice da linha selecionada
         Entrada e = getEntradaSelecionada();
         if (EntradaValidator.isNull(e)) {
-            Swing.msg(Mensagem.PRODUTO_NAO_SELECIONADO);
+            OptionPane.msg(Text.PRODUTO_NAO_SELECIONADO);
             return;
         }
-        if (Swing.confirm(Mensagem.ACAO_IRREVERSIVEL + e.getCarro().getPlaca() + "?") == JOptionPane.YES_OPTION) {
+        if (OptionPane.confirm(Text.ACAO_IRREVERSIVEL + e.getCarro().getPlaca() + "?") == JOptionPane.YES_OPTION) {
             if (ENTRADA_DAO.deletarPorId(e.getId())) {
-                Swing.msg(Mensagem.SUCESSO_EXCLUIR);
+                OptionPane.msg(Text.SUCESSO_EXCLUIR);
                 listandoEntradasAction();
             } else {
-                Swing.msg(Mensagem.ERRO_EXCLUIR);
+                OptionPane.msg(Text.ERRO_EXCLUIR);
             }
         }
     }

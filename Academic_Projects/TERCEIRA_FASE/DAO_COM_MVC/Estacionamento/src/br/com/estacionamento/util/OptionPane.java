@@ -6,10 +6,10 @@ import javax.swing.JOptionPane;
  *
  * @author William
  */
-public class Swing {
+public class OptionPane {
 
     /**
-     * Executa um ShowMessage no Swing
+     * Executa um ShowMessage no OptionPane
      * @param texto Recebe como parametro uma String texto;
      */
     public static void msg(String texto) {
@@ -17,7 +17,7 @@ public class Swing {
     }
     
     /**
-     * Executa uma Janela de Confirmação no Swing
+     * Executa uma Janela de Confirmação no OptionPane
      * @param pergunta Recebe como Parametro uma Pergunta
      * @return Retorna Opção Selecionada
      */

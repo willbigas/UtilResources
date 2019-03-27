@@ -40,8 +40,7 @@ public class UtilFormat {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return df.format(data);
     }
-    
-    
+
     /**
      * Convertendo String para Data no Formato HH:mm:ss
      *
@@ -68,8 +67,6 @@ public class UtilFormat {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         return df.format(data);
     }
-    
-    
 
     /**
      * Formatando um Double em Moeda - "R$ 1,110.00"
@@ -166,5 +163,31 @@ public class UtilFormat {
         sdf.applyPattern("HH:mm:ss");
         return sdf.format(numero);
     }
+
+    /**
+     * Metodo que verifica se uma String é uma Data com Verificavação de Datas
+     * validas usando @SetLenient
+     *
+     * @param data
+     * @return Retorna True se a Data for Valida
+     */
+    public static boolean isDate(String data) {
+        try {
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            
+            /**
+             * O setLenient() é usado para setar sua escolha sobre datas
+             * estranhas, quando eu seto para "false" estou dizendo que não
+             * aceito datas falsas como 31/02/2016
+             */
+            sdf.setLenient(false);
+            sdf.parse(data);
+            return true;
+        } catch (ParseException ex) {
+            return false;
+        }
+    }
     
+
 }

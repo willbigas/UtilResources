@@ -1,12 +1,13 @@
 package br.com.estacionamento.control;
 
+import br.com.estacionamento.control.validator.EntradaValidator;
 import br.com.estacionamento.dao.EntradaDao;
 import br.com.estacionamento.dao.UltimaEntradaDao;
 import br.com.estacionamento.model.Entrada;
 import br.com.estacionamento.util.Mensagem;
 import br.com.estacionamento.util.Swing;
 import br.com.estacionamento.util.UtilFormat;
-import br.com.estacionamento.util.Validacao;
+import br.com.estacionamento.control.validator.TextField;
 import br.com.estacionamento.view.JanelaSaida;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,7 +74,7 @@ public class SaidaControl {
 
     private void calculaPrecoEntrada(Entrada e) {
 
-        if (Validacao.isNull(e)) {
+        if (EntradaValidator.isNull(e)) {
             Swing.msg(Mensagem.PRODUTO_NAO_SELECIONADO);
             return;
         } else {
@@ -168,7 +169,7 @@ public class SaidaControl {
     }
 
     public void calcularTrocoAction() {
-        if (JanelaSaida.tfCampoTroco.getText().isEmpty()) {
+        if (TextField.isEmpty(JanelaSaida.tfCampoTroco)) {
             Swing.msg(Mensagem.NENHUM_VALOR_TOTAL);
             return;
         } else {
@@ -201,7 +202,7 @@ public class SaidaControl {
     public void excluirAction() {
         //Resgatar indice da linha selecionada
         Entrada e = getEntradaSelecionada();
-        if (e == null) {
+        if (EntradaValidator.isNull(e)) {
             Swing.msg(Mensagem.PRODUTO_NAO_SELECIONADO);
             return;
         }

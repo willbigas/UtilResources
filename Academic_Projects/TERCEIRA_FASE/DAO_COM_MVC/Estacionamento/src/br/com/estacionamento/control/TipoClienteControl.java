@@ -12,31 +12,38 @@ public class TipoClienteControl {
 
     TipoClienteDao TIPO_CLIENTE_DAO = new TipoClienteDao();
 
+    /**
+     * Cria um Tipo de cliente baseado no opcao selecionada da JcomboBox 0 =
+     * Tipo 1 (TipoServidor) 1 = Tipo 2 (TipoCliente)
+     *
+     * @return Retorna o ID do Cadastro
+     */
     public int inserirTipoCliente() {
-        TipoCliente tc = new TipoCliente(); // pegar da combo
+        TipoCliente tc = new TipoCliente(); 
         int result = JanelaEntrada.cbTipoCliente.getSelectedIndex();
-        
-        // Pegou o primeiro Item da combo e Armazenou no Banco como TipoServidor
+        tc.setId(Integer.MAX_VALUE);
         if (result == 0) {
-            tc.setId(Integer.MAX_VALUE);
             tc.setIdTipo(1);
         }
-        // Pegou o segundo Item da combo e Armazenou no Banco como TipoCliente
         if (result == 1) {
-            tc.setId(Integer.MAX_VALUE);
             tc.setIdTipo(2);
         }
         int id = TIPO_CLIENTE_DAO.cadastrar(tc);
         return id;
     }
 
+    /**
+     * Altera um Tipo de cliente baseado no opcao selecionada da JcomboBox 0 =
+     * Tipo 1 (TipoServidor) 1 = Tipo 2 (TipoCliente)
+     *
+     * @param tc
+     * @return Retorna opcao se foi modificado ou não.
+     */
     public Boolean atualizarTipoCliente(TipoCliente tc) {
         int result = JanelaEntrada.cbTipoCliente.getSelectedIndex();
-        // Pegou o primeiro Item da combo e Armazenou no Banco como TipoServidor
         if (result == 0) {
             tc.setIdTipo(1);
         }
-        // Pegou o segundo Item da combo e Armazenou no Banco como TipoCliente
         if (result == 1) {
             tc.setIdTipo(2);
         }

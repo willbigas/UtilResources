@@ -8,10 +8,20 @@ import javax.swing.JOptionPane;
  */
 public class Swing {
 
+    /**
+     * Executa um ShowMessage no Swing
+     * @param texto Recebe como parametro uma String texto;
+     */
     public static void msg(String texto) {
         JOptionPane.showMessageDialog(null, texto);
     }
-     public static int confirm(String pergunta){
+    
+    /**
+     * Executa uma Janela de Confirmação no Swing
+     * @param pergunta Recebe como Parametro uma Pergunta
+     * @return Retorna Opção Selecionada
+     */
+    public static int confirm(String pergunta){
         return JOptionPane.showConfirmDialog(null, pergunta);
     }
 }

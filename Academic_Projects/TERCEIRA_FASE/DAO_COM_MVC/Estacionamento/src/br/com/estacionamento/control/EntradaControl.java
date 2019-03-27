@@ -1,5 +1,6 @@
 package br.com.estacionamento.control;
 
+import br.com.estacionamento.control.validator.EntradaValidator;
 import br.com.estacionamento.dao.CarroDao;
 import br.com.estacionamento.dao.CondutorDao;
 import br.com.estacionamento.dao.EntradaDao;
@@ -9,7 +10,7 @@ import br.com.estacionamento.model.Entrada;
 import br.com.estacionamento.util.Mensagem;
 import br.com.estacionamento.util.Swing;
 import br.com.estacionamento.util.UtilFormat;
-import br.com.estacionamento.util.Validacao;
+import br.com.estacionamento.control.validator.TextField;
 import br.com.estacionamento.view.JanelaEntrada;
 import java.util.Calendar;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 public class EntradaControl {
 
     public Double VALOR_TOTAL_ENTRADAS = 0.0;
-    
+
     // INTANCIAS DE INTERFACES DAOS // 
     CarroDao CARRO_DAO = new CarroDao();
     CondutorDao CONDUTOR_DAO = new CondutorDao();
@@ -33,6 +34,7 @@ public class EntradaControl {
     CarroControl CARRO_CONTROL;
     CondutorControl CONDUTOR_CONTROL;
     TipoClienteControl TIPO_CLIENTE_CONTROL;
+    
 
     /**
      * Construindo os Controls Necessarios
@@ -49,7 +51,7 @@ public class EntradaControl {
         } else {
             Entrada entradaDoBanco = ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
             // Editar
-            if (entradaDoBanco != null) {
+            if (EntradaValidator.isNull(entradaDoBanco)) {
                 editarEntrada(entradaDoBanco);
             } else {
                 inserirEntrada();
@@ -104,7 +106,7 @@ public class EntradaControl {
         Entrada entradaDoBanco = ULTIMA_ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
 
         // Se existir uma ultima entrada , sobrescreve.
-        if (entradaDoBanco != null) {
+        if (!EntradaValidator.isNull(entradaDoBanco)) {
             e.setId(entradaDoBanco.getId());
             ULTIMA_ENTRADA_DAO.alterar(e);
             return e;
@@ -124,13 +126,13 @@ public class EntradaControl {
      * @return
      */
     private boolean validaCamposVazios() {
-        if (Validacao.isEmpty(JanelaEntrada.tfPlaca)
-                && Validacao.isEmpty(JanelaEntrada.tfCor)
-                && Validacao.isEmpty(JanelaEntrada.tfCondutor)
-                && Validacao.isEmpty(JanelaEntrada.tfMarca)
-                && Validacao.isEmpty(JanelaEntrada.tfModelo)
-                && Validacao.isEmpty(JanelaEntrada.tfData)
-                && Validacao.isEmpty(JanelaEntrada.tfHora)) {
+        if (TextField.isEmpty(JanelaEntrada.tfPlaca)
+                && TextField.isEmpty(JanelaEntrada.tfCor)
+                && TextField.isEmpty(JanelaEntrada.tfCondutor)
+                && TextField.isEmpty(JanelaEntrada.tfMarca)
+                && TextField.isEmpty(JanelaEntrada.tfModelo)
+                && TextField.isEmpty(JanelaEntrada.tfData)
+                && TextField.isEmpty(JanelaEntrada.tfHora)) {
             Swing.msg(Mensagem.CAMPO_VAZIO);
             return true;
         }
@@ -141,13 +143,13 @@ public class EntradaControl {
      * Limpa Campos do Painel
      */
     private void limparCampos() {
-        JanelaEntrada.tfCondutor.setText(null);
-        JanelaEntrada.tfCor.setText(null);
-        JanelaEntrada.tfData.setText(null);
-        JanelaEntrada.tfHora.setText(null);
-        JanelaEntrada.tfModelo.setText(null);
-        JanelaEntrada.tfPlaca.setText(null);
-        JanelaEntrada.tfMarca.setText(null);
+        TextField.clearTf(JanelaEntrada.tfCondutor);
+        TextField.clearTf(JanelaEntrada.tfCor);
+        TextField.clearTf(JanelaEntrada.tfData);
+        TextField.clearTf(JanelaEntrada.tfHora);
+        TextField.clearTf(JanelaEntrada.tfModelo);
+        TextField.clearTf(JanelaEntrada.tfPlaca);
+        TextField.clearTf(JanelaEntrada.tfMarca);
     }
 
     /**
@@ -193,18 +195,17 @@ public class EntradaControl {
         CONDUTOR_CONTROL.atualizarCondutor(e.getCondutor());
         TIPO_CLIENTE_CONTROL.atualizarTipoCliente(e.getTipoCliente());
     }
-    
-    private void calculandoValorTotalEntrada(){
+
+    private void calculandoValorTotalEntrada() {
         List<Entrada> entradas = ENTRADA_DAO.listar();
         for (Entrada entrada : entradas) {
             VALOR_TOTAL_ENTRADAS += entrada.getValorTotal();
         }
     }
-    
-    public void atualizaLabelValorToTalAction(){
+
+    public void atualizaLabelValorToTalAction() {
         calculandoValorTotalEntrada();
         JanelaEntrada.lblValorTotalCarro.setText(UtilFormat.decimalFormatR$(VALOR_TOTAL_ENTRADAS));
-    } 
-    
-    
+    }
+
 }

@@ -14,6 +14,9 @@ public class Principal {
         JanelaPrincipal();
     }
 
+    /**
+     * JFrame de Acesso Principal
+     */
     public static void JanelaPrincipal() {
         JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         janelaPrincipal.setTitle("ACESSO PRINCIPAL");
@@ -21,6 +24,9 @@ public class Principal {
         janelaPrincipal.setVisible(true);
     }
 
+    /**
+     * Jframe de Entrada
+     */
     public static void JanelaEntrada() {
         JanelaEntrada janelaEntrada = new JanelaEntrada();
         janelaEntrada.setTitle("JANELA DE ENTRADA");
@@ -28,6 +34,9 @@ public class Principal {
         janelaEntrada.setVisible(true);
     }
 
+    /**
+     * JFrame de Saída
+     */
     public static void JanelaSaida() {
         JanelaSaida janelaSaida = new JanelaSaida();
         janelaSaida.setTitle("JANELA DE SAIDA");

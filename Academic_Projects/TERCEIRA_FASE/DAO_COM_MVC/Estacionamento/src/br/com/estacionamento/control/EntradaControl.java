@@ -143,13 +143,13 @@ public class EntradaControl {
      * Limpa Campos do Painel
      */
     private void limparCampos() {
-        TextField.clearTf(JanelaEntrada.tfCondutor);
-        TextField.clearTf(JanelaEntrada.tfCor);
-        TextField.clearTf(JanelaEntrada.tfData);
-        TextField.clearTf(JanelaEntrada.tfHora);
-        TextField.clearTf(JanelaEntrada.tfModelo);
-        TextField.clearTf(JanelaEntrada.tfPlaca);
-        TextField.clearTf(JanelaEntrada.tfMarca);
+        TextField.cleanTextField(JanelaEntrada.tfCondutor);
+        TextField.cleanTextField(JanelaEntrada.tfCor);
+        TextField.cleanTextField(JanelaEntrada.tfData);
+        TextField.cleanTextField(JanelaEntrada.tfHora);
+        TextField.cleanTextField(JanelaEntrada.tfModelo);
+        TextField.cleanTextField(JanelaEntrada.tfPlaca);
+        TextField.cleanTextField(JanelaEntrada.tfMarca);
         Label.clearLbl(JanelaEntrada.lblDataUltimaEntrada);
         Label.clearLbl(JanelaEntrada.lblHoraUltimaEntrada);
     }

@@ -119,6 +119,7 @@ public class JanelaEntrada extends javax.swing.JFrame {
         });
 
         tfCondutor.setColumns(10);
+        tfCondutor.setToolTipText("");
 
         try {
             tfHora.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));

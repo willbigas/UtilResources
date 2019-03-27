@@ -10,8 +10,9 @@ public class TextField {
 
     /**
      * Verificar se o valor do JtextField está vazio
+     *
      * @param value
-     * @return 
+     * @return
      */
     public static boolean isEmpty(JTextField value) {
         if (value.getText().isEmpty()) {
@@ -26,10 +27,8 @@ public class TextField {
      *
      * @param value
      */
-    public static void clearTf(JTextField value) {
+    public static void cleanTextField(JTextField value) {
         value.setText(null);
     }
-    
-    
 
 }

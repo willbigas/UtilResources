@@ -1,5 +1,6 @@
 package br.com.estacionamento.util;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 
 /**
@@ -15,6 +16,20 @@ public class TextField {
      * @return
      */
     public static boolean isEmpty(JTextField value) {
+        if (value.getText().isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+      /**
+     * Verificar se o valor do JtextField está vazio
+     *
+     * @param value
+     * @return
+     */
+    public static boolean isEmpty(JFormattedTextField value) {
         if (value.getText().isEmpty()) {
             return true;
         } else {

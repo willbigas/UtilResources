@@ -14,7 +14,6 @@ import br.com.estacionamento.util.UtilFormat;
 import br.com.estacionamento.util.TextField;
 import br.com.estacionamento.view.JanelaEntrada;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
@@ -142,16 +141,18 @@ public class EntradaControl {
      */
     private boolean validaCamposVazios() {
         if (TextField.isEmpty(JanelaEntrada.tfPlaca)
-                && TextField.isEmpty(JanelaEntrada.tfCor)
-                && TextField.isEmpty(JanelaEntrada.tfCondutor)
-                && TextField.isEmpty(JanelaEntrada.tfMarca)
-                && TextField.isEmpty(JanelaEntrada.tfModelo)
-                && TextField.isEmpty(JanelaEntrada.tfData)
-                && TextField.isEmpty(JanelaEntrada.tfHora)) {
+                || TextField.isEmpty(JanelaEntrada.tfCor)
+                || TextField.isEmpty(JanelaEntrada.tfCondutor)
+                || TextField.isEmpty(JanelaEntrada.tfMarca)
+                || TextField.isEmpty(JanelaEntrada.tfModelo)
+                || TextField.isEmpty(JanelaEntrada.tfData)
+                || TextField.isEmpty(JanelaEntrada.tfHora)) {
             OptionPane.msg(Text.CAMPO_VAZIO);
             return true;
+        } else {
+            return false;
         }
-        return false;
+
     }
 
     /**

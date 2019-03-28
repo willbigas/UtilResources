@@ -25,6 +25,7 @@ public class JanelaEntrada extends javax.swing.JFrame {
     public JanelaEntrada() {
         initComponents();
         ENTRADA_CONTROL = new EntradaControl();
+        ENTRADA_CONTROL.limparCampos();
         lblValorTotalCarro.setText(null);
         ENTRADA_CONTROL.atualizaLabelValorToTalAction();
         cbTipoCliente.removeAllItems();
@@ -313,7 +314,6 @@ public class JanelaEntrada extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
-        ENTRADA_CONTROL = new EntradaControl();
         ENTRADA_CONTROL.inserirEntradaAction();
     }//GEN-LAST:event_btGravarActionPerformed
 

@@ -4,6 +4,7 @@ import br.com.estacionamento.control.validator.EntradaValidator;
 import br.com.estacionamento.dao.EntradaDao;
 import br.com.estacionamento.dao.UltimaEntradaDao;
 import br.com.estacionamento.model.Entrada;
+import br.com.estacionamento.util.Label;
 import br.com.estacionamento.util.Text;
 import br.com.estacionamento.util.OptionPane;
 import br.com.estacionamento.util.UtilFormat;
@@ -27,7 +28,7 @@ public class SaidaControl {
     List<Entrada> listEntrada;
     EntradaDao ENTRADA_DAO = new EntradaDao();
     UltimaEntradaDao ULTIMA_ENTRADA_DAO = new UltimaEntradaDao();
-    Integer valorTotal = null;
+    Integer valorTotal = 0;
     public static Integer VALOR_TOTAL_ENTRADAS = 0;
 
     public void listandoEntradasAction() {
@@ -169,6 +170,11 @@ public class SaidaControl {
     }
 
     public void calcularTrocoAction() {
+        if (!TextField.isDouble(JanelaSaida.tfCampoTroco)) {
+            OptionPane.msg(Text.DADO_INVALIDO);
+            return;
+        }
+
         if (TextField.isEmpty(JanelaSaida.tfCampoTroco)) {
             OptionPane.msg(Text.NENHUM_VALOR_TOTAL);
             return;
@@ -176,19 +182,22 @@ public class SaidaControl {
             Double valorRecebido = Double.valueOf(JanelaSaida.tfCampoTroco.getText());
             Double valorDeTroco = valorRecebido - Double.valueOf(valorTotal);
             JanelaSaida.lblValorTroco.setText(UtilFormat.decimalFormatR$(valorDeTroco));
+             valorRecebido = 0.0;
         }
 
     }
 
     public void finalizaSaidaAction() {
         Entrada e = getEntradaSelecionada();
-        Integer valorRecebido = Integer.valueOf(JanelaSaida.tfCampoTroco.getText());
+        Double valorRecebido = null;
+        valorRecebido = Double.valueOf(JanelaSaida.tfCampoTroco.getText());
 
         if (valorRecebido < valorTotal) {
             OptionPane.msg(Text.VALOR_TOTAL_MAIOR);
             return;
         } else {
-            e.setDataSaida(new Date(System.currentTimeMillis()));
+            DateTime teste = new DateTime(System.currentTimeMillis());
+            e.setDataSaida(teste.toDate());
             e.setValorTotal(Double.valueOf(valorTotal));
             if (ENTRADA_DAO.alterar(e)) {
                 OptionPane.msg(Text.SAIDA_SUCESSO);
@@ -197,6 +206,13 @@ public class SaidaControl {
             }
         }
 
+        limpandoCampos();
+    }
+
+    private void limpandoCampos() {
+        TextField.cleanTextField(JanelaSaida.tfCampoTroco);
+        Label.clearLbl(JanelaSaida.lblValorTotal);
+        Label.clearLbl(JanelaSaida.lblValorTroco);
     }
 
     public void excluirAction() {

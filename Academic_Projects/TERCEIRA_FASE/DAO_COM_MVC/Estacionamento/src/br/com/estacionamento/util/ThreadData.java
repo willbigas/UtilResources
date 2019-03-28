@@ -53,7 +53,7 @@ public class ThreadData extends JFrame {
         public void run() {
             while (true) {
                 try {
-                    JanelaSaida.tfDataSaida.setText(sdf.format(new Date())); // chamar a Label ou Button
+                    JanelaSaida.tfDataSaida.setText(sdf.format(new Date())); // chamar a Label ou Texfield
                     Thread.sleep(500);
                 } catch (InterruptedException exc) {
                     exc.printStackTrace();

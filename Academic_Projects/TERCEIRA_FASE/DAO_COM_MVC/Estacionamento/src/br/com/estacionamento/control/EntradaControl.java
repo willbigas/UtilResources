@@ -14,7 +14,10 @@ import br.com.estacionamento.util.UtilFormat;
 import br.com.estacionamento.util.TextField;
 import br.com.estacionamento.view.JanelaEntrada;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import org.joda.time.DateTime;
+import org.joda.time.Instant;
 
 /**
  *
@@ -51,10 +54,22 @@ public class EntradaControl {
         } else {
             Entrada entradaDoBanco = ENTRADA_DAO.pesquisarPorPlaca(JanelaEntrada.tfPlaca.getText());
             // Editar
+            Calendar novoCalendar = criandoCalendar();
+            DateTime dataInicio = new DateTime(novoCalendar.getTime());
+            System.out.println(dataInicio);
+            DateTime dataAtual = new DateTime(new Instant().toDateTime());
+            System.out.println(dataAtual);
+            if (dataAtual.isBefore(dataInicio)) {
+                OptionPane.msg(Text.ENTRADA_POSTERIOR_ATUAL);
+                return;
+            }
+
             if (!EntradaValidator.isNull(entradaDoBanco)) {
                 editarEntrada(entradaDoBanco);
+                limparCampos();
             } else {
                 inserirEntrada();
+                limparCampos();
             }
 
         }
@@ -142,7 +157,7 @@ public class EntradaControl {
     /**
      * Limpa Campos do Painel
      */
-    private void limparCampos() {
+    public void limparCampos() {
         TextField.cleanTextField(JanelaEntrada.tfCondutor);
         TextField.cleanTextField(JanelaEntrada.tfCor);
         TextField.cleanTextField(JanelaEntrada.tfData);
@@ -174,6 +189,7 @@ public class EntradaControl {
 
     private void editarEntrada(Entrada e) {
         atualizaTabelasDeEntrada(e);
+
         Calendar calendar = criandoCalendar();
         e.setDataEntrada(calendar.getTime());
         e.setDataSaida(null);

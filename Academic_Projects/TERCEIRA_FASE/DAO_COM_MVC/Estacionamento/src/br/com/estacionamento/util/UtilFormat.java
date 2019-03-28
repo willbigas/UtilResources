@@ -26,6 +26,7 @@ public class UtilFormat {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             return df.parse(dataStr);
         } catch (ParseException parseException) {
+            parseException.printStackTrace();
         }
         return null;
     }

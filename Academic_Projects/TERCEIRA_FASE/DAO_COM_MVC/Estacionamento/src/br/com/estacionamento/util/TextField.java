@@ -31,4 +31,13 @@ public class TextField {
         value.setText(null);
     }
 
+    public static boolean isDouble(JTextField value) {
+        try {
+            Double teste = Double.valueOf(value.getText());
+            return true;
+        } catch (NumberFormatException numberFormatException) {
+            return false;
+        }
+    }
+
 }

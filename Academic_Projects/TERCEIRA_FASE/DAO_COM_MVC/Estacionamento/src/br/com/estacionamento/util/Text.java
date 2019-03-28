@@ -36,5 +36,10 @@ public class Text {
             + "o valor Total da Entrada";
     public static final String SAIDA_ANTERIOR_ENTRADA = "A data de Saida "
             + "Antecede a data de Entrada!";
+    
+    public static final String ENTRADA_POSTERIOR_ATUAL = "A data de Entrada"
+            + "é posterior a data atual";
+
+    public static final String DADO_INVALIDO = "Este dado é invalido , por favor digita corretamente";
 
 }

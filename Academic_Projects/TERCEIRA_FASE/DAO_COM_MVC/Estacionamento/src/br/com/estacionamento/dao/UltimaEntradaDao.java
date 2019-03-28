@@ -71,7 +71,7 @@ public class UltimaEntradaDao extends Dao implements DaoI<Entrada> {
             if (obj.getDataSaida() == null) { // se for nulo
                 stmt.setNull(2, Types.DATE);
             } else {
-                stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
+                stmt.setTimestamp(2, new Timestamp(obj.getDataSaida().getTime()));
             }
             if (obj.getValorTotal() == null) { // se for nulo
                 stmt.setNull(3, Types.DOUBLE);
@@ -103,9 +103,9 @@ public class UltimaEntradaDao extends Dao implements DaoI<Entrada> {
                     + "FK_CARRO = ? , FK_CONDUTOR = ? , FK_TIPOCLIENTE = ? WHERE ID  =?");
             stmt.setTimestamp(1, new Timestamp(obj.getDataEntrada().getTime()));
             if (obj.getDataSaida() == null) { // se for nulo
-                stmt.setNull(2, Types.DATE);
+                stmt.setNull(2, Types.TIMESTAMP);
             } else {
-                stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
+                stmt.setTimestamp(2, new Timestamp(obj.getDataSaida().getTime()));
             }
             stmt.setDouble(3, obj.getValorTotal());
             stmt.setInt(4, obj.getCarro().getId());

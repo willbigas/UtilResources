@@ -71,9 +71,9 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
                     + " VALUES(?, ?, ? , ? , ? , ? , ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setTimestamp(1, new Timestamp(obj.getDataEntrada().getTime()));
             if (obj.getDataSaida() == null) { // se for nulo
-                stmt.setNull(2, Types.DATE);
+                stmt.setNull(2, Types.TIMESTAMP);
             } else {
-                stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
+                stmt.setTimestamp(2, new Timestamp(obj.getDataSaida().getTime()));
             }
             if (obj.getValorTotal() == null) { // se for nulo
                 stmt.setNull(3, Types.DOUBLE);
@@ -110,9 +110,9 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
                     + "FK_CARRO = ? , FK_CONDUTOR = ? , FK_TIPOCLIENTE = ? , FK_ULTIMAENTRADA = ? WHERE ID  =?");
             stmt.setTimestamp(1, new Timestamp(obj.getDataEntrada().getTime()));
             if (obj.getDataSaida() == null) { // se for nulo
-                stmt.setNull(2, Types.DATE);
+                stmt.setNull(2, Types.TIMESTAMP);
             } else {
-                stmt.setDate(2, new Date(obj.getDataSaida().getTime()));
+                stmt.setTimestamp(2, new Timestamp(obj.getDataSaida().getTime()));
             }
             stmt.setDouble(3, obj.getValorTotal());
             stmt.setInt(4, obj.getCarro().getId());
@@ -155,7 +155,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
                 Entrada e = new Entrada();
                 e.setId(res.getInt("id"));
                 e.setDataEntrada(res.getTimestamp("dataEntrada"));
-                e.setDataSaida(res.getDate("dataSaida"));
+                e.setDataSaida(res.getTimestamp("dataSaida"));
                 e.setValorTotal(res.getDouble("valorTotal"));
                 return e;
             } else {
@@ -191,7 +191,7 @@ public class EntradaDao extends Dao implements DaoI<Entrada> {
                 Entrada e = new Entrada();
                 e.setId(result.getInt("id"));
                 e.setDataEntrada(result.getTimestamp("dataEntrada"));
-                e.setDataSaida(result.getDate("dataSaida"));
+                e.setDataSaida(result.getTimestamp("dataSaida"));
                 e.setValorTotal(result.getDouble("valorTotal"));
                 e.setCarro(CARRO_DAO.lerPorId(result.getInt("fk_carro")));
                 e.setCondutor(CONDUTOR_DAO.lerPorId(result.getInt("fk_condutor")));

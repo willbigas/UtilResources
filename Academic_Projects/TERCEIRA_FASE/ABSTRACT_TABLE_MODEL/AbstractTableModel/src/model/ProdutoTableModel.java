@@ -15,7 +15,7 @@ public class ProdutoTableModel extends AbstractTableModel {
 
     // Lista de Produtos a serem exibidos na tela.
     private List<Produto> linhas;
-    ProdutoDao vendaDao = new ProdutoDao();
+    ProdutoDao produtoDao = new ProdutoDao();
 
     // array com o nome das colunas.
     private String[] colunas = {"ID", "DESCRIÇÃO", "QTD", "VALOR"}; // COLUNAS DA TABELA

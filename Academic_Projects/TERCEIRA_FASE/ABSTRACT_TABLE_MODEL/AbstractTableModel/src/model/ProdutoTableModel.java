@@ -12,11 +12,11 @@ public class ProdutoTableModel extends AbstractTableModel {
     private static final int QTD = 2;
     private static final int VALOR = 3;
 
-    // Lista de Produtos a serem exibidos na tela.
+    // Lista de Objetos<Produtos> a serem exibidos na tela.
     private List<Produto> linhas;
 
-    // array com o nome das colunas.
-    private String[] colunas = {"ID", "DESCRIÇÃO", "QTD", "VALOR"}; // COLUNAS DA TABELA
+    // Colunas da Tabela (View)
+    private String[] colunas = {"ID", "DESCRIÇÃO", "QTD", "VALOR"}; 
 
     // Cria um ProdutoTableModel sem nenhuma linha
     public ProdutoTableModel() {
@@ -71,7 +71,6 @@ public class ProdutoTableModel extends AbstractTableModel {
             case VALOR:
                 return Double.class;
             default:
-                // não deve ocorrer , pois só existem 4 colunas;
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
@@ -96,7 +95,6 @@ public class ProdutoTableModel extends AbstractTableModel {
             case VALOR:
                 return produto.getValor();
             default:
-                // Não deve ocorrer, pois só existem 4 colunas
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
@@ -125,11 +123,11 @@ public class ProdutoTableModel extends AbstractTableModel {
                 produto.setValor(Double.valueOf((String) valor));
                 break;
             default:
-                // Não deve ocorrer, pois só existem 3 colunas
+                // Não deve ocorrer, pois só existem 4 colunas
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
 
         }
-        this.fireTableCellUpdated(linha, coluna); // Atualiza Celular
+        this.fireTableCellUpdated(linha, coluna); // Atualiza Celula da tabela
 
     }
 
@@ -144,28 +142,28 @@ public class ProdutoTableModel extends AbstractTableModel {
     }
 
     /**
-     * Adiciona o sócio especificado ao modelo.
+     * Adiciona o Produto especificado ao modelo.
      *
      * @param produto
      */
     public void addProduto(Produto produto) {
         linhas.add(produto);
-        int ultimoIndice = getRowCount() - 1;
-        fireTableRowsInserted(ultimoIndice, ultimoIndice);
+        int ultimoIndice = getRowCount() - 1; // linhas -1
+        fireTableRowsInserted(ultimoIndice, ultimoIndice); // atualiza insert
     }
 
     /**
-     * Remove o sócio da linha especificada.
+     * Remove o produto da linha especificada.
      *
      * @param indiceLinha
      */
     public void removeProduto(int indiceLinha) {
         linhas.remove(indiceLinha);
-        fireTableRowsDeleted(indiceLinha, indiceLinha);
+        fireTableRowsDeleted(indiceLinha, indiceLinha); // atualiza delete
     }
 
     /**
-     * Adiciona uma lista de sócios no final da lista.
+     * Adiciona uma lista de Produtos no final da lista.
      *
      * @param produtos
      */
@@ -175,10 +173,12 @@ public class ProdutoTableModel extends AbstractTableModel {
         fireTableRowsInserted(indice, indice + produtos.size());
     }
 
-    /* Remove todos os registros. */
+    /**
+     * Limpa todos os registros da tabela
+     */
     public void limpar() {
         linhas.clear();
-        fireTableDataChanged();
+        fireTableDataChanged(); // atualiza toda tabela.
     }
 
 }

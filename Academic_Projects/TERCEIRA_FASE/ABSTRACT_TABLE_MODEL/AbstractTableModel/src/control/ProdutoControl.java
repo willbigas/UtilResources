@@ -5,6 +5,8 @@ import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import model.Produto;
 import model.ProdutoTableModel;
+import util.OptionPane;
+import util.Text;
 import view.ViewProduto;
 
 /**
@@ -51,9 +53,9 @@ public class ProdutoControl {
     }
 
     /**
-     * 
+     *
      */
-    public void criarProdutoAction() {
+    public void createProductAction() {
         PRODUTO = new Produto();
         PRODUTO.setDescricao(ViewProduto.tfDescricao.getText());
         PRODUTO.setQtd(Integer.valueOf(ViewProduto.tfQuantidade.getText()));
@@ -62,16 +64,17 @@ public class ProdutoControl {
         PRODUTO.setId(idRecebido);
         TABLE_PRODUTO.addProduto(PRODUTO); // adiciona linha;
         PRODUTO = null;
-        limparCampos();
+        OptionPane.msgInfo(Text.SUCESS_CREATE);
+        limparCamposAction();
     }
 
-    public void excluirProdutoAction() {
+    public void deleteProductAction() {
         validaLinhaNaoSelecionada();
         PRODUTO = pegaProdutoSelecionado(); // pega produto da linha selecionada
         PRODUTO_DAO.deletar(PRODUTO);
         TABLE_PRODUTO.removeProduto(pegaLinhaSelecionada()); // remove linha do produto
         PRODUTO = null;
-        limparCampos();
+        limparCamposAction();
     }
 
     private void validaLinhaNaoSelecionada() throws HeadlessException {
@@ -82,23 +85,43 @@ public class ProdutoControl {
 
     }
 
-    public void alteraProdutoAction() {
+    private void updateProductAction() {
         validaLinhaNaoSelecionada();
-
         ViewProduto.tblProdutos.setValueAt(ViewProduto.tfDescricao.getText(),
-                ViewProduto.tblProdutos.getSelectedRow(), 1); // alterando coluna 1
+                pegaLinhaSelecionada(), 1); // alterando coluna 1
         ViewProduto.tblProdutos.setValueAt(ViewProduto.tfQuantidade.getText(),
-                ViewProduto.tblProdutos.getSelectedRow(), 2); // alterando coluna 2
+                pegaLinhaSelecionada(), 2); // alterando coluna 2
         ViewProduto.tblProdutos.setValueAt(ViewProduto.tfValor.getText(),
-                ViewProduto.tblProdutos.getSelectedRow(), 3); // alterando coluna 3
-        PRODUTO = null;
-        limparCampos();
+                pegaLinhaSelecionada(), 3); // alterando coluna 3
+        if (PRODUTO_DAO.alterar(PRODUTO)) {
+            PRODUTO = null;
+            OptionPane.msgInfo(Text.SUCESS_EDIT);
+            limparCamposAction();
+        } else {
+            OptionPane.msgError(Text.ERROR_EDIT);
+        }
+
     }
 
-    public void limparCampos() {
+    public void limparCamposAction() {
         ViewProduto.tfDescricao.setText(null);
         ViewProduto.tfQuantidade.setText(null);
         ViewProduto.tfValor.setText(null);
+    }
+
+    public void carregaProdutoNoFormAction() {
+        PRODUTO = pegaProdutoSelecionado();
+        ViewProduto.tfDescricao.setText(PRODUTO.getDescricao());
+        ViewProduto.tfQuantidade.setText(String.valueOf(PRODUTO.getQtd()));
+        ViewProduto.tfValor.setText(String.valueOf(PRODUTO.getValor()));
+    }
+
+    public void saveProductAction() {
+        if (PRODUTO == null) {
+            createProductAction();
+        } else {
+            updateProductAction();
+        }
     }
 
 }

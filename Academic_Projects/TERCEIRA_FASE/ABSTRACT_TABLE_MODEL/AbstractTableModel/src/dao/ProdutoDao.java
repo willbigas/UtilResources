@@ -12,9 +12,9 @@ import model.Produto;
  *
  * @author William
  */
-public class VendaDao extends Dao implements DaoI<Produto> {
+public class ProdutoDao extends Dao implements DaoI<Produto> {
 
-    public VendaDao() {
+    public ProdutoDao() {
         //Contrutor da super classe Dao. Faz a conexão.
         super();
     }
@@ -23,7 +23,7 @@ public class VendaDao extends Dao implements DaoI<Produto> {
     public List<Produto> listar() {
         try {
             PreparedStatement stmt;
-            stmt = conexao.prepareStatement("SELECT * FROM vendas");
+            stmt = conexao.prepareStatement("SELECT * FROM produtos");
             ResultSet result = stmt.executeQuery();
             List<Produto> lista = new ArrayList<>();
             while (result.next()) {
@@ -54,7 +54,7 @@ public class VendaDao extends Dao implements DaoI<Produto> {
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement(
-                    "INSERT INTO vendas(descricao, quantidade , valor)"
+                    "INSERT INTO produtos(descricao, quantidade , valor)"
                     + " VALUES(?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, obj.getDescricao());
             stmt.setInt(2, obj.getQtd());
@@ -77,7 +77,7 @@ public class VendaDao extends Dao implements DaoI<Produto> {
     public boolean alterar(Produto obj) {
         try {
             PreparedStatement stmt = conexao.prepareStatement(""
-                    + "UPDATE vendas SET descricao = ?, quantidade = ?, valor = ? WHERE  id = ?");
+                    + "UPDATE produtos SET descricao = ?, quantidade = ?, valor = ? WHERE  id = ?");
             stmt.setString(1, obj.getDescricao());
             stmt.setInt(2, obj.getQtd());
             stmt.setDouble(3, obj.getValor());
@@ -92,7 +92,7 @@ public class VendaDao extends Dao implements DaoI<Produto> {
     @Override
     public boolean deletar(Produto obj) {
         try {
-            PreparedStatement stmt = conexao.prepareStatement("DELETE from vendas WHERE id = ?");
+            PreparedStatement stmt = conexao.prepareStatement("DELETE from produtos WHERE id = ?");
             stmt.setInt(1, obj.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -105,7 +105,7 @@ public class VendaDao extends Dao implements DaoI<Produto> {
     public List<Produto> pesquisarPorTermo(String termo) {
         try {
             PreparedStatement stmt = conexao.prepareStatement(""
-                    + "SELECT id, descricao, quantidade , valor FROM vendas "
+                    + "SELECT id, descricao, quantidade , valor FROM produtos "
                     + "WHERE (descricao = ?) ");
             stmt.setString(1, "%" + termo + "%");
             ResultSet result = stmt.executeQuery();
@@ -130,7 +130,7 @@ public class VendaDao extends Dao implements DaoI<Produto> {
     public Produto lerPorId(int id) {
         try {
             PreparedStatement stmt = conexao.prepareStatement(""
-                    + "SELECT id, descricao, quantidade , valor FROM vendas "
+                    + "SELECT id, descricao, quantidade , valor FROM produtos "
                     + "WHERE id = ?");
             stmt.setInt(1, id);
             ResultSet result = stmt.executeQuery();

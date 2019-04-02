@@ -1,6 +1,6 @@
 package control;
 
-import dao.VendaDao;
+import dao.ProdutoDao;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import model.Produto;
@@ -14,7 +14,7 @@ import view.ViewProduto;
 public class ProdutoControl {
 
     ProdutoTableModel TABLE_PRODUTO;
-    VendaDao vendaDao = new VendaDao();
+    ProdutoDao vendaDao = new ProdutoDao();
     Produto PRODUTO;
 
     public ProdutoControl() {
@@ -57,11 +57,11 @@ public class ProdutoControl {
     public void alteraProdutoAction() {
         validaLinhaNaoSelecionada();
         ViewProduto.tblProdutos.setValueAt(ViewProduto.tfDescricao.getText(),
-                ViewProduto.tblProdutos.getSelectedRow(), 0);
-        ViewProduto.tblProdutos.setValueAt(ViewProduto.tfQuantidade.getText(),
                 ViewProduto.tblProdutos.getSelectedRow(), 1);
-        ViewProduto.tblProdutos.setValueAt(ViewProduto.tfValor.getText(),
+        ViewProduto.tblProdutos.setValueAt(ViewProduto.tfQuantidade.getText(),
                 ViewProduto.tblProdutos.getSelectedRow(), 2);
+        ViewProduto.tblProdutos.setValueAt(ViewProduto.tfValor.getText(),
+                ViewProduto.tblProdutos.getSelectedRow(), 3);
 
         PRODUTO = null;
 

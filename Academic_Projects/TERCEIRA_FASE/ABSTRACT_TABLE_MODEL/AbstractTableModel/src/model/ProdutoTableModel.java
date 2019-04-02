@@ -1,6 +1,6 @@
 package model;
 
-import dao.VendaDao;
+import dao.ProdutoDao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -8,16 +8,17 @@ import javax.swing.table.AbstractTableModel;
 public class ProdutoTableModel extends AbstractTableModel {
 
     // Constantes representando o índice das colunas
-    private static final int DESCRICAO = 0;
-    private static final int QTD = 1;
-    private static final int VALOR = 2;
+    private static final int ID = 0;
+    private static final int DESCRICAO = 1;
+    private static final int QTD = 2;
+    private static final int VALOR = 3;
 
     // Lista de Produtos a serem exibidos na tela.
     private List<Produto> linhas;
-    VendaDao vendaDao = new VendaDao();
+    ProdutoDao vendaDao = new ProdutoDao();
 
     // array com o nome das colunas.
-    private String[] colunas = {"Descrição", "QTD", "Valor"}; // COLUNAS DA TABELA
+    private String[] colunas = {"ID", "DESCRIÇÃO", "QTD", "VALOR"}; // COLUNAS DA TABELA
 
     // Cria um ProdutoTableModel sem nenhuma linha
     public ProdutoTableModel() {
@@ -63,6 +64,8 @@ public class ProdutoTableModel extends AbstractTableModel {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
+            case ID:
+                return Integer.class;
             case DESCRICAO:
                 return String.class;
             case QTD:
@@ -70,7 +73,7 @@ public class ProdutoTableModel extends AbstractTableModel {
             case VALOR:
                 return Double.class;
             default:
-                // não deve ocorrer , pois só existem 3 colunas;
+                // não deve ocorrer , pois só existem 4 colunas;
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
@@ -86,6 +89,8 @@ public class ProdutoTableModel extends AbstractTableModel {
     public Object getValueAt(int linha, int coluna) {
         Produto produto = linhas.get(linha);
         switch (coluna) {
+            case ID:
+                return produto.getId();
             case DESCRICAO:
                 return produto.getDescricao();
             case QTD:
@@ -93,7 +98,7 @@ public class ProdutoTableModel extends AbstractTableModel {
             case VALOR:
                 return produto.getValor();
             default:
-                // Não deve ocorrer, pois só existem 3 colunas
+                // Não deve ocorrer, pois só existem 4 colunas
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
@@ -110,12 +115,15 @@ public class ProdutoTableModel extends AbstractTableModel {
         Produto produto = linhas.get(linha);
         switch (coluna) {
             case 0:
-                produto.setDescricao((String) valor);
+                produto.setId(Integer.valueOf((String) valor));
                 break;
             case 1:
-                produto.setQtd(Integer.valueOf((String) valor));
+                produto.setDescricao((String) valor);
                 break;
             case 2:
+                produto.setQtd(Integer.valueOf((String) valor));
+                break;
+            case 3:
                 produto.setValor(Double.valueOf((String) valor));
                 break;
             default:

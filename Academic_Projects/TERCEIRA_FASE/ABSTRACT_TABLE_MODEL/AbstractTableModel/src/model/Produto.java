@@ -5,7 +5,7 @@ public class Produto {
     private Integer id;
     private String descricao;
     private Integer qtd;
-    private double valor;
+    private Double valor;
 
     public Integer getId() {
         return id;
@@ -31,11 +31,11 @@ public class Produto {
         this.qtd = qtd;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 

@@ -1,6 +1,5 @@
 package model;
 
-import dao.ProdutoDao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -15,7 +14,6 @@ public class ProdutoTableModel extends AbstractTableModel {
 
     // Lista de Produtos a serem exibidos na tela.
     private List<Produto> linhas;
-    ProdutoDao produtoDao = new ProdutoDao();
 
     // array com o nome das colunas.
     private String[] colunas = {"ID", "DESCRIÇÃO", "QTD", "VALOR"}; // COLUNAS DA TABELA

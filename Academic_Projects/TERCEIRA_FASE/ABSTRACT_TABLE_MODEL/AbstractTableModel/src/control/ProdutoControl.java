@@ -4,7 +4,7 @@ import dao.ProdutoDao;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import model.Produto;
-import model.ProdutoTableModel;
+import model.tablemodel.ProdutoTableModel;
 import util.OptionPane;
 import util.Text;
 import view.ViewProduto;
@@ -21,8 +21,8 @@ public class ProdutoControl {
 
     public ProdutoControl() {
         TABLE_PRODUTO = new ProdutoTableModel();
-        TABLE_PRODUTO.limpar(); // limpa tudo que estiver em memoria
-        TABLE_PRODUTO.addListaDeProdutos(PRODUTO_DAO.listar()); // puxa os dados do banco
+        TABLE_PRODUTO.clear(); // limpa tudo que estiver em memoria
+        TABLE_PRODUTO.addListOfObject(PRODUTO_DAO.listar()); // puxa os dados do banco
         setModelOfTable(); // seta modelo da tabela
     }
 
@@ -33,7 +33,7 @@ public class ProdutoControl {
      * @return Produto com o Indice da List do TableModel
      */
     private Produto pegaProdutoSelecionado() {
-        return TABLE_PRODUTO.getProduto(ViewProduto.tblProdutos.getSelectedRow());
+        return TABLE_PRODUTO.getObject(ViewProduto.tblProdutos.getSelectedRow());
     }
 
     /**
@@ -62,7 +62,7 @@ public class ProdutoControl {
         PRODUTO.setValor(Double.valueOf(ViewProduto.tfValor.getText()));
         int idRecebido = PRODUTO_DAO.cadastrar(PRODUTO);
         PRODUTO.setId(idRecebido);
-        TABLE_PRODUTO.addProduto(PRODUTO); // adiciona linha;
+        TABLE_PRODUTO.addObject(PRODUTO); // adiciona linha;
         PRODUTO = null;
         OptionPane.msgInfo(Text.SUCESS_CREATE);
         limparCamposAction();
@@ -72,7 +72,7 @@ public class ProdutoControl {
         validaLinhaNaoSelecionada();
         PRODUTO = pegaProdutoSelecionado(); // pega produto da linha selecionada
         PRODUTO_DAO.deletar(PRODUTO);
-        TABLE_PRODUTO.removeProduto(pegaLinhaSelecionada()); // remove linha do produto
+        TABLE_PRODUTO.removeObject(pegaLinhaSelecionada()); // remove linha do produto
         PRODUTO = null;
         limparCamposAction();
     }

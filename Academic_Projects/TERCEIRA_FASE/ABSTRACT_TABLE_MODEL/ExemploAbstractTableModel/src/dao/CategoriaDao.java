@@ -144,5 +144,49 @@ public class CategoriaDao extends Dao implements DaoI<Categoria> {
             return null;
         }
     }
+    
+    public List<Categoria> listarComLimit(Integer limite) {
+        try {
+            PreparedStatement stmt;
+            stmt = conexao.prepareStatement("SELECT * FROM categorias limit ?,?");
+            stmt.setInt(1, limite);
+            stmt.setInt(2, limite);
+            ResultSet result = stmt.executeQuery();
+            List<Categoria> lista = new ArrayList<>();
+            while (result.next()) {
+                Categoria p = new Categoria();
+                p.setId(result.getInt("id"));
+                p.setNome(result.getString("nome"));
+                p.setAtivo(result.getBoolean("ativo"));
+                lista.add(p);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Categoria> listarComLimit(Integer limiteInicial , Integer limiteFinal) {
+        try {
+            PreparedStatement stmt;
+            stmt = conexao.prepareStatement("SELECT * FROM categorias limit ?,?");
+            stmt.setInt(1, limiteInicial);
+            stmt.setInt(2, limiteFinal);
+            ResultSet result = stmt.executeQuery();
+            List<Categoria> lista = new ArrayList<>();
+            while (result.next()) {
+                Categoria p = new Categoria();
+                p.setId(result.getInt("id"));
+                p.setNome(result.getString("nome"));
+                p.setAtivo(result.getBoolean("ativo"));
+                lista.add(p);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
 
 }

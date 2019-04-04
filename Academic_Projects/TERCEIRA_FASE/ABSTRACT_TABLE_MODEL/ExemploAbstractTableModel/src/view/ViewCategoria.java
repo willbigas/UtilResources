@@ -6,6 +6,7 @@
 package view;
 
 import control.CategoriaControl;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,8 +23,12 @@ public class ViewCategoria extends javax.swing.JFrame {
         initComponents();
         CATEGORIA_CONTROL = new CategoriaControl();
         CATEGORIA_CONTROL.setModelOfTable();
-        btDeletar.setEnabled(false);
-        btAlterar.setEnabled(false);
+        CATEGORIA_CONTROL.disableEdit();
+        CATEGORIA_CONTROL.disableSave();
+        CATEGORIA_CONTROL.disableTfNome();
+        CATEGORIA_CONTROL.adicionaCombo();
+//        cbNumeroPagina.setSelectedIndex(1);
+//        CATEGORIA_CONTROL.recebendoDadosDoCombo();
 
     }
 
@@ -38,7 +43,6 @@ public class ViewCategoria extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
-        btSalvar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -58,6 +62,11 @@ public class ViewCategoria extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCategoriaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCategoria);
 
         jLabel1.setText("Gerenciamento de Categorias de Produtos");
@@ -72,6 +81,20 @@ public class ViewCategoria extends javax.swing.JFrame {
         jLabel2.setText("Itens Por Página");
 
         cbNumeroPagina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbNumeroPagina.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbNumeroPaginaItemStateChanged(evt);
+            }
+        });
+        cbNumeroPagina.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                cbNumeroPaginaPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         jLabel3.setText("Paginas:");
 
@@ -90,12 +113,32 @@ public class ViewCategoria extends javax.swing.JFrame {
         lblTotalRegistros.setText("[Total_Registros]");
 
         btPrimeiro.setText("Primeiro");
+        btPrimeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPrimeiroActionPerformed(evt);
+            }
+        });
 
         btAnterior.setText("Anterior");
+        btAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAnteriorActionPerformed(evt);
+            }
+        });
 
         brProximo.setText("Proximo");
+        brProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brProximoActionPerformed(evt);
+            }
+        });
 
         brNovo.setText("Novo");
+        brNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brNovoActionPerformed(evt);
+            }
+        });
 
         btAlterar.setText("Alterar");
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -220,12 +263,61 @@ public class ViewCategoria extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         CATEGORIA_CONTROL.saveProductAction();
+        tfNome.requestFocus(); // muda teclado pro tf nome
+        tblCategoria.clearSelection(); // limpa tabela
+        CATEGORIA_CONTROL.disableEdit();
+        CATEGORIA_CONTROL.disableSave();
+        CATEGORIA_CONTROL.disableTfNome();
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         // TODO add your handling code here:
         CATEGORIA_CONTROL.carregaProdutoNoFormAction();
+        CATEGORIA_CONTROL.enableSave();
+        CATEGORIA_CONTROL.enableTfNome();
     }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void tblCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriaMouseClicked
+        // TODO add your handling code here:
+        CATEGORIA_CONTROL.enableEdit();
+    }//GEN-LAST:event_tblCategoriaMouseClicked
+
+    private void brNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brNovoActionPerformed
+        // TODO add your handling code here:
+        CATEGORIA_CONTROL.enableSave();
+        CATEGORIA_CONTROL.enableTfNome();
+    }//GEN-LAST:event_brNovoActionPerformed
+
+    private void cbNumeroPaginaPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbNumeroPaginaPopupMenuWillBecomeVisible
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbNumeroPaginaPopupMenuWillBecomeVisible
+
+    private void cbNumeroPaginaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNumeroPaginaItemStateChanged
+        // TODO add your handling code here:
+        if (cbNumeroPagina.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Deu ruim!");
+            return;
+        } else {
+            CATEGORIA_CONTROL.recebendoDadosDoCombo();
+        }
+
+    }//GEN-LAST:event_cbNumeroPaginaItemStateChanged
+
+    private void brProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brProximoActionPerformed
+        // TODO add your handling code here:
+        CATEGORIA_CONTROL.fazProximaPagina();
+    }//GEN-LAST:event_brProximoActionPerformed
+
+    private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
+        // TODO add your handling code here:
+        CATEGORIA_CONTROL.fazPaginaAnterior();
+    }//GEN-LAST:event_btAnteriorActionPerformed
+
+    private void btPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrimeiroActionPerformed
+        // TODO add your handling code here:
+        CATEGORIA_CONTROL.recebendoDadosDoCombo();
+    }//GEN-LAST:event_btPrimeiroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,7 +362,7 @@ public class ViewCategoria extends javax.swing.JFrame {
     public static final javax.swing.JButton btAnterior = new javax.swing.JButton();
     public static final javax.swing.JButton btDeletar = new javax.swing.JButton();
     public static final javax.swing.JButton btPrimeiro = new javax.swing.JButton();
-    private javax.swing.JButton btSalvar;
+    public static final javax.swing.JButton btSalvar = new javax.swing.JButton();
     public static final javax.swing.JButton btUltimo = new javax.swing.JButton();
     public static final javax.swing.JComboBox<String> cbNumeroPagina = new javax.swing.JComboBox<>();
     public static final javax.swing.JCheckBox checkAtivo = new javax.swing.JCheckBox();

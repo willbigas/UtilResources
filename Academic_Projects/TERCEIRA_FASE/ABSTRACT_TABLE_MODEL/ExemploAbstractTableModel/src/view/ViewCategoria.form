@@ -31,7 +31,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btAnterior" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="brProximo" min="-2" max="-2" attributes="0"/>
+                      <Component id="btProximo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btUltimo" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -135,7 +135,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btPrimeiro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btAnterior" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="brProximo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btProximo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btUltimo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="brNovo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -294,12 +294,12 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="25"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="brProximo">
+    <Component class="javax.swing.JButton" name="btProximo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Proximo"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="brProximoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btProximoActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="25"/>

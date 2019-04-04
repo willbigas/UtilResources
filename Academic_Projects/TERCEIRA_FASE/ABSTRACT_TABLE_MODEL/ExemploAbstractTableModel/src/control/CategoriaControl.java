@@ -86,7 +86,7 @@ public class CategoriaControl {
         OptionPane.msgInfo(Text.SUCESS_CREATE);
         atualizaTotalDeRegistros();
         limparCamposAction();
-        carregamentoInicial();
+        paginaInicial();
     }
 
     public void deleteCategoryAction() {
@@ -97,7 +97,7 @@ public class CategoriaControl {
         CATEGORIA = null;
         atualizaTotalDeRegistros();
         limparCamposAction();
-        carregamentoInicial();
+        paginaInicial();
     }
 
     private void validaLinhaNaoSelecionada() throws HeadlessException {
@@ -186,8 +186,9 @@ public class CategoriaControl {
         ViewCategoria.cbNumeroPagina.setSelectedItem(DEZ_PAGINAS);
     }
 
-    public void carregamentoInicial() {
+    public void paginaInicial() {
         CATEGORIA_TABLE.clear();
+        ViewCategoria.btAnterior.setEnabled(false);
         String valor = null;
         valor = (String) ViewCategoria.cbNumeroPagina.getSelectedItem();
         System.out.println(valor);
@@ -211,7 +212,7 @@ public class CategoriaControl {
 
     }
 
-    public void fazProximaPagina() {
+    public void proximaPagina() {
         if (CONTROLE_DE_PAGINA == DEZ_PAGINAS_INT) {
             int linhaInicial = CONTADOR_DE_PAGINAS;
             int quantidadeDeLinhas = DEZ_PAGINAS_INT;
@@ -232,7 +233,7 @@ public class CategoriaControl {
 
     }
 
-    public void fazPaginaAnterior() {
+    public void AnteriorPagina() {
         if (CONTROLE_DE_PAGINA == DEZ_PAGINAS_INT) {
             int linhaInicial = CONTADOR_DE_PAGINAS - CONTROLE_DE_PAGINA;
             int quantidadeDeLinhas = DEZ_PAGINAS_INT;
@@ -254,6 +255,7 @@ public class CategoriaControl {
 
     public void paginaFinal() {
         List<Categoria> categorias = CATEGORIA_DAO.listar();
+        ViewCategoria.btProximo.setEnabled(false);
        if (CONTROLE_DE_PAGINA == DEZ_PAGINAS_INT) {
             int linhaInicial = categorias.size() - DEZ_PAGINAS_INT;
             int quantidadeDeLinhas = DEZ_PAGINAS_INT;

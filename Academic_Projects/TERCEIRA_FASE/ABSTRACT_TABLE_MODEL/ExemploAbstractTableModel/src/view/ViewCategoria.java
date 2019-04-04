@@ -27,6 +27,7 @@ public class ViewCategoria extends javax.swing.JFrame {
         CATEGORIA_CONTROL.disableTfNome();
         CATEGORIA_CONTROL.adicionaCombo();
         CATEGORIA_CONTROL.atualizaTotalDeRegistros();
+        
 
     }
 
@@ -124,10 +125,10 @@ public class ViewCategoria extends javax.swing.JFrame {
             }
         });
 
-        brProximo.setText("Proximo");
-        brProximo.addActionListener(new java.awt.event.ActionListener() {
+        btProximo.setText("Proximo");
+        btProximo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brProximoActionPerformed(evt);
+                btProximoActionPerformed(evt);
             }
         });
 
@@ -168,7 +169,7 @@ public class ViewCategoria extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btAnterior)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(brProximo)
+                        .addComponent(btProximo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btUltimo))
                     .addGroup(layout.createSequentialGroup()
@@ -252,7 +253,7 @@ public class ViewCategoria extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btPrimeiro)
                     .addComponent(btAnterior)
-                    .addComponent(brProximo)
+                    .addComponent(btProximo)
                     .addComponent(btUltimo)
                     .addComponent(brNovo)
                     .addComponent(btAlterar)
@@ -300,24 +301,24 @@ public class ViewCategoria extends javax.swing.JFrame {
         if (cbNumeroPagina.getSelectedIndex() == -1) {
             return;
         } else {
-            CATEGORIA_CONTROL.carregamentoInicial();
+            CATEGORIA_CONTROL.paginaInicial();
         }
 
     }//GEN-LAST:event_cbNumeroPaginaItemStateChanged
 
-    private void brProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brProximoActionPerformed
+    private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
         // TODO add your handling code here:
-        CATEGORIA_CONTROL.fazProximaPagina();
-    }//GEN-LAST:event_brProximoActionPerformed
+        CATEGORIA_CONTROL.proximaPagina();
+    }//GEN-LAST:event_btProximoActionPerformed
 
     private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
         // TODO add your handling code here:
-        CATEGORIA_CONTROL.fazPaginaAnterior();
+        CATEGORIA_CONTROL.AnteriorPagina();
     }//GEN-LAST:event_btAnteriorActionPerformed
 
     private void btPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrimeiroActionPerformed
         // TODO add your handling code here:
-        CATEGORIA_CONTROL.carregamentoInicial();
+        CATEGORIA_CONTROL.paginaInicial();
     }//GEN-LAST:event_btPrimeiroActionPerformed
 
     private void btUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUltimoActionPerformed
@@ -364,11 +365,11 @@ public class ViewCategoria extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static final javax.swing.JButton brNovo = new javax.swing.JButton();
-    public static final javax.swing.JButton brProximo = new javax.swing.JButton();
     public static final javax.swing.JButton btAlterar = new javax.swing.JButton();
     public static final javax.swing.JButton btAnterior = new javax.swing.JButton();
     public static final javax.swing.JButton btDeletar = new javax.swing.JButton();
     public static final javax.swing.JButton btPrimeiro = new javax.swing.JButton();
+    public static final javax.swing.JButton btProximo = new javax.swing.JButton();
     public static final javax.swing.JButton btSalvar = new javax.swing.JButton();
     public static final javax.swing.JButton btUltimo = new javax.swing.JButton();
     public static final javax.swing.JComboBox<String> cbNumeroPagina = new javax.swing.JComboBox<>();

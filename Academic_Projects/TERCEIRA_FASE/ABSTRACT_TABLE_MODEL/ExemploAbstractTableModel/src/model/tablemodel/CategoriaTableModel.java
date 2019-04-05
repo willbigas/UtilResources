@@ -175,6 +175,7 @@ public class CategoriaTableModel extends AbstractTableModel implements ActionsTa
         int indice = getRowCount();
         linhas.addAll(produtos);
         fireTableRowsInserted(indice, indice + produtos.size());
+        fireTableDataChanged();
     }
 
     /**

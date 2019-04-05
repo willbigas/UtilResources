@@ -126,7 +126,7 @@ public class CategoriaDao extends Dao implements DaoI<Categoria> {
     public Categoria lerPorId(int id) {
         try {
             PreparedStatement stmt = conexao.prepareStatement(""
-                    + "SELECT id, nome, ativo FROM produtos "
+                    + "SELECT id, nome, ativo FROM categorias "
                     + "WHERE id = ?");
             stmt.setInt(1, id);
             ResultSet result = stmt.executeQuery();

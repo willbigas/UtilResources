@@ -27,7 +27,6 @@ public class ViewCategoria extends javax.swing.JFrame {
         CATEGORIA_CONTROL.disableTfNome();
         CATEGORIA_CONTROL.adicionaCombo();
         CATEGORIA_CONTROL.atualizaTotalDeRegistros();
-        
 
     }
 
@@ -299,22 +298,14 @@ public class ViewCategoria extends javax.swing.JFrame {
     private void cbNumeroPaginaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNumeroPaginaItemStateChanged
         // TODO add your handling code here:
         if (cbNumeroPagina.getSelectedIndex() == -1) {
+            CATEGORIA_CONTROL.atualizaTotalPaginas();
             return;
         } else {
             CATEGORIA_CONTROL.paginaInicial();
+            CATEGORIA_CONTROL.atualizaTotalPaginas();
         }
 
     }//GEN-LAST:event_cbNumeroPaginaItemStateChanged
-
-    private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
-        // TODO add your handling code here:
-        CATEGORIA_CONTROL.proximaPagina();
-    }//GEN-LAST:event_btProximoActionPerformed
-
-    private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
-        // TODO add your handling code here:
-        CATEGORIA_CONTROL.AnteriorPagina();
-    }//GEN-LAST:event_btAnteriorActionPerformed
 
     private void btPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrimeiroActionPerformed
         // TODO add your handling code here:
@@ -324,8 +315,16 @@ public class ViewCategoria extends javax.swing.JFrame {
     private void btUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUltimoActionPerformed
         // TODO add your handling code here:
         CATEGORIA_CONTROL.paginaFinal();
-        
+
     }//GEN-LAST:event_btUltimoActionPerformed
+
+    private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
+          CATEGORIA_CONTROL.proximaPagina();
+    }//GEN-LAST:event_btProximoActionPerformed
+
+    private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
+            CATEGORIA_CONTROL.AnteriorPagina();
+    }//GEN-LAST:event_btAnteriorActionPerformed
 
     /**
      * @param args the command line arguments

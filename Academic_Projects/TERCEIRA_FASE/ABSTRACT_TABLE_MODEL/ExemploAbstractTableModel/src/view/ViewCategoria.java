@@ -25,8 +25,9 @@ public class ViewCategoria extends javax.swing.JFrame {
         CATEGORIA_CONTROL.disableEdit();
         CATEGORIA_CONTROL.disableSave();
         CATEGORIA_CONTROL.disableTfNome();
-        CATEGORIA_CONTROL.adicionaCombo();
+        CATEGORIA_CONTROL.adicionaComboQtdPaginas();
         CATEGORIA_CONTROL.atualizaTotalDeRegistros();
+        CATEGORIA_CONTROL.adicionaComboPaginaAtual();
 
     }
 
@@ -46,6 +47,7 @@ public class ViewCategoria extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        lblPagina = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,6 +158,10 @@ public class ViewCategoria extends javax.swing.JFrame {
 
         checkAtivo.setText("Ativo");
 
+        lblPagina.setText("Pagina:");
+
+        cbPaginaAtual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,7 +188,12 @@ public class ViewCategoria extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cbNumeroPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cbNumeroPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblPagina)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbPaginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(4, 4, 4)
                                         .addComponent(lblPaginaAtual)
@@ -237,7 +248,9 @@ public class ViewCategoria extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cbNumeroPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbNumeroPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPagina)
+                    .addComponent(cbPaginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -299,10 +312,12 @@ public class ViewCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (cbNumeroPagina.getSelectedIndex() == -1) {
             CATEGORIA_CONTROL.atualizaTotalPaginas();
+            CATEGORIA_CONTROL.adicionaComboPaginaAtual();
             return;
         } else {
             CATEGORIA_CONTROL.paginaInicial();
             CATEGORIA_CONTROL.atualizaTotalPaginas();
+            CATEGORIA_CONTROL.adicionaComboPaginaAtual();
         }
 
     }//GEN-LAST:event_cbNumeroPaginaItemStateChanged
@@ -319,11 +334,11 @@ public class ViewCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btUltimoActionPerformed
 
     private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
-          CATEGORIA_CONTROL.proximaPagina();
+        CATEGORIA_CONTROL.proximaPagina();
     }//GEN-LAST:event_btProximoActionPerformed
 
     private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
-            CATEGORIA_CONTROL.AnteriorPagina();
+        CATEGORIA_CONTROL.AnteriorPagina();
     }//GEN-LAST:event_btAnteriorActionPerformed
 
     /**
@@ -372,6 +387,7 @@ public class ViewCategoria extends javax.swing.JFrame {
     public static final javax.swing.JButton btSalvar = new javax.swing.JButton();
     public static final javax.swing.JButton btUltimo = new javax.swing.JButton();
     public static final javax.swing.JComboBox<String> cbNumeroPagina = new javax.swing.JComboBox<>();
+    public static final javax.swing.JComboBox<String> cbPaginaAtual = new javax.swing.JComboBox<>();
     public static final javax.swing.JCheckBox checkAtivo = new javax.swing.JCheckBox();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -380,6 +396,7 @@ public class ViewCategoria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblPagina;
     public static final javax.swing.JLabel lblPaginaAtual = new javax.swing.JLabel();
     public static final javax.swing.JLabel lblTotalListagem = new javax.swing.JLabel();
     public static final javax.swing.JLabel lblTotalPaginas = new javax.swing.JLabel();

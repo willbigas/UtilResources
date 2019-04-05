@@ -15,11 +15,11 @@ import view.ViewCategoria;
  * @author William
  */
 public class CategoriaControl {
-    
+
     CategoriaTableModel CATEGORIA_TABLE;
     CategoriaDao CATEGORIA_DAO = new CategoriaDao();
     Categoria CATEGORIA;
-    
+
     public final String CINCO_PAGINAS = "5";
     public final String DEZ_PAGINAS = "10";
     public final int ZERO_PAGINAS_INT = 0;
@@ -27,11 +27,11 @@ public class CategoriaControl {
     public final int DEZ_PAGINAS_INT = 10;
     public int CONTROLE_DE_PAGINA = 0;
     public int PAGINA_ATUAL = 1;
-    
+
     public int TOTAL_PAGINAS = 0;
-    
+
     public int CONTADOR_DE_PAGINAS = 0;
-    
+
     public CategoriaControl() {
         CATEGORIA_TABLE = new CategoriaTableModel();
         CATEGORIA_TABLE.clear(); // limpa tudo que estiver em memoria
@@ -91,7 +91,7 @@ public class CategoriaControl {
         limparCamposAction();
         paginaInicial();
     }
-    
+
     public void deleteCategoryAction() {
         validaLinhaNaoSelecionada();
         CATEGORIA = pegaCategoriaSelecionada(); // pega produto da linha selecionada
@@ -102,15 +102,15 @@ public class CategoriaControl {
         limparCamposAction();
         paginaInicial();
     }
-    
+
     private void validaLinhaNaoSelecionada() throws HeadlessException {
         if (pegaLinhaSelecionada() == -1) {
             JOptionPane.showMessageDialog(null, "Voce precisa selecionar uma linha!");
             return;
         }
-        
+
     }
-    
+
     private void updateCategoryAction() {
         validaLinhaNaoSelecionada();
 //        ViewCategoria.tblCategoria.setValueAt(ViewCategoria.tfNome.getText(),
@@ -126,20 +126,20 @@ public class CategoriaControl {
         } else {
             OptionPane.msgError(Text.ERROR_EDIT);
         }
-        
+
     }
-    
+
     public void limparCamposAction() {
         ViewCategoria.tfNome.setText(null);
         ViewCategoria.checkAtivo.setSelected(false);
     }
-    
+
     public void carregaProdutoNoFormAction() {
         CATEGORIA = pegaCategoriaSelecionada();
         ViewCategoria.tfNome.setText(CATEGORIA.getNome());
         ViewCategoria.checkAtivo.setSelected(CATEGORIA.getAtivo());
     }
-    
+
     public void saveProductAction() {
         if (CATEGORIA == null) {
             createCategoryAction();
@@ -147,7 +147,7 @@ public class CategoriaControl {
             updateCategoryAction();
         }
     }
-    
+
     public void enableEdit() {
         int i = pegaLinhaSelecionada();
         if (i != -1) {
@@ -156,39 +156,46 @@ public class CategoriaControl {
         } else {
             return;
         }
-        
+
     }
-    
+
     public void disableEdit() {
         ViewCategoria.btAlterar.setEnabled(false);
         ViewCategoria.btDeletar.setEnabled(false);
     }
-    
+
     public void enableSave() {
         ViewCategoria.btSalvar.setEnabled(true);
     }
-    
+
     public void disableSave() {
         ViewCategoria.btSalvar.setEnabled(false);
     }
-    
+
     public void enableTfNome() {
         ViewCategoria.tfNome.setEnabled(true);
         ViewCategoria.checkAtivo.setEnabled(true);
     }
-    
+
     public void disableTfNome() {
         ViewCategoria.tfNome.setEnabled(false);
         ViewCategoria.checkAtivo.setEnabled(false);
     }
-    
-    public void adicionaCombo() {
+
+    public void adicionaComboQtdPaginas() {
         ViewCategoria.cbNumeroPagina.removeAllItems();
         ViewCategoria.cbNumeroPagina.addItem(CINCO_PAGINAS);
         ViewCategoria.cbNumeroPagina.addItem(DEZ_PAGINAS);
         ViewCategoria.cbNumeroPagina.setSelectedItem(DEZ_PAGINAS);
     }
-    
+
+    public void adicionaComboPaginaAtual() {
+        ViewCategoria.cbPaginaAtual.removeAllItems();
+        for (int i = 1; i <= TOTAL_PAGINAS; i++) {
+            ViewCategoria.cbPaginaAtual.addItem(String.valueOf(i));
+        }
+    }
+
     public void paginaInicial() {
         PAGINA_ATUAL = 1;
         atualizaTotalPaginas();
@@ -213,9 +220,9 @@ public class CategoriaControl {
             CATEGORIA_TABLE.addListOfObject(categorias);
             primeiroRegistro();
         }
-        
+
     }
-    
+
     public void proximaPagina() {
         PAGINA_ATUAL += 1;
         atualizaTotalPaginas();
@@ -229,9 +236,9 @@ public class CategoriaControl {
             CATEGORIA_TABLE.addListOfObject(categorias);
             CONTADOR_DE_PAGINAS += CONTROLE_DE_PAGINA;
             ultimoRegistro();
-            
+
         }
-        
+
         if (CONTROLE_DE_PAGINA == CINCO_PAGINAS_INT) {
             int linhaInicial = CONTADOR_DE_PAGINAS + CINCO_PAGINAS_INT;
             int quantidadeDeLinhas = CINCO_PAGINAS_INT;
@@ -240,9 +247,9 @@ public class CategoriaControl {
             CONTADOR_DE_PAGINAS += CONTROLE_DE_PAGINA;
             ultimoRegistro();
         }
-        
+
     }
-    
+
     public void AnteriorPagina() {
         PAGINA_ATUAL = PAGINA_ATUAL - 1;
         atualizaTotalPaginas();
@@ -257,7 +264,7 @@ public class CategoriaControl {
             CONTADOR_DE_PAGINAS = CONTADOR_DE_PAGINAS - CONTROLE_DE_PAGINA;
         }
         if (CONTROLE_DE_PAGINA == CINCO_PAGINAS_INT) {
-            
+
             int linhaInicial = CONTADOR_DE_PAGINAS - CONTROLE_DE_PAGINA;
             int quantidadeDeLinhas = CINCO_PAGINAS_INT;
             CATEGORIA_TABLE.clear();
@@ -265,9 +272,9 @@ public class CategoriaControl {
             CATEGORIA_TABLE.addListOfObject(categorias);
             CONTADOR_DE_PAGINAS = CONTADOR_DE_PAGINAS - CONTROLE_DE_PAGINA;
         }
-        
+
     }
-    
+
     public void paginaFinal() {
         atualizaTotalPaginas();
         ultimoRegistro();
@@ -287,14 +294,14 @@ public class CategoriaControl {
             CATEGORIA_TABLE.addListOfObject(categoriasFiltradas);
         }
         ViewCategoria.btProximo.setEnabled(false);
-        
+
     }
-    
+
     public void atualizaTotalDeRegistros() {
         List<Categoria> categorias = CATEGORIA_DAO.listar();
         ViewCategoria.lblTotalRegistros.setText(String.valueOf(categorias.size()));
     }
-    
+
     public void atualizaTotalPaginas() {
         List<Categoria> categorias = CATEGORIA_DAO.listar();
         if (ViewCategoria.cbNumeroPagina.getSelectedItem() == DEZ_PAGINAS) {
@@ -308,7 +315,7 @@ public class CategoriaControl {
         ViewCategoria.lblTotalPaginas.setText(String.valueOf(TOTAL_PAGINAS));
         ViewCategoria.lblPaginaAtual.setText(String.valueOf(PAGINA_ATUAL));
     }
-    
+
     public void ultimoRegistro() {
         Integer pgAtual = Integer.valueOf(ViewCategoria.lblPaginaAtual.getText());
         Integer pgTotal = Integer.valueOf(ViewCategoria.lblTotalPaginas.getText());
@@ -318,7 +325,7 @@ public class CategoriaControl {
             ViewCategoria.lblTotalListagem.setText(String.valueOf(CATEGORIA_TABLE.getRowCount()));
         }
     }
-    
+
     public void primeiroRegistro() {
         Integer pgAtual = Integer.valueOf(ViewCategoria.lblPaginaAtual.getText());
         Integer pgTotal = Integer.valueOf(ViewCategoria.lblTotalPaginas.getText());
@@ -327,5 +334,5 @@ public class CategoriaControl {
             ViewCategoria.btPrimeiro.setEnabled(false);
         }
     }
-    
+
 }

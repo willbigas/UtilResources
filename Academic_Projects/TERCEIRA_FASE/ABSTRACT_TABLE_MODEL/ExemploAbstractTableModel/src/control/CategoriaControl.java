@@ -110,7 +110,7 @@ public class CategoriaControl {
 
     private void validaLinhaNaoSelecionada() throws HeadlessException {
         if (pegaLinhaSelecionada() == -1) {
-            JOptionPane.showMessageDialog(null, "Voce precisa selecionar uma linha!");
+            OptionPane.msgInfo(Text.NOT_SELECTED_CATEGORY);
             return;
         }
 

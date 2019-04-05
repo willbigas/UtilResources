@@ -103,7 +103,7 @@ public class CategoriaDao extends Dao implements DaoI<Categoria> {
         try {
             PreparedStatement stmt = conexao.prepareStatement(""
                     + "SELECT id, nome, ativo FROM categorias "
-                    + "WHERE (nome = ?) ");
+                    + "WHERE nome LIKE ?");
             stmt.setString(1, "%" + termo + "%");
             ResultSet result = stmt.executeQuery();
             List<Categoria> lista = new ArrayList<>();

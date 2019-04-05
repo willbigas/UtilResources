@@ -27,7 +27,6 @@ public class ViewCategoria extends javax.swing.JFrame {
         CATEGORIA_CONTROL.disableTfNome();
         CATEGORIA_CONTROL.adicionaComboQtdPaginas();
         CATEGORIA_CONTROL.atualizaTotalDeRegistros();
-        CATEGORIA_CONTROL.adicionaComboPaginaAtual();
 
     }
 
@@ -47,7 +46,7 @@ public class ViewCategoria extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        lblPagina = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,19 +79,19 @@ public class ViewCategoria extends javax.swing.JFrame {
 
         jLabel2.setText("Itens Por Página");
 
-        cbNumeroPagina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbNumeroPagina.addItemListener(new java.awt.event.ItemListener() {
+        cbItensPorPagina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbItensPorPagina.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbNumeroPaginaItemStateChanged(evt);
+                cbItensPorPaginaItemStateChanged(evt);
             }
         });
-        cbNumeroPagina.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+        cbItensPorPagina.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                cbNumeroPaginaPopupMenuWillBecomeVisible(evt);
+                cbItensPorPaginaPopupMenuWillBecomeVisible(evt);
             }
         });
 
@@ -163,9 +162,13 @@ public class ViewCategoria extends javax.swing.JFrame {
 
         checkAtivo.setText("Ativo");
 
-        lblPagina.setText("Pagina:");
+        jLabel4.setText("Pesquisar:");
 
-        cbPaginaAtual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tfPesquisarCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisarCategoriaKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,11 +196,7 @@ public class ViewCategoria extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cbNumeroPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblPagina)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbPaginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbItensPorPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(4, 4, 4)
@@ -226,14 +225,18 @@ public class ViewCategoria extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addGap(146, 146, 146))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkAtivo)
-                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)))
+                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(checkAtivo)
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfPesquisarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -247,15 +250,16 @@ public class ViewCategoria extends javax.swing.JFrame {
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(checkAtivo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkAtivo)
+                    .addComponent(jLabel4)
+                    .addComponent(tfPesquisarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cbNumeroPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPagina)
-                    .addComponent(cbPaginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbItensPorPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -308,24 +312,22 @@ public class ViewCategoria extends javax.swing.JFrame {
         CATEGORIA_CONTROL.enableTfNome();
     }//GEN-LAST:event_brNovoActionPerformed
 
-    private void cbNumeroPaginaPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbNumeroPaginaPopupMenuWillBecomeVisible
+    private void cbItensPorPaginaPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbItensPorPaginaPopupMenuWillBecomeVisible
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_cbNumeroPaginaPopupMenuWillBecomeVisible
+    }//GEN-LAST:event_cbItensPorPaginaPopupMenuWillBecomeVisible
 
-    private void cbNumeroPaginaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNumeroPaginaItemStateChanged
+    private void cbItensPorPaginaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbItensPorPaginaItemStateChanged
         // TODO add your handling code here:
-        if (cbNumeroPagina.getSelectedIndex() == -1) {
+        if (cbItensPorPagina.getSelectedIndex() == -1) {
             CATEGORIA_CONTROL.atualizaTotalPaginas();
-            CATEGORIA_CONTROL.adicionaComboPaginaAtual();
             return;
         } else {
             CATEGORIA_CONTROL.paginaInicial();
             CATEGORIA_CONTROL.atualizaTotalPaginas();
-            CATEGORIA_CONTROL.adicionaComboPaginaAtual();
         }
 
-    }//GEN-LAST:event_cbNumeroPaginaItemStateChanged
+    }//GEN-LAST:event_cbItensPorPaginaItemStateChanged
 
     private void btPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrimeiroActionPerformed
         // TODO add your handling code here:
@@ -350,6 +352,11 @@ public class ViewCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
         CATEGORIA_CONTROL.deleteCategoryAction();
     }//GEN-LAST:event_btDeletarActionPerformed
+
+    private void tfPesquisarCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisarCategoriaKeyReleased
+        // TODO add your handling code here:
+        CATEGORIA_CONTROL.searchCategoryAction();
+    }//GEN-LAST:event_tfPesquisarCategoriaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -396,22 +403,22 @@ public class ViewCategoria extends javax.swing.JFrame {
     public static final javax.swing.JButton btProximo = new javax.swing.JButton();
     public static final javax.swing.JButton btSalvar = new javax.swing.JButton();
     public static final javax.swing.JButton btUltimo = new javax.swing.JButton();
-    public static final javax.swing.JComboBox<String> cbNumeroPagina = new javax.swing.JComboBox<>();
-    public static final javax.swing.JComboBox<String> cbPaginaAtual = new javax.swing.JComboBox<>();
+    public static final javax.swing.JComboBox<String> cbItensPorPagina = new javax.swing.JComboBox<>();
     public static final javax.swing.JCheckBox checkAtivo = new javax.swing.JCheckBox();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblPagina;
     public static final javax.swing.JLabel lblPaginaAtual = new javax.swing.JLabel();
     public static final javax.swing.JLabel lblTotalListagem = new javax.swing.JLabel();
     public static final javax.swing.JLabel lblTotalPaginas = new javax.swing.JLabel();
     public static final javax.swing.JLabel lblTotalRegistros = new javax.swing.JLabel();
     public static final javax.swing.JTable tblCategoria = new javax.swing.JTable();
     public static final javax.swing.JTextField tfNome = new javax.swing.JTextField();
+    public static final javax.swing.JTextField tfPesquisarCategoria = new javax.swing.JTextField();
     // End of variables declaration//GEN-END:variables
 }

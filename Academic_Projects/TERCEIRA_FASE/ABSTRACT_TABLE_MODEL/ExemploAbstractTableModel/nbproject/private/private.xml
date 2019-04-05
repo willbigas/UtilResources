@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Alunos/Documents/GitHub/UtilResources/Academic_Projects/TERCEIRA_FASE/ABSTRACT_TABLE_MODEL/ExemploAbstractTableModel/src/view/ViewCategoria.java</file>
+            <file>file:/C:/Users/Alunos/Documents/GitHub/UtilResources/Academic_Projects/TERCEIRA_FASE/ABSTRACT_TABLE_MODEL/ExemploAbstractTableModel/src/control/CategoriaControl.java</file>
+            <file>file:/C:/Users/Alunos/Documents/GitHub/UtilResources/Academic_Projects/TERCEIRA_FASE/ABSTRACT_TABLE_MODEL/ExemploAbstractTableModel/src/model/tablemodel/CategoriaTableModel.java</file>
+            <file>file:/C:/Users/Alunos/Documents/GitHub/UtilResources/Academic_Projects/TERCEIRA_FASE/ABSTRACT_TABLE_MODEL/ExemploAbstractTableModel/src/dao/CategoriaDao.java</file>
+            <file>file:/C:/Users/Alunos/Documents/GitHub/UtilResources/Academic_Projects/TERCEIRA_FASE/ABSTRACT_TABLE_MODEL/ExemploAbstractTableModel/src/Principal.java</file>
+        </group>
     </open-files>
 </project-private>

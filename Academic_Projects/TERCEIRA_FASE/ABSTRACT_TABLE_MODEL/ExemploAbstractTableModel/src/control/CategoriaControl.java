@@ -94,13 +94,18 @@ public class CategoriaControl {
 
     public void deleteCategoryAction() {
         validaLinhaNaoSelecionada();
-        CATEGORIA = pegaCategoriaSelecionada(); // pega produto da linha selecionada
-        CATEGORIA_DAO.deletar(CATEGORIA);
-        CATEGORIA_TABLE.removeObject(pegaLinhaSelecionada()); // remove linha do produto
-        CATEGORIA = null;
-        atualizaTotalDeRegistros();
-        limparCamposAction();
-        paginaInicial();
+        if (OptionPane.msgConfirm(Text.QUESTION_DELETE) == JOptionPane.YES_OPTION) {
+            CATEGORIA = pegaCategoriaSelecionada(); // pega produto da linha selecionada
+            CATEGORIA_DAO.deletar(CATEGORIA);
+            CATEGORIA_TABLE.removeObject(pegaLinhaSelecionada()); // remove linha do produto
+            CATEGORIA = null;
+            atualizaTotalDeRegistros();
+            limparCamposAction();
+            paginaInicial();
+        } else {
+            return;
+        }
+
     }
 
     private void validaLinhaNaoSelecionada() throws HeadlessException {
@@ -201,6 +206,7 @@ public class CategoriaControl {
         atualizaTotalPaginas();
         CATEGORIA_TABLE.clear();
         ViewCategoria.btProximo.setEnabled(true);
+        ViewCategoria.btUltimo.setEnabled(true);
         ViewCategoria.btAnterior.setEnabled(false);
         String valor = null;
         valor = (String) ViewCategoria.cbNumeroPagina.getSelectedItem();
@@ -276,6 +282,7 @@ public class CategoriaControl {
     }
 
     public void paginaFinal() {
+        PAGINA_ATUAL = TOTAL_PAGINAS;
         atualizaTotalPaginas();
         ultimoRegistro();
         PAGINA_ATUAL = TOTAL_PAGINAS;
@@ -293,6 +300,7 @@ public class CategoriaControl {
             List<Categoria> categoriasFiltradas = CATEGORIA_DAO.listarComLimit(linhaInicial, quantidadeDeLinhas);
             CATEGORIA_TABLE.addListOfObject(categoriasFiltradas);
         }
+        ViewCategoria.btPrimeiro.setEnabled(true);
         ViewCategoria.btProximo.setEnabled(false);
 
     }

@@ -22,6 +22,9 @@ public class Text {
     public static final String ERROR_EDIT = "Erro ao Editar!";
     public static final String ERROR_IN = "Erro ao gravar Entrada";
     public static final String ERROR_OUT = "Erro ao Gravar a Saida";
+    
+    // Questions
+    public static final String QUESTION_DELETE = "Você deseja excluir? Esta ação é irreversivel!";
 
     // Invalid Inputs
     public static final String ERRO_NAME_INVALID = "Nome Invalido!";
@@ -35,7 +38,7 @@ public class Text {
     public static final String NOT_SELECTED_INPUT = "Nenhuma Entrada Selecionado!";
 
     // Information
-    public static final String ACTION_IRREVERSIBLE = "Você deseja Realmente excluir ";
+    public static final String ACTION_IRREVERSIBLE = "Tome Cuidado esta ação é irreversivel";
 
     // Nothing found
     public static final String NOTHING_FOUND_VALUE = "Nenhum valor total encontrado!";

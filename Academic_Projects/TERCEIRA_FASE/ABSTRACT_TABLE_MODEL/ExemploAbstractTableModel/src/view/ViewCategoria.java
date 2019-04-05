@@ -155,6 +155,11 @@ public class ViewCategoria extends javax.swing.JFrame {
         });
 
         btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeletarActionPerformed(evt);
+            }
+        });
 
         checkAtivo.setText("Ativo");
 
@@ -340,6 +345,11 @@ public class ViewCategoria extends javax.swing.JFrame {
     private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
         CATEGORIA_CONTROL.AnteriorPagina();
     }//GEN-LAST:event_btAnteriorActionPerformed
+
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
+        // TODO add your handling code here:
+        CATEGORIA_CONTROL.deleteCategoryAction();
+    }//GEN-LAST:event_btDeletarActionPerformed
 
     /**
      * @param args the command line arguments

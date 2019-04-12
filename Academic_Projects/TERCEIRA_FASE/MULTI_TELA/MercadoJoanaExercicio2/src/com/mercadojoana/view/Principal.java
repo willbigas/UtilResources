@@ -9,9 +9,10 @@ import java.io.IOException;
  * @author William
  */
 public class Principal extends javax.swing.JFrame {
-
+    
     private CadastroCliente cadastrarCliente = null;
     private GerenciarCategoria gerenciarCategoria = null;
+    private GerenciarProduto gerenciarProduto = null;
     private TelaSobre telaSobre = null;
     private TelaAjuda telaAjuda = null;
 
@@ -52,13 +53,14 @@ public class Principal extends javax.swing.JFrame {
         desktopPane.setLayout(desktopPaneLayout);
         desktopPaneLayout.setHorizontalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         desktopPaneLayout.setVerticalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
+            .addGap(0, 475, Short.MAX_VALUE)
         );
 
+        lblSistemaGerenciamento.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         lblSistemaGerenciamento.setText("Sistema de Gerenciamento de Vendas");
 
         menuClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mercadojoana/icones/icons8-fila.png"))); // NOI18N
@@ -97,6 +99,11 @@ public class Principal extends javax.swing.JFrame {
         menuItemGerenciarProduto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGerenciarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mercadojoana/icones/icons8-documentos-do-produto-50.png"))); // NOI18N
         menuItemGerenciarProduto.setText("Gerenciar Produtos");
+        menuItemGerenciarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGerenciarProdutoActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuItemGerenciarProduto);
 
         menuItemGerenciarCategoria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
@@ -157,18 +164,18 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(desktopPane)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(198, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(179, 179, 179)
                 .addComponent(lblSistemaGerenciamento)
-                .addGap(191, 191, 191))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(desktopPane)
+                .addGap(18, 18, 18)
                 .addComponent(lblSistemaGerenciamento)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -181,7 +188,7 @@ public class Principal extends javax.swing.JFrame {
         chamandoCadastroDeCliente();
 
     }//GEN-LAST:event_menuItemCadastrarActionPerformed
-
+    
     private void chamandoCadastroDeCliente() {
         if (cadastrarCliente == null) { // se tiver nulo chama janelan normalmente
             cadastrarCliente = new CadastroCliente();
@@ -199,14 +206,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void menuItemAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAutoresActionPerformed
         chamandoTelaSobre();
-
+        
 
     }//GEN-LAST:event_menuItemAutoresActionPerformed
-
+    
     private void chamandoTelaSobre() {
         if (telaSobre == null) {
             telaSobre = new TelaSobre();
-
+            
         }
         telaSobre.setVisible(true);
     }
@@ -215,7 +222,7 @@ public class Principal extends javax.swing.JFrame {
         chamandoArquivoManual();
 
     }//GEN-LAST:event_menuItemManualActionPerformed
-
+    
     private void chamandoArquivoManual() {
         // TODO add your handling code here:
         try {
@@ -229,14 +236,45 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (telaAjuda == null) {
             telaAjuda = new TelaAjuda();
-
+            
         }
         telaAjuda.setVisible(true);
     }//GEN-LAST:event_menuItemAjudaActionPerformed
 
     private void menuItemGerenciarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciarCategoriaActionPerformed
         // TODO add your handling code here:
+        if (gerenciarCategoria == null) {
+            gerenciarCategoria = new GerenciarCategoria();
+            desktopPane.add(gerenciarCategoria);
+            gerenciarCategoria.setVisible(true);
+        } else {
+            if (gerenciarCategoria.isVisible()) {
+                gerenciarCategoria.pack();
+            } else {
+                desktopPane.add(gerenciarCategoria);
+                gerenciarCategoria.setVisible(true);
+            }
+        }
+        
+
     }//GEN-LAST:event_menuItemGerenciarCategoriaActionPerformed
+
+    private void menuItemGerenciarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciarProdutoActionPerformed
+        // TODO add your handling code here:
+        if (gerenciarProduto == null) {
+            gerenciarProduto = new GerenciarProduto();
+            desktopPane.add(gerenciarProduto);
+            gerenciarProduto.setVisible(true);
+        } else {
+            if (gerenciarProduto.isVisible()) {
+                gerenciarProduto.pack();
+            } else {
+                desktopPane.add(gerenciarProduto);
+                gerenciarProduto.setVisible(true);
+            }
+        }
+        
+    }//GEN-LAST:event_menuItemGerenciarProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,21 +290,21 @@ public class Principal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

@@ -16,6 +16,8 @@ public class GerenciarCategoria extends javax.swing.JInternalFrame {
      */
     public GerenciarCategoria() {
         initComponents();
+        this.setClosable(true);
+        this.setMaximizable(true);
     }
 
     /**

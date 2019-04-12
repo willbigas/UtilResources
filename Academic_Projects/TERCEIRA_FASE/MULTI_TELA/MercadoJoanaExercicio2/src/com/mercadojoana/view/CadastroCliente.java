@@ -16,6 +16,8 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
      */
     public CadastroCliente() {
         initComponents();
+        this.setClosable(true);
+        this.setMaximizable(true);
     }
 
     /**

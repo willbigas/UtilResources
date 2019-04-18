@@ -18,6 +18,7 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
         initComponents();
         this.setClosable(true);
         this.setMaximizable(true);
+        
     }
 
     /**

@@ -1,7 +1,10 @@
 package com.mercadojoana.view;
 
 import com.mercadojoana.control.CadastroClienteControl;
+import com.mercadojoana.control.GerenciarCategoriaControl;
+import com.mercadojoana.control.GerenciarProdutoControl;
 import com.mercadojoana.control.ManualControl;
+import com.mercadojoana.control.TelaAjudaControl;
 import com.mercadojoana.control.TelaSobreControl;
 import java.awt.Desktop;
 import java.io.File;
@@ -12,14 +15,15 @@ import java.io.IOException;
  * @author William
  */
 public class Principal extends javax.swing.JFrame {
-    
+
     CadastroClienteControl cadastroClienteControl;
     TelaSobreControl telaSobreControl;
     ManualControl manualControl;
-    private GerenciarCategoria gerenciarCategoria = null;
-    private GerenciarProduto gerenciarProduto = null;
-  
-    private TelaAjuda telaAjuda = null;
+    TelaAjudaControl telaAjudaControl;
+    GerenciarCategoriaControl gerenciarCategoriaControl;
+    GerenciarProdutoControl gerenciarProdutoControl;
+ 
+   
 
     /**
      * Creates new form Principal
@@ -29,6 +33,9 @@ public class Principal extends javax.swing.JFrame {
         cadastroClienteControl = new CadastroClienteControl();
         telaSobreControl = new TelaSobreControl();
         manualControl = new ManualControl();
+        telaAjudaControl = new TelaAjudaControl();
+        gerenciarCategoriaControl = new GerenciarCategoriaControl();
+        gerenciarProdutoControl = new GerenciarProdutoControl();
     }
 
     /**
@@ -198,65 +205,38 @@ public class Principal extends javax.swing.JFrame {
         cadastroClienteControl.abrirTelaCadastroClienteAction();
 
     }//GEN-LAST:event_menuItemCadastrarActionPerformed
-    
+
 
     private void menuItemAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAutoresActionPerformed
         telaSobreControl.chamandoTelaSobre();
-        
+
 
     }//GEN-LAST:event_menuItemAutoresActionPerformed
-    
-   
+
 
     private void menuItemManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemManualActionPerformed
         manualControl.abrirArquivoManualAction();
 
     }//GEN-LAST:event_menuItemManualActionPerformed
-    
-   
+
 
     private void menuItemAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAjudaActionPerformed
-        // TODO add your handling code here:
-        if (telaAjuda == null) {
-            telaAjuda = new TelaAjuda();
-            
-        }
-        telaAjuda.setVisible(true);
+        telaAjudaControl.abrindoTelaAjudaAction();
+
+
     }//GEN-LAST:event_menuItemAjudaActionPerformed
 
     private void menuItemGerenciarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciarCategoriaActionPerformed
-        // TODO add your handling code here:
-        if (gerenciarCategoria == null) {
-            gerenciarCategoria = new GerenciarCategoria();
-            desktopPane.add(gerenciarCategoria);
-            gerenciarCategoria.setVisible(true);
-        } else {
-            if (gerenciarCategoria.isVisible()) {
-                gerenciarCategoria.pack();
-            } else {
-                desktopPane.add(gerenciarCategoria);
-                gerenciarCategoria.setVisible(true);
-            }
-        }
-        
+      gerenciarCategoriaControl.abrirTelaGerenciarCategoriaAction();
+
 
     }//GEN-LAST:event_menuItemGerenciarCategoriaActionPerformed
 
     private void menuItemGerenciarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciarProdutoActionPerformed
         // TODO add your handling code here:
-        if (gerenciarProduto == null) {
-            gerenciarProduto = new GerenciarProduto();
-            desktopPane.add(gerenciarProduto);
-            gerenciarProduto.setVisible(true);
-        } else {
-            if (gerenciarProduto.isVisible()) {
-                gerenciarProduto.pack();
-            } else {
-                desktopPane.add(gerenciarProduto);
-                gerenciarProduto.setVisible(true);
-            }
-        }
-        
+        gerenciarProdutoControl.abrirTelaGerenciarProdutoAction();
+       
+
     }//GEN-LAST:event_menuItemGerenciarProdutoActionPerformed
 
     /**
@@ -273,21 +253,21 @@ public class Principal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

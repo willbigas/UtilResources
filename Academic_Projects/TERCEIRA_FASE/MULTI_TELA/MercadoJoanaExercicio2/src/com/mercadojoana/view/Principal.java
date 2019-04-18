@@ -1,5 +1,8 @@
 package com.mercadojoana.view;
 
+import com.mercadojoana.control.CadastroClienteControl;
+import com.mercadojoana.control.ManualControl;
+import com.mercadojoana.control.TelaSobreControl;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -10,10 +13,12 @@ import java.io.IOException;
  */
 public class Principal extends javax.swing.JFrame {
     
-    private CadastroCliente cadastrarCliente = null;
+    CadastroClienteControl cadastroClienteControl;
+    TelaSobreControl telaSobreControl;
+    ManualControl manualControl;
     private GerenciarCategoria gerenciarCategoria = null;
     private GerenciarProduto gerenciarProduto = null;
-    private TelaSobre telaSobre = null;
+  
     private TelaAjuda telaAjuda = null;
 
     /**
@@ -21,6 +26,9 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        cadastroClienteControl = new CadastroClienteControl();
+        telaSobreControl = new TelaSobreControl();
+        manualControl = new ManualControl();
     }
 
     /**
@@ -48,16 +56,18 @@ public class Principal extends javax.swing.JFrame {
         menuItemAutores = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1024, 768));
+        setResizable(false);
 
         javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
         desktopPane.setLayout(desktopPaneLayout);
         desktopPaneLayout.setHorizontalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 1024, Short.MAX_VALUE)
         );
         desktopPaneLayout.setVerticalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGap(0, 601, Short.MAX_VALUE)
         );
 
         lblSistemaGerenciamento.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
@@ -164,17 +174,17 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(desktopPane)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(179, 179, 179)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblSistemaGerenciamento)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(280, 280, 280))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(desktopPane)
                 .addGap(18, 18, 18)
-                .addComponent(lblSistemaGerenciamento)
+                .addComponent(lblSistemaGerenciamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
 
@@ -185,52 +195,25 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemListarActionPerformed
 
     private void menuItemCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarActionPerformed
-        chamandoCadastroDeCliente();
+        cadastroClienteControl.abrirTelaCadastroClienteAction();
 
     }//GEN-LAST:event_menuItemCadastrarActionPerformed
     
-    private void chamandoCadastroDeCliente() {
-        if (cadastrarCliente == null) { // se tiver nulo chama janelan normalmente
-            cadastrarCliente = new CadastroCliente();
-            desktopPane.add(cadastrarCliente);
-            cadastrarCliente.setVisible(true);
-        } else {//se ele estiver criado
-            if (cadastrarCliente.isVisible()) {
-                cadastrarCliente.pack();//volta frame
-            } else {
-                desktopPane.add(cadastrarCliente);//adicona frame ao JDesktopPane
-                cadastrarCliente.setVisible(true);
-            }
-        }
-    }
 
     private void menuItemAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAutoresActionPerformed
-        chamandoTelaSobre();
+        telaSobreControl.chamandoTelaSobre();
         
 
     }//GEN-LAST:event_menuItemAutoresActionPerformed
     
-    private void chamandoTelaSobre() {
-        if (telaSobre == null) {
-            telaSobre = new TelaSobre();
-            
-        }
-        telaSobre.setVisible(true);
-    }
+   
 
     private void menuItemManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemManualActionPerformed
-        chamandoArquivoManual();
+        manualControl.abrirArquivoManualAction();
 
     }//GEN-LAST:event_menuItemManualActionPerformed
     
-    private void chamandoArquivoManual() {
-        // TODO add your handling code here:
-        try {
-            File arquivo = new File(getClass().getResource("/com/mercadojoana/files/loremipsum.pdf").getFile());
-            Desktop.getDesktop().open(arquivo);
-        } catch (IOException iOException) {
-        }
-    }
+   
 
     private void menuItemAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAjudaActionPerformed
         // TODO add your handling code here:

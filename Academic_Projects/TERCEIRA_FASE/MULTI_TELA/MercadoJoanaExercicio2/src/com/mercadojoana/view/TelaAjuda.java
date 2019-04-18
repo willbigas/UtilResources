@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mercadojoana.view;
 
 /**
@@ -16,6 +11,7 @@ public class TelaAjuda extends javax.swing.JFrame {
      */
     public TelaAjuda() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,7 +27,7 @@ public class TelaAjuda extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblLinkWebSite = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Ajuda");
@@ -39,7 +35,7 @@ public class TelaAjuda extends javax.swing.JFrame {
         jLabel2.setText("Acesse nosso site para obter mais informações");
 
         lblLinkWebSite.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblLinkWebSite.setText("Clique Aqui");
+        lblLinkWebSite.setText("<html><u>Clique Aqui</u></html>");
         lblLinkWebSite.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 lblLinkWebSiteMouseReleased(evt);

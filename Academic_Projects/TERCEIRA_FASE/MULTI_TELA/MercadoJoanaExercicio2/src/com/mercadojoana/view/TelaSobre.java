@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mercadojoana.view;
 
 /**
@@ -16,6 +11,7 @@ public class TelaSobre extends javax.swing.JFrame {
      */
     public TelaSobre() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,6 +29,8 @@ public class TelaSobre extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btOk = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel2.setText("William Bigas Mauro");
 

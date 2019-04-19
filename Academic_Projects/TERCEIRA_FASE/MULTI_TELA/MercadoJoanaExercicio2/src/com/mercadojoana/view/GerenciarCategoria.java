@@ -39,6 +39,8 @@ public class GerenciarCategoria extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
+        setIconifiable(true);
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Gerenciar Categorias");
 

@@ -10,17 +10,18 @@ import static com.mercadojoana.view.Principal.desktopPane;
 public class CadastroClienteControl {
 
     private CadastroCliente cadastrarCliente = null;
-    
-     public void abrirTelaCadastroClienteAction() {
-        if (cadastrarCliente == null) { // se tiver nulo chama janelan normalmente
+
+    public void abrirTelaCadastroClienteAction() {
+//         Janela.naoDuplicaJanela(cadastrarCliente);
+        if (cadastrarCliente == null) { // se tiver nulo chama janela normalmente
             cadastrarCliente = new CadastroCliente();
             desktopPane.add(cadastrarCliente);
             cadastrarCliente.setVisible(true);
         } else {//se ele estiver criado
             if (cadastrarCliente.isVisible()) {
-                cadastrarCliente.pack();//volta frame
+                cadastrarCliente.pack();//Redimensiona ao Quadro Original
             } else {
-                desktopPane.add(cadastrarCliente);//adicona frame ao JDesktopPane
+                desktopPane.add(cadastrarCliente);//adiciona frame ao JDesktopPane
                 cadastrarCliente.setVisible(true);
             }
         }

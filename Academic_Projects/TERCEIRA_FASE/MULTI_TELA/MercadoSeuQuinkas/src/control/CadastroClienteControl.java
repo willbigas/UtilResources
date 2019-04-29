@@ -12,9 +12,11 @@ import view.ListarCidade;
  */
 public class CadastroClienteControl {
 
-    private static ListarCidade frameListarCidade;
+    private CadastroCliente frameCadastroCliente;
+    private static ListarCidade dialogListarCidade;
     private ClienteDao clienteDao;
     private Cliente cliente;
+   
 
     public CadastroClienteControl() {
         clienteDao = new ClienteDao();
@@ -33,11 +35,10 @@ public class CadastroClienteControl {
         cliente.setAtivo(1);
         clienteDao.cadastrar(cliente);
     }
-
-    public static void chamaDialogCidade() {
-        frameListarCidade = new ListarCidade();
-        frameListarCidade.setVisible(true);
-        
-    }
     
+    public void chamarTelaListarCidade(){
+         dialogListarCidade = new ListarCidade(frameCadastroCliente, true);
+         dialogListarCidade.setVisible(true);
+    }
+
 }

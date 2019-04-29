@@ -30,8 +30,6 @@ public class CadastroCidadeControl {
        
     }
     
-    
-    
     public void pegarValorComboBox(){
       int indexSelecionada =  CadastroCliente.cbCidade.getSelectedIndex();
         for (int i = 0; i < cidades.size(); i++) {

@@ -5,18 +5,27 @@
  */
 package view;
 
+import control.ListarCidadeControl;
+
 /**
  *
  * @author William
  */
-public class ListarCidade extends javax.swing.JFrame {
+public class ListarCidade extends javax.swing.JDialog {
+
+    public static CadastroCliente framePai;
+    ListarCidadeControl cidadeControl;
 
     /**
-     * Creates new form ListarCidadeFrame
+     * Creates new form ListarCidade2
      */
-    public ListarCidade() {
+    public ListarCidade(CadastroCliente parent, boolean modal) {
+        this.framePai = parent;
+        this.setModal(modal);
         initComponents();
-        
+        cidadeControl = new ListarCidadeControl();
+        cidadeControl.carregarClientesDoBanco();
+
     }
 
     /**
@@ -28,18 +37,12 @@ public class ListarCidade extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        tfPesquisa = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
+        tfPesquisa = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel1.setText("Listagem de Cidades");
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setText("Pesquisar:");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblCidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -53,6 +56,12 @@ public class ListarCidade extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblCidade);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setText("Pesquisar:");
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setText("Listagem de Cidades");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,10 +123,17 @@ public class ListarCidade extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListarCidade().setVisible(true);
+                ListarCidade dialog = new ListarCidade(framePai, true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

@@ -44,7 +44,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         btSalvar = new javax.swing.JButton();
         cbCidade = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btListarCidade = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -75,10 +75,10 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Cidade");
 
-        jButton2.setText("...");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btListarCidade.setText("...");
+        btListarCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btListarCidadeActionPerformed(evt);
             }
         });
 
@@ -100,7 +100,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addComponent(btListarCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                     .addComponent(jLabel5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -114,7 +114,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btListarCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -135,11 +135,11 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btListarCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarCidadeActionPerformed
         // TODO add your handling code here:
-        CadastroClienteControl.chamaDialogCidade();
+        cadastroClienteControl.chamarTelaListarCidade();
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btListarCidadeActionPerformed
 
     private void cbCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCidadeActionPerformed
         // TODO add your handling code here:
@@ -153,9 +153,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btListarCidade;
     private javax.swing.JButton btSalvar;
     public static javax.swing.JComboBox<String> cbCidade;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -165,4 +165,16 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     public static final javax.swing.JTextField tfDataNascimento = new javax.swing.JTextField();
     public static final javax.swing.JTextField tfNome = new javax.swing.JTextField();
     // End of variables declaration//GEN-END:variables
+
+    public CadastroCidadeControl getCadastroCidadeControl() {
+        return cadastroCidadeControl;
+    }
+
+    public CadastroClienteControl getCadastroClienteControl() {
+        return cadastroClienteControl;
+    }
+    
+    
+
+
 }

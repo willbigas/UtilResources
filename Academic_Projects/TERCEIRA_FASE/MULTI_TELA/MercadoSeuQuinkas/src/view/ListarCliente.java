@@ -95,4 +95,9 @@ public class ListarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField1;
     public static final javax.swing.JTable tblCliente = new javax.swing.JTable();
     // End of variables declaration//GEN-END:variables
+
+    public ListarClienteControl getListarClienteControl() {
+        return listarClienteControl;
+    }
+
 }

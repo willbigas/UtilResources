@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.CadastroClienteControl;
 import control.ListarCidadeControl;
 
 /**
@@ -14,7 +15,8 @@ import control.ListarCidadeControl;
 public class ListarCidade extends javax.swing.JDialog {
 
     public static CadastroCliente framePai;
-    ListarCidadeControl cidadeControl;
+    public static ListarCidadeControl cidadeControl;
+    public static CadastroClienteControl cadastroClienteControl;
 
     /**
      * Creates new form ListarCidade2
@@ -25,6 +27,8 @@ public class ListarCidade extends javax.swing.JDialog {
         initComponents();
         cidadeControl = new ListarCidadeControl();
         cidadeControl.carregarClientesDoBanco();
+        cadastroClienteControl = new CadastroClienteControl();
+        
 
     }
 
@@ -55,6 +59,11 @@ public class ListarCidade extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCidadeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCidade);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -94,6 +103,11 @@ public class ListarCidade extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblCidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCidadeMouseClicked
+        // TODO add your handling code here:
+        cadastroClienteControl.pegaCidadeSelecionadaNoJDialog();
+    }//GEN-LAST:event_tblCidadeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -145,4 +159,9 @@ public class ListarCidade extends javax.swing.JDialog {
     public static final javax.swing.JTable tblCidade = new javax.swing.JTable();
     private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
+
+    public  static ListarCidadeControl getCidadeControl() {
+        return cidadeControl;
+    }
+
 }

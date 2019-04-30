@@ -86,7 +86,24 @@ public class CidadeDao extends Dao implements DaoI<Cidade>{
 
     @Override
     public List<Cidade> pesquisar(String termo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT id, nome, uf FROM cidade WHERE ativo=1 and nome like ? ORDER BY id desc";
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, "%"+ termo + "%");
+            ResultSet res = stmt.executeQuery();
+            List<Cidade> list = new ArrayList<>();
+            while(res.next()){
+                Cidade c = new Cidade();
+                c.setId(res.getInt("id"));
+                c.setNome(res.getString("nome"));
+                c.setUf(res.getString("uf"));
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
     
 }

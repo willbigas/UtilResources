@@ -42,7 +42,6 @@ public class ListarCidade extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tfPesquisa = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -65,6 +64,12 @@ public class ListarCidade extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tblCidade);
+
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Pesquisar:");
@@ -106,8 +111,19 @@ public class ListarCidade extends javax.swing.JDialog {
 
     private void tblCidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCidadeMouseClicked
         // TODO add your handling code here:
+        cadastroClienteControl.pegaCidadeSelecionada();
         cadastroClienteControl.pegaCidadeSelecionadaNoJDialog();
+        if (evt.getClickCount() ==2) {
+             this.dispose();
+        }
+       
+      
     }//GEN-LAST:event_tblCidadeMouseClicked
+
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        // TODO add your handling code here:
+        cidadeControl.pesquisarCidadeAction();
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -157,7 +173,7 @@ public class ListarCidade extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     public static final javax.swing.JTable tblCidade = new javax.swing.JTable();
-    private javax.swing.JTextField tfPesquisa;
+    public static final javax.swing.JTextField tfPesquisa = new javax.swing.JTextField();
     // End of variables declaration//GEN-END:variables
 
     public  static ListarCidadeControl getCidadeControl() {

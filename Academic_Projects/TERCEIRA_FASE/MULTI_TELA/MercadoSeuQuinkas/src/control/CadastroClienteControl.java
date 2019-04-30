@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Cidade;
 import model.Cliente;
 import uteis.Conversor;
@@ -42,7 +43,12 @@ public class CadastroClienteControl {
         }
         cliente.setCidade(CadastroCidadeControl.cidadeSelecionada);
         cliente.setAtivo(1);
-        clienteDao.cadastrar(cliente);
+        if (clienteDao.cadastrar(cliente) != 0) {
+            JOptionPane.showMessageDialog(frameCadastroCliente, "Cadastro Realizado com Sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(frameCadastroCliente, "Erro ao Realizar o Cadastro!");
+        }
+        
     }
 
     public void chamarTelaListarCidade() {

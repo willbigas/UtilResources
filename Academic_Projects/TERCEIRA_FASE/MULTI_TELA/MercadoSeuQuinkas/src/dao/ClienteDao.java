@@ -102,7 +102,41 @@ public class ClienteDao extends Dao implements DaoI<Cliente>{
 
     @Override
     public List<Cliente> pesquisar(String termo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         String sql = "SELECT "
+                + "     cli.id, cli.nome, cli.cep, cli.dataNascimento, cli.cidade_id,"
+                + "     cid.nome AS cidade, cid.uf"
+                + "   FROM"
+                + "     cliente cli "
+                + "   INNER JOIN "
+                + "     cidade cid ON cli.cidade_id = cid.id"
+                + "   WHERE"
+                + "     cli.ativo = 1"
+                + "   AND "
+                + "     cid.ativo = 1 "
+                + "   AND cli.nome like ?"
+                + "   ORDER BY cli.id DESC " ;
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, "%"+ termo + "%");
+            ResultSet res = stmt.executeQuery();
+            List<Cliente> list = new ArrayList<>();
+            while(res.next()){
+                Cliente c = new Cliente();
+                c.setId(res.getInt("id"));
+                c.setNome(res.getString("nome"));
+                c.setCep(res.getString("cep"));
+                c.setDataNascimento(res.getDate("dataNascimento"));
+                
+                c.getCidade().setId(res.getInt("cidade_id"));
+                c.getCidade().setNome(res.getString("cidade"));
+                c.getCidade().setUf(res.getString("uf"));
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
     
 }

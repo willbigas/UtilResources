@@ -86,10 +86,11 @@ public class CidadeDao extends Dao implements DaoI<Cidade>{
 
     @Override
     public List<Cidade> pesquisar(String termo) {
-        String sql = "SELECT id, nome, uf FROM cidade WHERE ativo=1 and nome like ? ORDER BY id ASC";
+        String sql = "SELECT id, nome, uf FROM cidade WHERE ativo =1 and (nome like ? or uf like ?) ORDER BY id ASC";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, "%"+ termo + "%");
+            stmt.setString(2, "%"+ termo + "%");
             ResultSet res = stmt.executeQuery();
             List<Cidade> list = new ArrayList<>();
             while(res.next()){

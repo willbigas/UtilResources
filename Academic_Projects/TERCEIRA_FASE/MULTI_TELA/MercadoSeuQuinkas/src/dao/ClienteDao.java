@@ -114,7 +114,7 @@ public class ClienteDao extends Dao implements DaoI<Cliente>{
                 + "   AND "
                 + "     cid.ativo = 1 "
                 + "   AND cli.nome like ?"
-                + "   ORDER BY cli.id DESC " ;
+                + "   ORDER BY cli.nome ASC " ;
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, "%"+ termo + "%");

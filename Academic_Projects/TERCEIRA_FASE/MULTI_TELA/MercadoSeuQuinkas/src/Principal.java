@@ -17,7 +17,7 @@ public class Principal {
         CidadeDao cidadeDao = new CidadeDao();
         Cidade c = new Cidade();
         c.setId(2);
-        c.setNome("Biguaçu");
+        c.setNome("São José");
         c.setUf("SC");
         c.setAtivo(1);
         cidadeDao.cadastrar(c);

@@ -26,7 +26,7 @@ public class ListarClienteControl {
         List<Cliente> clientesPesquisados = clienteDao.pesquisar(ListarCliente.tfPesquisa.getText());
         if (clientesPesquisados == null) {
             tabelaCliente.limpar();
-            clientesPesquisados = clienteDao.listar();
+            clientesPesquisados = clienteDao.listar("nome", "ASC");
         } else {
             tabelaCliente.limpar();
             tabelaCliente.adicionar(clientesPesquisados);
@@ -37,6 +37,6 @@ public class ListarClienteControl {
     
     
     public void carregarClientesDoBanco(){
-       tabelaCliente.adicionar(clienteDao.listar("nome" , "asc"));
+       tabelaCliente.adicionar(clienteDao.listar("nome" , "ASC"));
     }
 }

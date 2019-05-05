@@ -7,6 +7,7 @@ package view;
 
 import control.CadastroCidadeControl;
 import control.CadastroClienteControl;
+import javax.swing.JTextField;
 
 /**
  *
@@ -23,7 +24,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     public CadastroCliente() {
         initComponents();
         cadastroCidadeControl = new CadastroCidadeControl();
-        cadastroClienteControl = new CadastroClienteControl();
+        cadastroClienteControl = new CadastroClienteControl(this);
         cadastroCidadeControl.abrirComboBox();
 
     }
@@ -39,8 +40,11 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        tfNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        tfCep = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        tfDataNascimento = new javax.swing.JTextField();
         btSalvar = new javax.swing.JButton();
         cbCidade = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -161,9 +165,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    public static final javax.swing.JTextField tfCep = new javax.swing.JTextField();
-    public static final javax.swing.JTextField tfDataNascimento = new javax.swing.JTextField();
-    public static final javax.swing.JTextField tfNome = new javax.swing.JTextField();
+    private javax.swing.JTextField tfCep;
+    private javax.swing.JTextField tfDataNascimento;
+    private javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
 
     public CadastroCidadeControl getCadastroCidadeControl() {
@@ -173,6 +177,32 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     public CadastroClienteControl getCadastroClienteControl() {
         return cadastroClienteControl;
     }
+
+    public JTextField getTfCep() {
+        return tfCep;
+    }
+
+    public void setTfCep(JTextField tfCep) {
+        this.tfCep = tfCep;
+    }
+
+    public JTextField getTfDataNascimento() {
+        return tfDataNascimento;
+    }
+
+    public void setTfDataNascimento(JTextField tfDataNascimento) {
+        this.tfDataNascimento = tfDataNascimento;
+    }
+
+    public JTextField getTfNome() {
+        return tfNome;
+    }
+
+    public void setTfNome(JTextField tfNome) {
+        this.tfNome = tfNome;
+    }
+    
+    
     
     
 

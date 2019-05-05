@@ -29,9 +29,10 @@ public class CadastroClienteControl {
     private Cliente cliente;
     private Cidade cidadeSelecionada;
 
-    public CadastroClienteControl() {
+    public CadastroClienteControl(CadastroCliente cadastroCliente) {
         clienteDao = new ClienteDao();
         cidadeDao = new CidadeDao();
+        this.frameCadastroCliente = cadastroCliente;
     }
 
     public void cadastrarClienteAction() {
@@ -39,10 +40,10 @@ public class CadastroClienteControl {
         
         
         cliente = new Cliente();
-        cliente.setNome(CadastroCliente.tfNome.getText());
-        cliente.setCep(CadastroCliente.tfCep.getText());
+        cliente.setNome(frameCadastroCliente.getTfNome().getText());
+        cliente.setCep(frameCadastroCliente.getTfCep().getText());
         try {
-            cliente.setDataNascimento(Conversor.data(CadastroCliente.tfDataNascimento.getText()));
+            cliente.setDataNascimento(Conversor.data(frameCadastroCliente.getTfDataNascimento().getText()));
         } catch (Exception exception) {
             Mensagem.msg(Texto.NASCIMENTO_INVALIDO);
         }

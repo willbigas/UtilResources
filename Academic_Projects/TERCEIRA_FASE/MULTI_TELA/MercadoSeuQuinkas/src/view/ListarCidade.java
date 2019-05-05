@@ -27,7 +27,7 @@ public class ListarCidade extends javax.swing.JDialog {
         initComponents();
         cidadeControl = new ListarCidadeControl();
         cidadeControl.carregarClientesDoBanco();
-        cadastroClienteControl = new CadastroClienteControl();
+        cadastroClienteControl = new CadastroClienteControl(framePai);
         
 
     }

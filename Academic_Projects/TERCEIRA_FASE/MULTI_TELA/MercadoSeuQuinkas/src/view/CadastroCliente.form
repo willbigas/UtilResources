@@ -92,9 +92,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfNome">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="25"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -102,9 +99,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfCep">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="25"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -112,9 +106,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfDataNascimento">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="25"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btSalvar">
       <Properties>

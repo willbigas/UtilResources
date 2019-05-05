@@ -10,4 +10,6 @@ public class Texto {
     public static final String CADASTRO_SUCESSO = "Cadastro Realizado com Sucesso!";
     public static final String CADASTRO_ERRO = "Erro ao Realizar o Cadastro!";
     
+    public static final String CAMPO_VAZIO = "Algum campo está vazio, Verifique!";
+    
 }

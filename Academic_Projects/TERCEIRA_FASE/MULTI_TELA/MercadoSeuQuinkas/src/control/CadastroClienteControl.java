@@ -1,17 +1,18 @@
 package control;
 
+import control.validate.CadastroClienteValidation;
 import dao.CidadeDao;
 import dao.ClienteDao;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.swing.JOptionPane;
 import model.Cidade;
 import model.Cliente;
 import uteis.Conversor;
 import uteis.Mensagem;
 import uteis.Texto;
+import uteis.Validacao;
 import view.CadastroCliente;
 import view.ListarCidade;
 
@@ -28,16 +29,17 @@ public class CadastroClienteControl {
     private CidadeDao cidadeDao;
     private Cliente cliente;
     private Cidade cidadeSelecionada;
+    private CadastroClienteValidation validaCadastroCliente;
 
     public CadastroClienteControl(CadastroCliente cadastroCliente) {
         clienteDao = new ClienteDao();
         cidadeDao = new CidadeDao();
         this.frameCadastroCliente = cadastroCliente;
+        validaCadastroCliente = new CadastroClienteValidation(frameCadastroCliente);
     }
 
     public void cadastrarClienteAction() {
-       
-        
+        if (validaCadastroCliente.validaCamposCadastro()) return;
         
         cliente = new Cliente();
         cliente.setNome(frameCadastroCliente.getTfNome().getText());
@@ -56,6 +58,7 @@ public class CadastroClienteControl {
         }
         
     }
+
 
     public void chamarTelaListarCidade() {
         dialogListarCidade = new ListarCidade(frameCadastroCliente, true);

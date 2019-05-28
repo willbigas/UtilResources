@@ -8,7 +8,6 @@ package api;
 import com.google.gson.Gson;
 import dao.CustomerDao;
 import dao.OrderDao;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
